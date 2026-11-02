@@ -1,7 +1,7 @@
 /* shared ocean + iceberg look for every page */
 :root{--ink:#1d2b53;--ink-soft:#4a5a86;--col:min(100vw,640px);--ease:cubic-bezier(.65,0,.35,1);--pop:cubic-bezier(.2,.8,.2,1);color-scheme:light}
 *{box-sizing:border-box}
-html,body{margin:0;overflow-x:hidden}
+html,body{margin:0;overflow-x:hidden;max-width:100%}
 body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);background:#0b2150;line-height:1.55;-webkit-tap-highlight-color:transparent;animation:pagein .6s ease both}
 body.leaving{opacity:0;transition:opacity .3s ease}
 button,a{touch-action:manipulation}
@@ -86,6 +86,8 @@ h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
 .rays{position:absolute;inset:0 0 auto 0;height:700px;pointer-events:none;z-index:0;
   background:repeating-linear-gradient(105deg,rgba(255,255,255,0) 0 60px,rgba(255,255,255,.08) 60px 90px,rgba(255,255,255,0) 90px 170px);
   -webkit-mask:linear-gradient(#000,transparent);mask:linear-gradient(#000,transparent);animation:shimmer 7s ease-in-out infinite}
+/* sea life lives in its own clipped layer so swimming fish never widen the page */
+#sealife{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
 .fish{position:absolute;z-index:0;left:0;pointer-events:none;will-change:transform;animation:swim linear infinite}
 .fish i{display:inline-block;font-style:normal;animation:bobfish 2.4s ease-in-out infinite}
 .bub{position:absolute;bottom:0;border-radius:50%;border:2px solid rgba(255,255,255,.55);z-index:0;pointer-events:none;will-change:transform;animation:rise linear infinite}
