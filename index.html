@@ -4,831 +4,350 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ภูเขาน้ำแข็งในใจ 🧊</title>
-<meta name="description" content="ดูละครไป ดำน้ำไป — เปิดภูเขาน้ำแข็ง (Satir Iceberg Model) ทีละชั้นไปพร้อมกับละคร">
+<meta name="description" content="ดูละครไป ดำน้ำไป — เปิดภูเขาน้ำแข็งในใจทีละชั้น">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧊</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f3f7ff; --bg2:#e9f1ff; --card:#ffffff; --ink:#2f2a4a; --muted:#6d6990; --line:#e3e6f5;
-  --accent:#7c6cf2; --accent-ink:#ffffff; --accent-soft:#efeaff; --pink:#ff8fb1;
-  --good:#1f9e78; --good-soft:#e2f7ef; --warn:#d9673a; --warn-soft:#fff0e8;
-  --me:#e4ddff; --other:#f1f4fb; --note:#fff8e1; --note-ink:#7a5b00;
-  --sky1:#fff6ea; --sky2:#dcefff; --sea1:#bfe2ff; --sea2:#6f9fe0;
-  --locked:#e1e8f4; --locked2:#cfd9ea; --berg-stroke:#ffffff;
-  --shadow:0 8px 24px rgba(80,70,160,.10);
+  --ink:#1d2b53; --ink-soft:#4a5a86;
+  --col:min(100vw, 640px);
   color-scheme:light;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#111728; --bg2:#172038; --card:#1c2440; --ink:#f2efff; --muted:#aaa7cc; --line:#2d3659;
-    --accent:#a99bff; --accent-ink:#17142e; --accent-soft:#2a2754; --pink:#ff9fbe;
-    --good:#5fe0b0; --good-soft:#18362f; --warn:#ffb08a; --warn-soft:#3b2a25;
-    --me:#3b3572; --other:#252e4e; --note:#33301f; --note-ink:#ffe39a;
-    --sky1:#1b2445; --sky2:#26375f; --sea1:#1f416f; --sea2:#0c1a35;
-    --locked:#2d3858; --locked2:#384568; --berg-stroke:#cfe0ff;
-    --shadow:0 8px 24px rgba(0,0,0,.35);
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#111728; --bg2:#172038; --card:#1c2440; --ink:#f2efff; --muted:#aaa7cc; --line:#2d3659;
-  --accent:#a99bff; --accent-ink:#17142e; --accent-soft:#2a2754; --pink:#ff9fbe;
-  --good:#5fe0b0; --good-soft:#18362f; --warn:#ffb08a; --warn-soft:#3b2a25;
-  --me:#3b3572; --other:#252e4e; --note:#33301f; --note-ink:#ffe39a;
-  --sky1:#1b2445; --sky2:#26375f; --sea1:#1f416f; --sea2:#0c1a35;
-  --locked:#2d3858; --locked2:#384568; --berg-stroke:#cfe0ff;
-  --shadow:0 8px 24px rgba(0,0,0,.35);
-  color-scheme:dark;
-}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; font-family:"Mali",system-ui,sans-serif; color:var(--ink); line-height:1.7; font-size:16px;
-  background:var(--bg);
-  background-image:radial-gradient(circle at 10% 0%, var(--bg2) 0, transparent 40%),
-                   radial-gradient(circle at 100% 30%, var(--accent-soft) 0, transparent 35%);
-  background-attachment:fixed;
-}
+html,body{margin:0;overflow-x:hidden}
+body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);background:#0b2150;line-height:1.55;-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit;cursor:pointer}
-.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
 
-/* top bar */
-.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  background:color-mix(in srgb, var(--bg) 82%, transparent);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;gap:10px;height:56px}
-.brand{font-weight:700;font-size:18px;white-space:nowrap}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:var(--accent-soft);font-weight:600;font-size:14px;white-space:nowrap}
-.top .grow{flex:1}
-.icon-btn{border:1px solid var(--line);background:var(--card);border-radius:999px;width:38px;height:38px;display:grid;place-items:center;font-size:18px}
+/* ---------- sky ---------- */
+.sky{position:relative;background:linear-gradient(#a9dcff 0%,#cdeaff 45%,#eef8ff 100%);padding-top:28px;overflow:hidden}
+.sun{position:absolute;right:8%;top:26px;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#fff6b0 0 45%,#ffe27a 46% 60%,rgba(255,226,122,0) 61%);animation:spin 30s linear infinite}
+.cloud{position:absolute;background:#fff;border-radius:99px;opacity:.9;animation:drift linear infinite}
+.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud::before{width:55%;height:160%;left:15%;bottom:20%}
+.cloud::after{width:40%;height:130%;right:12%;bottom:15%}
+.c1{width:110px;height:30px;top:70px;left:-120px;animation-duration:60s}
+.c2{width:80px;height:22px;top:150px;left:-120px;animation-duration:85s;animation-delay:-40s;opacity:.75}
+.c3{width:130px;height:34px;top:240px;left:-140px;animation-duration:110s;animation-delay:-70s;opacity:.6}
+.title{position:relative;z-index:2;text-align:center;padding:0 16px}
+.title h1{margin:0;font-size:clamp(34px,9vw,52px);line-height:1.15;color:var(--ink);text-shadow:0 3px 0 #fff}
+.title p{margin:6px 0 0;font-size:16px;color:var(--ink-soft);font-weight:600}
 
-/* hero */
-.hero{padding:28px 0 8px;text-align:center}
-.hero h1{font-size:clamp(28px,6vw,44px);margin:0;line-height:1.25}
-.hero h1 .ice{display:inline-block;animation:bob 3s ease-in-out infinite}
-.hero p.sub{margin:6px 0 0;color:var(--muted);font-size:17px}
-.howto{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:720px;margin:18px auto 0}
-.howto div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 10px;font-size:14px;box-shadow:var(--shadow)}
-.howto b{display:block;font-size:24px;line-height:1.3}
-.satir{max-width:720px;margin:14px auto 0;font-size:14px;color:var(--muted)}
-.bar{max-width:420px;margin:16px auto 0;height:12px;border-radius:99px;background:var(--line);overflow:hidden}
-.bar i{display:block;height:100%;background:linear-gradient(90deg,#9ad7ff,var(--accent),var(--pink));border-radius:99px;transition:width .6s}
+/* ---------- iceberg column ---------- */
+.col{position:relative;z-index:1;width:var(--col);margin:0 auto}
+.peak{position:relative;height:150px;margin-top:64px}
+.peak .ice{position:absolute;inset:0;padding:0;
+  clip-path:polygon(20% 100%,33% 50%,38% 58%,50% 6%,59% 42%,64% 35%,80% 100%);
+  background:linear-gradient(100deg,#cfe7fb 0%,#ffffff 40%,#f2faff 62%,#bcdcf6 100%)}
+.peak .snow{position:absolute;inset:0;clip-path:polygon(20% 100%,33% 50%,38% 58%,50% 6%,59% 42%,64% 35%,80% 100%);
+  background:linear-gradient(170deg,transparent 55%,rgba(150,200,240,.35) 56%,transparent 80%)}
+.penguin{position:absolute;left:50%;top:-34px;transform:translateX(-50%);font-size:40px;animation:bob 2.6s ease-in-out infinite;z-index:3}
+.say{position:absolute;left:calc(50% + 34px);top:-44px;background:#fff;border-radius:14px 14px 14px 4px;padding:4px 10px;font-size:13px;font-weight:700;white-space:nowrap;box-shadow:0 4px 10px rgba(30,60,120,.15);z-index:3}
 
-/* layout */
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:24px;align-items:start;padding:20px 0 60px}
-.story{display:flex;flex-direction:column;gap:20px;min-width:0}
+.slice{position:relative;transition:filter .4s}
+.slice .ice{position:relative;clip-path:var(--clip);padding:34px 0 30px;min-height:120px;display:flex;justify-content:center;
+  border-top:2px solid rgba(255,255,255,.7);
+  background:linear-gradient(100deg,#8ec4ea 0%,#c9e7fc 38%,#b3daf5 64%,#7cb4df 100%);transition:background .6s}
+.slice .ice::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background:radial-gradient(rgba(255,255,255,.75) 1px,transparent 1.6px) 0 0/16px 16px,
+             radial-gradient(rgba(255,255,255,.5) 1px,transparent 1.6px) 8px 8px/16px 16px;transition:opacity .6s}
+.in{position:relative;z-index:2;width:calc(var(--cw) * 1%);max-width:500px;text-align:center}
 
-/* scene card */
-.scene{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden}
-.scene-head{padding:18px 20px 14px;display:flex;gap:14px;align-items:flex-start}
-.badge{flex:none;width:54px;height:54px;border-radius:18px;display:grid;place-items:center;font-size:28px;background:var(--accent-soft)}
-.scene-head h2{margin:0;font-size:21px;line-height:1.35}
-.scene-head .no{font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.3px}
-.scene-head .place{font-size:14px;color:var(--muted);margin-top:2px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.chip{font-size:12.5px;padding:2px 10px;border-radius:99px;background:var(--other);border:1px solid var(--line)}
-.scene.locked{opacity:.6}
-.scene.locked .scene-body{display:none}
-.lockmsg{padding:0 20px 18px;color:var(--muted);font-size:14px}
-.scene-body{padding:0 20px 20px;display:flex;flex-direction:column;gap:14px}
-.start-btn,.go-btn,.primary{border:0;border-radius:16px;padding:12px 18px;font-weight:700;font-size:16px;background:var(--accent);color:var(--accent-ink);box-shadow:0 4px 0 color-mix(in srgb,var(--accent) 60%,#000);transition:transform .1s}
-.start-btn:active,.go-btn:active,.primary:active{transform:translateY(2px);box-shadow:none}
-.start-btn{width:100%;padding:16px}
-.go-btn{align-self:flex-end}
-.ghost{border:1px solid var(--line);background:transparent;border-radius:14px;padding:8px 14px;font-weight:600}
+.slice.above .ice{background:linear-gradient(100deg,#d4eafc 0%,#ffffff 38%,#f3faff 62%,#c2dff6 100%)}
+.slice.above .ice::before{opacity:.25}
+.sea .slice .ice::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(180deg,rgba(40,130,220,var(--deep0)),rgba(20,70,160,var(--deep1)))}
 
-/* script */
-details.script{border:1px dashed var(--line);border-radius:18px;background:color-mix(in srgb,var(--other) 55%,transparent)}
-details.script summary{list-style:none;padding:10px 14px;font-weight:600;font-size:15px;cursor:pointer;display:flex;align-items:center;gap:8px}
-details.script summary::-webkit-details-marker{display:none}
-details.script summary::after{content:"▾";margin-left:auto;transition:transform .2s}
-details.script[open] summary::after{transform:rotate(180deg)}
-.lines{padding:4px 12px 14px;display:flex;flex-direction:column;gap:8px}
-.line{display:flex;gap:8px;align-items:flex-end;max-width:92%}
-.line .av{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);font-size:17px}
-.bub{background:var(--other);border-radius:16px 16px 16px 4px;padding:7px 12px;font-size:14.5px}
-.bub .nm{font-size:12px;font-weight:700;color:var(--muted);display:block}
-.bub .act{font-size:12.5px;color:var(--muted);font-style:italic;display:block}
-.line.me{align-self:flex-end;flex-direction:row-reverse}
-.line.me .bub{background:var(--me);border-radius:16px 16px 4px 16px}
-.link{display:inline-block;margin-top:4px;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:99px;color:#3b3355}
-.sec{align-self:center;font-size:12.5px;font-weight:700;color:var(--muted);padding:2px 12px;border-radius:99px;background:var(--card);border:1px solid var(--line);margin-top:4px}
-.snote{align-self:center;font-size:12.5px;background:var(--note);color:var(--note-ink);padding:4px 12px;border-radius:12px;max-width:92%;text-align:center}
+/* locked */
+.slice.locked .in{opacity:.75}
+.lockt{font-family:"Itim";font-size:20px;color:#fff;text-shadow:0 2px 6px rgba(20,60,140,.5)}
+.locks{font-size:13px;color:#eaf6ff;font-weight:600;text-shadow:0 1px 4px rgba(20,60,140,.5)}
 
-/* checkpoint */
-.cp{border-radius:22px;border:2px solid var(--line);padding:16px;background:var(--card);display:flex;flex-direction:column;gap:10px}
-.cp.current{border-color:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
-.cp.fresh{animation:rise .45s ease-out}
-.when{font-size:13px;font-weight:600;color:var(--accent);display:flex;gap:6px;align-items:center}
-.cue{background:var(--other);border-radius:16px;padding:10px 14px;position:relative}
-.cue .who{font-size:13px;font-weight:700;color:var(--muted)}
-.cue .act{font-size:13px;font-style:italic;color:var(--muted)}
-.cue q{display:block;font-size:16.5px;font-weight:600;quotes:"“" "”"}
-.qtext{font-weight:700;font-size:17px;line-height:1.5}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.opt{border:2px solid var(--line);background:var(--card);border-radius:16px;padding:10px 12px;text-align:left;font-size:15px;line-height:1.4;display:flex;gap:8px;align-items:center;transition:transform .1s,border-color .2s}
-.opt:hover:not(:disabled){border-color:var(--accent);transform:translateY(-1px)}
-.opt .e{font-size:20px;flex:none}
-.opt small{display:block;font-size:11.5px;color:var(--muted)}
-.opt.wrong{border-color:var(--warn);background:var(--warn-soft);animation:shake .35s}
-.opt.right{border-color:var(--good);background:var(--good-soft)}
-.opt.picked{border-color:var(--accent);background:var(--accent-soft)}
-.opt:disabled{cursor:default}
-.opt.dim{opacity:.45}
-.hint{background:var(--warn-soft);color:var(--ink);border-radius:14px;padding:8px 12px;font-size:14.5px;border-left:4px solid var(--warn)}
-.aha{background:var(--good-soft);border-radius:16px;padding:12px 14px;font-size:15px;border-left:4px solid var(--good);animation:rise .4s ease-out}
-.aha b.t{display:block;font-size:16px;margin-bottom:2px}
-.aha.soft{background:var(--accent-soft);border-left-color:var(--accent)}
-.done-mini{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
+/* active */
+.slice.active{filter:drop-shadow(0 0 14px rgba(255,255,255,.95)) drop-shadow(0 0 30px rgba(140,220,255,.7))}
+.slice.active .ice{background:linear-gradient(100deg,#b9e0fb 0%,#f5fcff 38%,#e6f5ff 64%,#a4d1f2 100%)}
+.slice.active .ice::before{opacity:.2}
+.slice.active.above .ice{background:linear-gradient(100deg,#d4eafc 0%,#ffffff 38%,#f3faff 62%,#c2dff6 100%)}
 
-/* iceberg panel */
-.panel{position:sticky;top:72px;background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:14px 14px 16px}
-.panel h3{margin:0;font-size:18px;text-align:center}
-.panel .cap{font-size:13px;color:var(--muted);text-align:center;margin:0 0 6px}
-.panel svg{width:100%;height:auto;display:block;max-height:calc(100vh - 220px)}
-.legend{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding:0 6px}
-.sheet-close{display:none}
-.band{cursor:pointer;transition:filter .2s}
-.band:hover{filter:brightness(1.06) saturate(1.1)}
-.band.pop{animation:pop 1.4s ease-out}
-.sky-a{stop-color:var(--sky1)} .sky-b{stop-color:var(--sky2)}
-.sea-a{stop-color:var(--sea1)} .sea-b{stop-color:var(--sea2)}
-.lk{fill:var(--locked)} .lk2{stroke:var(--locked2)}
-.berg-line{stroke:var(--berg-stroke);stroke-width:2;fill:none}
-.lbl{font-family:"Mali",sans-serif;font-weight:700;font-size:13.5px;fill:#3b3355}
-.lbl-en{font-family:"Mali",sans-serif;font-size:10px;fill:#5d5880}
-.lbl-lock{font-family:"Mali",sans-serif;font-weight:600;font-size:12.5px;fill:var(--muted)}
-.wave{fill:none;stroke:color-mix(in srgb,var(--sea1) 60%,#fff);stroke-width:2.5;opacity:.9}
+/* solved */
+.slice.solved .ice{background:linear-gradient(100deg,color-mix(in srgb,var(--tint) 50%,#8ec4ea) 0%,var(--tint) 36%,color-mix(in srgb,var(--tint) 65%,#fff) 62%,color-mix(in srgb,var(--tint) 50%,#7cb4df) 100%);padding:26px 0 24px}
+.slice.solved .ice::before{opacity:.18}
+.sea .slice.solved .ice::after{opacity:.3}
+.slice.core.solved .ice{background:radial-gradient(ellipse at 50% 30%,#fffbe0 0%,#ffe9a0 40%,#f5cf6a 75%,#d9a93e 100%)}
+.slice.core.solved .ice::after{opacity:0}
 
-/* fab + sheet (mobile) */
-.fab{display:none}
-.backdrop{display:none}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px;background:rgba(255,255,255,.75);color:var(--ink-soft)}
+.name{margin:6px 0 0;font-size:26px;line-height:1.2}
+.name .e{display:inline-block;animation:bob 3s ease-in-out infinite}
+.cue{margin:6px auto 0;font-size:13.5px;color:var(--ink-soft);font-weight:600}
+.q{margin:10px 0 12px;font-size:17px;font-weight:700;line-height:1.45}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{border:2px solid #fff;background:rgba(255,255,255,.72);border-radius:18px;padding:10px 14px;font-size:15px;font-weight:600;line-height:1.35;
+  box-shadow:0 4px 0 rgba(60,120,190,.25);transition:transform .12s,background .2s}
+.opt:hover{transform:translateY(-2px);background:#fff}
+.opt:active{transform:translateY(2px);box-shadow:none}
+.opt.no{background:#ffe1e6;border-color:#ff9cb0;animation:shake .4s}
+.opt.yes{background:#d3f7e6;border-color:#3ccf92}
+.oops{margin-top:8px;font-size:14px;font-weight:700;color:#d2456b;min-height:1px}
+.got{display:inline-block;margin-top:8px;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.85);font-weight:700;font-size:15px}
+.aha{margin:8px 0 0;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
 
-/* modal */
-.modal{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(20,18,40,.45)}
-.modal.open{display:flex}
-.modal-card{background:var(--card);border-radius:26px;max-width:480px;width:100%;max-height:88vh;overflow:auto;padding:20px;box-shadow:var(--shadow);animation:rise .3s ease-out}
-.modal-top{display:flex;gap:12px;align-items:center}
-.modal-top .sw{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-size:30px;flex:none}
-.modal-top h3{margin:0;font-size:20px;line-height:1.3}
-.modal-top small{color:var(--muted)}
-.modal-card .ask{background:var(--accent-soft);border-radius:14px;padding:8px 12px;margin:12px 0;font-weight:600}
-.ev{margin:6px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
-.ev li{background:var(--other);border-radius:12px;padding:8px 12px;font-size:14.5px}
-.ev li span{display:block;font-size:12px;font-weight:700;color:var(--accent)}
+.slice.melt .ice{animation:glow 1.2s ease-out}
+.slice.crack .ice{animation:crack .6s ease-out}
+.pop{position:absolute;bottom:20%;width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.95);z-index:5;pointer-events:none;animation:popup 1.2s ease-out forwards}
 
-/* toast */
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(140%);z-index:70;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:16px;font-weight:600;font-size:15px;box-shadow:var(--shadow);transition:transform .35s;max-width:calc(100% - 32px);display:flex;gap:10px;align-items:center}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.toast button{border:0;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:4px 10px;font-weight:700;font-size:14px;white-space:nowrap}
+/* self core */
+.slice.core .ice{padding:34px 0 26px}
+.heart{font-size:54px;line-height:1;display:inline-block;filter:drop-shadow(0 0 14px #ffe27a);animation:beat 1.6s ease-in-out infinite}
+.slice.core .opts{display:grid;grid-template-columns:1fr 1fr}
+.sticker{display:inline-block;margin-top:10px;background:#fff6b8;color:#5a4500;padding:12px 18px;border-radius:6px 22px 6px 22px;font-size:18px;font-weight:700;transform:rotate(-2deg);box-shadow:0 6px 14px rgba(0,0,0,.15)}
+.line{margin:12px 0 0;font-size:14.5px;font-weight:600}
+.again{margin-top:8px;border:0;background:none;font-size:13px;font-weight:700;color:var(--ink-soft);text-decoration:underline}
 
-/* finale */
-.finale{background:linear-gradient(160deg,var(--accent-soft),var(--card) 60%);border:2px solid var(--accent);border-radius:28px;padding:22px 20px;box-shadow:var(--shadow);text-align:center;animation:rise .5s ease-out}
-.finale .big{font-size:52px;line-height:1.2}
-.finale h2{margin:4px 0 6px;font-size:24px}
-.finale blockquote{margin:12px 0;padding:12px 16px;background:var(--card);border-radius:18px;font-size:16px;font-weight:600;border:1px solid var(--line)}
-.sumlist{text-align:left;display:flex;flex-direction:column;gap:6px;margin:14px 0}
-.sumrow{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 12px;font-size:14.5px;cursor:pointer}
-.sumrow .sw{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;flex:none}
-.sumrow b{display:block;font-size:14px}
-.note-card{margin-top:14px;font-size:14px;background:var(--card);border:1px dashed var(--line);border-radius:16px;padding:10px 14px}
-.sticker{display:inline-block;margin-top:10px;background:#fff3a8;color:#4a3d00;padding:14px 18px;border-radius:6px 22px 6px 22px;font-size:18px;font-weight:700;transform:rotate(-2deg);box-shadow:0 6px 14px rgba(0,0,0,.12);animation:rise .4s ease-out}
-footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 16px 40px}
+.tip{height:100px}
+.tip .ice{position:absolute;inset:0;clip-path:polygon(15% 0,29% 42%,37% 66%,50% 100%,62% 62%,72% 36%,85% 0);
+  background:linear-gradient(100deg,#6fa8d8,#a9d3f0 40%,#8fc0e6 64%,#5f98cc);border-top:2px solid rgba(255,255,255,.6)}
+.tip .ice::after{content:"";position:absolute;inset:0;background:rgba(10,40,110,.35)}
 
-@keyframes bob{50%{transform:translateY(-5px) rotate(-4deg)}}
-@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-@keyframes pop{0%{filter:brightness(1.6) drop-shadow(0 0 0 #fff)}40%{filter:brightness(1.25) drop-shadow(0 0 10px #fff)}100%{filter:none}}
+/* ---------- sea ---------- */
+.sea{position:relative;background:linear-gradient(#7fd0ff 0%,#46a6ea 18%,#2477cc 45%,#164a99 72%,#0d2a66 100%);padding-bottom:0}
+.waves{position:absolute;left:0;right:0;top:-20px;height:40px;z-index:4;pointer-events:none;overflow:hidden}
+.waves svg{position:absolute;left:0;width:200%;height:100%;animation:wave 9s linear infinite}
+.waves svg.w2{animation-duration:14s;animation-direction:reverse;top:6px;opacity:.7}
+.rays{position:absolute;inset:0 0 auto 0;height:700px;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(105deg,rgba(255,255,255,0) 0 60px,rgba(255,255,255,.08) 60px 90px,rgba(255,255,255,0) 90px 170px);
+  -webkit-mask:linear-gradient(#000,transparent);mask:linear-gradient(#000,transparent);animation:shimmer 6s ease-in-out infinite}
+.fish{position:absolute;z-index:0;font-size:26px;left:0;animation:swim linear infinite;pointer-events:none}
+.bub{position:absolute;bottom:0;border-radius:50%;border:2px solid rgba(255,255,255,.55);z-index:0;animation:rise linear infinite;pointer-events:none}
 
-/* mobile */
-@media (max-width: 900px){
-  .layout{grid-template-columns:1fr}
-  .panel{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:50;border-radius:26px 26px 0 0;max-height:88vh;overflow:auto;transform:translateY(105%);transition:transform .35s ease;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
-  .panel.open{transform:none}
-  .panel svg{max-height:62vh}
-  .sheet-close{display:block;margin:10px auto 0}
-  .panel .grab{width:44px;height:5px;border-radius:9px;background:var(--line);margin:0 auto 8px}
-  .backdrop{position:fixed;inset:0;z-index:45;background:rgba(20,18,40,.4)}
-  .backdrop.open{display:block}
-  .fab{display:flex;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;border:0;border-radius:999px;padding:12px 18px;font-weight:700;font-size:16px;background:var(--accent);color:var(--accent-ink);box-shadow:0 8px 20px rgba(80,70,160,.35);gap:6px;align-items:center}
-  .fab.pulse{animation:pop 1.2s}
-  .toast{bottom:84px}
-  footer{padding-bottom:100px}
-}
-@media (max-width: 520px){
-  .opts{grid-template-columns:1fr}
-  .howto{grid-template-columns:1fr;max-width:340px}
-  .howto div{display:flex;gap:10px;align-items:center;text-align:left}
-  .howto b{font-size:22px}
-  .brand{font-size:16px}
-  .scene-head{padding:16px 16px 12px}
-  .scene-body{padding:0 14px 16px}
-  .lockmsg{padding:0 16px 16px}
-}
-@media (min-width: 901px){ .panel .grab{display:none} }
-@media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important} }
+.bed{position:relative;z-index:2;margin-top:-30px;padding:70px 16px 80px;text-align:center;
+  background:linear-gradient(#e9cf96,#d9b574);clip-path:polygon(0 30px,10% 18px,25% 34px,42% 14px,58% 30px,75% 12px,90% 28px,100% 16px,100% 100%,0 100%)}
+.bed .deco{position:absolute;top:22px;font-size:28px}
+.bed p{margin:6px 0;font-size:14px;font-weight:600;color:#5b4520}
+.reset{margin-top:6px;border:2px solid #fff;background:rgba(255,255,255,.6);border-radius:99px;padding:8px 18px;font-weight:700;color:#5b4520}
+
+/* progress pill */
+.meter{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:20;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-radius:99px;padding:6px 14px;font-weight:700;font-size:15px;box-shadow:0 4px 14px rgba(20,60,140,.2)}
+.meter.bump{animation:beatm .6s}
+@keyframes beatm{50%{transform:translateX(-50%) scale(1.12)}}
+
+@keyframes bob{50%{transform:translate(-50%,-6px)}}
+.name .e{animation-name:bob2}
+@keyframes bob2{50%{transform:translateY(-4px) rotate(-6deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes drift{to{transform:translateX(calc(100vw + 300px))}}
+@keyframes wave{to{transform:translateX(-50%)}}
+@keyframes shimmer{50%{opacity:.5}}
+@keyframes swim{from{transform:translateX(105vw)}to{transform:translateX(-15vw)}}
+@keyframes rise{from{transform:translateY(0);opacity:0}10%{opacity:1}to{transform:translateY(-900px);opacity:0}}
+@keyframes shake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes glow{0%{filter:brightness(1.6)}100%{filter:none}}
+@keyframes crack{0%{transform:scale(.97);filter:brightness(1.4)}60%{transform:scale(1.01)}100%{transform:none;filter:none}}
+@keyframes popup{from{transform:translateY(0) scale(.6);opacity:1}to{transform:translateY(-110px) scale(1.4);opacity:0}}
+@keyframes beat{50%{transform:scale(1.12)}}
+
+@media (min-width:560px){ .opts:not(.two){} }
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<header class="top">
-  <div class="wrap">
-    <div class="brand">🧊 ภูเขาน้ำแข็งในใจ</div>
-    <div class="grow"></div>
-    <span class="pill" id="topCount">🧊 0/7</span>
-    <button class="icon-btn" id="themeBtn" aria-label="สลับโหมดสว่าง/มืด">🌙</button>
+
+<div class="meter" id="meter">🧊 0/8</div>
+
+<header class="sky">
+  <div class="sun"></div>
+  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+  <div class="title">
+    <h1>ภูเขาน้ำแข็งในใจ</h1>
+    <p>ดูละครไป แตะตอบไป แล้วดำลงไปทีละชั้น 🤿</p>
+  </div>
+  <div class="col">
+    <div class="peak"><div class="ice"></div><div class="snow"></div><div class="penguin">🐧</div><div class="say">ดำลงไปด้วยกันนะ!</div></div>
+    <div id="top"></div>
   </div>
 </header>
 
-<main class="wrap">
-  <section class="hero">
-    <h1><span class="ice">🧊</span> ภูเขาน้ำแข็งในใจ</h1>
-    <p class="sub">ดูละครไป ดำน้ำไป ค่อยๆ เปิดใจคนไข้ทีละชั้น 🤿</p>
-    <div class="howto">
-      <div><b>🎭</b>ดูละครไปพร้อมกัน แล้วกด “ฉากนี้เริ่มแล้ว”</div>
-      <div><b>🫧</b>ได้ยินประโยคสำคัญ แล้วเลือกคำตอบ</div>
-      <div><b>🧊</b>ตอบถูก = เปิดภูเขาน้ำแข็งเพิ่มอีก 1 ชั้น</div>
-    </div>
-    <p class="satir">โมเดลภูเขาน้ำแข็งของ <b>Virginia Satir</b> บอกว่า สิ่งที่คนอื่นเห็น (พฤติกรรม) เป็นแค่ยอดเล็กๆ เหนือน้ำ ส่วนใหญ่ของใจเราซ่อนอยู่ข้างใต้ ✨</p>
-    <div class="bar" aria-hidden="true"><i id="heroBar" style="width:0%"></i></div>
-  </section>
-
-  <div class="layout">
-    <div class="story" id="story"></div>
-    <aside class="panel" id="panel" aria-label="ภูเขาน้ำแข็ง">
-      <div class="grab"></div>
-      <h3>ภูเขาน้ำแข็งของคนไข้</h3>
-      <p class="cap" id="panelCap">แตะแต่ละชั้นเพื่อดูรายละเอียด</p>
-      <div id="berg"></div>
-      <div class="legend"><span>☀️ เหนือน้ำ = สิ่งที่คนอื่นเห็น</span><span>🌊 ใต้น้ำ = โลกข้างใน</span></div>
-      <button class="ghost sheet-close" data-act="closeSheet">ปิด ✕</button>
-    </aside>
+<main class="sea" id="sea">
+  <div class="waves">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 T 750 20 T 900 20 T 1050 20 T 1200 20 V40 H0Z" fill="#7fd0ff"/></svg>
+    <svg class="w2" viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 100 4 200 20 T 400 20 T 600 20 T 800 20 T 1000 20 T 1200 20 V40 H0Z" fill="#a8e1ff"/></svg>
   </div>
+  <div class="rays"></div>
+  <div id="sealife"></div>
+  <div class="col" id="deep"></div>
+  <div class="col tip"><div class="ice"></div></div>
+  <footer class="bed">
+    <span class="deco" style="left:6%">🌿</span><span class="deco" style="left:20%;top:34px">🐚</span>
+    <span class="deco" style="right:8%">🪸</span><span class="deco" style="right:24%;top:36px">⭐</span>
+    <p>💙 ถ้าใจหนักๆ คุยกับคนที่ไว้ใจได้เสมอนะ · สายด่วนสุขภาพจิต <b>1323</b></p>
+    <p style="font-weight:500;font-size:12.5px">Satir Iceberg Model</p>
+    <button class="reset" data-act="reset">↺ เล่นใหม่</button>
+  </footer>
 </main>
 
-<footer>
-  อ้างอิง: Satir Iceberg Model (Virginia Satir) · ทำด้วย 💙 สำหรับผู้ชมละคร
-  <br><button class="ghost" style="margin-top:10px" data-act="reset">↺ เริ่มใหม่ทั้งหมด</button>
-</footer>
-
-<button class="fab" id="fab" data-act="openSheet">🧊 <span id="fabCount">0/7</span></button>
-<div class="backdrop" id="backdrop" data-act="closeSheet"></div>
-<div class="modal" id="modal" data-act="closeModal"><div class="modal-card" id="modalCard"></div></div>
-<div class="toast" id="toast"></div>
-
 <script>
-/* ---------- data ---------- */
 const LAYERS = [
-  {id:'behavior', th:'พฤติกรรม', en:'Behavior', emo:'🚶', color:'#FFF1B5', band:[44,120],
-   def:'สิ่งที่คนอื่นมองเห็นได้ — การกระทำ คำพูด ท่าทาง เหมือนยอดภูเขาน้ำแข็งที่โผล่พ้นน้ำ', ask:'ตอนนี้ฉันกำลังทำอะไรอยู่?'},
-  {id:'body', th:'ความรู้สึกทางกาย', en:'Body Sensation', emo:'💓', color:'#FFD8C2', band:[120,175],
-   def:'สัญญาณจากร่างกาย — ตัวเกร็ง ใจเต้นแรง หน้าชา อยากถอยหนี ร่างกายมักรู้ก่อนที่เราจะรู้ตัว', ask:'ร่างกายของฉันรู้สึกยังไงตอนนี้?'},
-  {id:'feeling', th:'อารมณ์ / ความรู้สึก', en:'Emotions / Feelings', emo:'🌧️', color:'#FFC9DA', band:[175,230],
-   def:'อารมณ์ที่เกิดขึ้นในใจ — เครียด เศร้า โกรธ ท้อ ดีใจ ทุกความรู้สึกเป็นของจริงและมีความหมาย', ask:'ตอนนี้ฉันรู้สึกอะไร?'},
-  {id:'faf', th:'ความรู้สึกต่อความรู้สึก', en:'Feeling about Feeling', emo:'🪞', color:'#E6CDFF', band:[230,285],
-   def:'ความรู้สึกที่เรามีต่อความรู้สึกของตัวเอง — เช่น อายที่ตัวเองเศร้า โกรธที่ตัวเองกลัว ชั้นนี้ทำให้ใจหนักเป็นสองเท่า', ask:'ฉันรู้สึกยังไง กับการที่ตัวเองรู้สึกแบบนี้?'},
-  {id:'perception', th:'ความคิด / มุมมอง', en:'Thoughts / Perception', emo:'💭', color:'#CDDBFF', band:[285,340],
-   def:'ความคิด ความเชื่อ และการตีความ — เรื่องที่เราเล่าให้ตัวเองฟังว่า “ฉันเป็นคนแบบไหน” “โลกเป็นยังไง”', ask:'ฉันกำลังบอกอะไรกับตัวเองอยู่?'},
-  {id:'expectation', th:'ความคาดหวัง', en:'Expectations', emo:'🎯', color:'#C3F0E3', band:[340,395],
-   def:'สิ่งที่เราคาดหวัง — จากตัวเอง จากคนอื่น หรือที่คนอื่นคาดหวังจากเรา เมื่อความจริงไม่ตรงกับความหวัง ความผิดหวังก็ตามมา', ask:'ฉันหวังให้มันเป็นยังไง?'},
-  {id:'yearning', th:'ความปรารถนา', en:'Yearnings', emo:'💗', color:'#FFCDEA', band:[395,450],
-   def:'ความต้องการพื้นฐานของหัวใจมนุษย์ทุกคน — อยากถูกรัก ถูกยอมรับ รู้สึกมีคุณค่า ปลอดภัย และเป็นอิสระ', ask:'ลึกๆ แล้ว หัวใจฉันต้องการอะไร?'},
-  {id:'self', th:'ตัวตน', en:'Self', emo:'✨', color:'#FFE07A', band:[450,540],
-   def:'แก่นแท้ของตัวเรา — พลังชีวิตและคุณค่าที่มีอยู่แล้ว โดยไม่ต้องพิสูจน์ด้วยคะแนนหรือผลงานใดๆ', ask:'ฉันคือใคร เมื่อไม่มีเกรดมาตัดสิน?'}
-];
-const L = Object.fromEntries(LAYERS.map((l,i)=>[l.id,{...l,n:i+1}]));
-const MAIN = LAYERS.filter(l=>l.id!=='self');
-
-const WHO = {
-  p:{nm:'คนไข้',e:'🧑‍🎓',me:true}, f:{nm:'เพื่อน',e:'🎮'}, tb:{nm:'เพื่อน TBL',e:'👥'},
-  t1:{nm:'เพื่อน TBL 1',e:'🙋'}, t2:{nm:'เพื่อน TBL 2',e:'😎'}, both:{nm:'เพื่อนทั้งคู่',e:'🙌'},
-  f1:{nm:'เพื่อน 1',e:'🙋'}, f2:{nm:'เพื่อน 2',e:'😎'}, f12:{nm:'เพื่อน 1 & 2',e:'🙌'},
-  m:{nm:'แม่',e:'👩'}, d:{nm:'หมอ',e:'🩺'}
-};
-
-const SCENES = [
- {id:'s0', no:0, emo:'📚', title:'Pre-class', th:'เตรียมตัวก่อนเข้าเรียน TBL', place:'ช่วงสัปดาห์ก่อน TBL แรก',
-  mood:['ตื่นเต้น','มุ่งมั่น','ความเครียดเริ่มสะสม'],
-  script:[
-   {w:'p',t:'ฉันเข้าคณะแพทย์มาแล้วและจะได้เรียนวิชาคณะสักที! อีก 1 สัปดาห์ก็เป็น TBL แรกของฉันแล้ว! ฉันจะต้องอ่านให้ละเอียดก่อนเข้าคาบ ว่าแต่เพื่อนๆ ก็น่าจะเก่งกันทั้งนั้น เราก็ต้องเตรียมตัวให้ดี ไปอ่านหนังสือกัน!'},
-   {w:'p',t:'นี่ก็จะ 5 วันละ ยังอ่านไม่จบเลย อีกสองวันก็เข้าคาบ ไหนจะต้องเรียนคาบ lecture ให้ทันอีก อ้อใช่สิ ถ้าเราไม่เข้าใจก็ถามเพื่อนได้นี่นา แต่เราจะทำตัวเป็นตัวถ่วงไม่ได้ ต้องสู้แม้จะเหนื่อย เฮ้อ! นี่สินะคณะแพทย์'},
-   {w:'f',a:'นั่งตีป้อม',t:'ชิวๆ เหลืออีกตั้งหลายวัน มากดแรงค์กันสักตาไหม'},
-   {w:'p',t:'ใกล้ TBL แล้วนะ ยังไม่อ่านหนังสือหรอ'},
-   {w:'f',t:'ชิวๆ เหลืออีกตั้งหลายวัน มากดแรงค์กันสักตาไหม'},
-   {w:'p',link:'feeling',t:'กดแรงค์อะไร! อ่านหนังสือก็ไม่ทัน lecture ก็ยังเก็บไม่ครบ เครียดจะตายอยู่แล้ว'},
-   {n:'เริ่มแสดงความเครียดและความเหนื่อยล้าสะสมจากการอ่านหนังสือตลอดสัปดาห์'}
-  ],
-  cps:[
-   {id:'c0a', kind:'reflect', when:'วอร์มอัพก่อนละครเริ่ม',
-    q:'ย้อนไปวันแรกที่ได้เรียนวิชาที่ตั้งตารอ… คุณรู้สึกแบบไหน?',
-    opts:[
-     {e:'🤩',t:'ตื่นเต้นสุดๆ',r:'ความตื่นเต้นคือพลังงานดีๆ — คนไข้ของเราก็เริ่มต้นแบบนี้เลย!'},
-     {e:'😰',t:'กดดันนิดๆ',r:'ความกดดันเป็นสัญญาณว่าเราให้ความสำคัญกับมัน ลองสังเกตว่าในละคร มันจะค่อยๆ ก่อตัวยังไง'},
-     {e:'😎',t:'ชิวๆ สบายๆ',r:'ชิวได้ก็ดีมาก! ในละครจะมีเพื่อนสายชิวด้วย ลองดูว่าแต่ละคนรับมือต่างกันยังไง'},
-     {e:'🌀',t:'ผสมกันหมดเลย',r:'ใช่เลย ใจคนเรามีหลายชั้นซ้อนกัน — นั่นแหละคือสิ่งที่เรากำลังจะดำลงไปดู 🤿'}
-    ]},
-   {id:'c0b', kind:'layer', when:'ตอนเพื่อนชวน “กดแรงค์” เป็นรอบที่สอง',
-    who:'p', cue:'กดแรงค์อะไร! อ่านหนังสือก็ไม่ทัน lecture ก็ยังเก็บไม่ครบ เครียดจะตายอยู่แล้ว',
-    q:'เสียงขึ้นแบบนี้ ภูเขาน้ำแข็งชั้นไหนกำลังโผล่ออกมา?',
-    opts:['behavior','feeling','expectation','yearning'], ans:'feeling',
-    hints:{behavior:'การตะโกนเป็นสิ่งที่เห็นได้ก็จริง แต่ลองฟังสิ่งที่อยู่ “ข้างใน” คำพูดนี้ดูนะ', expectation:'ยังไม่ลึกขนาดนั้น ลองดูสิ่งที่เขารู้สึก “ตอนนี้” ก่อน', yearning:'ลึกเกินไปนิด! เรายังอยู่แค่ชั้นบนๆ'},
-    aha:'ใช่เลย! นี่คือ <b>อารมณ์ / ความรู้สึกทางใจ</b> — ความเครียดและความเหนื่อยล้าที่สะสมมาทั้งสัปดาห์ ระเบิดออกมาเป็นคำพูดห้วนๆ ใส่เพื่อน',
-    ev:'เครียด เหนื่อยล้าสะสม หงุดหงิดใส่เพื่อนที่ชวนกดแรงค์'}
-  ]},
- {id:'s1', no:1, emo:'🏫', title:'TBL class', th:'ในห้องเรียน TBL 1 & TBL 2', place:'ห้องเรียน Team-Based Learning (TBL)',
-  mood:['IRAT','TRAT','เงียบ เก็บตัว'],
-  script:[
-   {h:'TBL 1: ช่วงสอบเดี่ยว (IRAT)'},
-   {w:'p',a:'ดูนิ่งๆ ทำได้บ้างไม่ได้บ้าง',link:'body',t:'...'},
-   {n:'สภาวะทางกาย: นิ่งๆ เก็บตัว ไม่ interact กับเพื่อนในกลุ่ม'},
-   {w:'tb',a:'ดูทำได้เรื่อยๆ แย่งๆ กันพูด',t:'...'},
-   {h:'จบ IRAT เตรียมทำสอบกลุ่ม (TRAT)'},
-   {w:'t1',t:'โอเคฉันพอรอด แกทำได้ปะ'},
-   {w:'t2',t:'ทำได้ ชิวเลย มันไม่ได้เข้าใจยากขนาดนั้น'},
-   {w:'t1',t:'แหม่พูดงี้อ่านจิงปะจ้ะ'},
-   {w:'t2',t:'อ่านเมื่อเช้าเอง ชิว~'},
-   {w:'t1',t:'โหแบบนี้อ่ะนะชิว นี่ฉันอ่านเมื่อคืนไปรอบเดียวเอง ดีนะพอไหวอยู่'},
-   {w:'p',a:'เริ่มลังเลและไม่กล้าแทรก',t:'…อ่า คือว่า'},
-   {w:'t2',t:'เมื่อกี้ข้อสามมันตอบ C ปะ'},
-   {w:'t1',t:'เออใช่ๆ มันถาม Patho นิ ตอนแรกจะตอบ A แล้วแต่เอ้ะก่อน'},
-   {w:'p',t:'…เราตอบ B ไป…'},
-   {w:'t1',t:'แล้วไอรูปนั่นอ่ะมันอะไรวะ D ปะ เมื่อเช้าดูรูปมาแล้วมันเขียนอยู่ล่างรูป'},
-   {w:'t2',t:'แม่นจ้ะ ถูกๆๆๆ นี่ก็ว่าใช่ มันเขียนอยู่ล่างรูปสไลด์อาจารย์'},
-   {w:'both',a:'ดีใจกันฉ่ำ',t:'เย้ ดีใจกันฉ่ำ!'},
-   {w:'p',a:'ทำท่าจะถามแต่ก็ ไม่ดีกว่า',link:'body',t:'...'},
-   {n:'ถอยร่นทางกายภาพ ไม่ interact กับเพื่อนในกลุ่ม'},
-   {h:'ก่อนเริ่ม TBL 2'},
-   {w:'p',t:'อ่านหนังสือเหนื่อยแล้ว ไปหาเพื่อนดีกว่า ใกล้จะ TBL แล้วด้วย เพื่อนอ่านหนังสืออยู่มั้ยนะ'},
-   {w:'f',a:'นั่งดูบอล',t:'goal! นำห่างแล้ว เกมนี้ชนะแน่'},
-   {w:'p',t:'…'},
-   {h:'TBL 2: กำลังทำ TRAT'},
-   {w:'f1',t:'D ปะ ข้อนี้'},
-   {w:'f2',t:'เซม เขาก็ถามตรงเกินข้อนี้อ่ะ ละต่อไปว่า A ปะ'},
-   {w:'f1',t:'มันยังไงอ่ะ มันใช่กลไกยาที่ไป affect ที่ตับปะ'},
-   {w:'f2',t:'นี่คือว่างั้น ลองฝนดูซิ'},
-   {w:'f12',t:'เย้! ถูก!'},
-   {w:'p',t:'…อ่าข้อ… ข้อต่อไปนี่ว่า B ปะ อาจารย์เขาพู-'},
-   {w:'f2',t:'ไม่ปะนี่ว่า C ตัว D เหมือนอาจารย์ไม่เน้น มันเข้ากะหลายตัวปะ'},
-   {w:'f1',t:'นี่ก็ว่างั้น คือตัว C มันเจาะไปที่ Receptor เลย ไม่ใช่ครอบจักรวาลเหมือน D แกลองฝนดู'},
-   {w:'f12',t:'เย้! D ถูก!'},
-   {w:'p',t:'…อีกแล้วหรอ…'},
-   {h:'หลังออกจากคาบ กำลังกลับบ้าน'},
-   {w:'p',link:'expectation',t:'ไหงวันนี้เป็นวันที่แย่อีกแล้วอ่ะ เราก็อ่านละเอียดจัดๆ สุดๆ เลยนะ ทำไมยังไม่ได้อีก ไม่เป็นไรเดี๋ยวค่อยเอาใหม่ แล้วกลับบ้านไปจะคุยกับแม่ยังไงดีเนี่ย…'},
-   {n:'ยึดถือสมการ อ่านมาก = เข้าใจมาก เมื่อไม่ได้ผลจึงเริ่มหมดกำลังใจ'}
-  ],
-  cps:[
-   {id:'c1a', kind:'layer', when:'ช่วงสอบเดี่ยว (IRAT) — คนไข้นั่งนิ่งๆ',
-    who:'p', act:'ดูนิ่งๆ ทำได้บ้างไม่ได้บ้าง นั่งเงียบ ไม่คุยกับใครในกลุ่ม', cue:'...',
-    q:'คนไข้ไม่พูดอะไรเลย แต่ “ร่างกาย” กำลังส่งสัญญาณบางอย่าง… ชั้นไหนเอ่ย?',
-    opts:['behavior','body','faf','perception'], ans:'body',
-    hints:{behavior:'ใกล้แล้ว! การนั่งเงียบเป็นสิ่งที่เห็นได้ก็จริง แต่ฉากนี้ชวนสังเกตสิ่งที่ “ร่างกายรู้สึก” ข้างใน', faf:'ยังไม่ลึกขนาดนั้น ลองสังเกตตัวและท่าทางของเขาดูก่อน', perception:'ยังไม่ถึงชั้นความคิด ลองสังเกตจากร่างกายดูนะ'},
-    aha:'ถูกต้อง! <b>ความรู้สึกทางกาย</b> — ตัวนิ่ง เกร็ง หดตัวถอยออกจากวง ร่างกายรับรู้ความไม่ปลอดภัยก่อนที่ปากจะพูดอะไรออกมา',
-    ev:'นิ่ง เก็บตัว ไม่ interact กับเพื่อนในกลุ่มตอนสอบ IRAT'},
-   {id:'c1b', kind:'reflect', when:'ตอนคนไข้พูดว่า “…เราตอบ B ไป…” แต่ไม่มีใครได้ยิน',
-    who:'p', act:'ทำท่าจะถามแต่ก็… ไม่ดีกว่า', cue:'…อ่า คือว่า … เราตอบ B ไป…',
-    q:'ถ้าคุณนั่งอยู่ในกลุ่มนี้ คุณจะทำอะไร?',
-    opts:[
-     {e:'🙋',t:'หันไปถามว่า “แล้วแกตอบอะไร?”',r:'คำถามเดียวสั้นๆ อาจเปิดประตูให้ใครบางคนกล้าพูดออกมาได้เลยนะ 🚪'},
-     {e:'⏳',t:'รอให้เขาพูดจบก่อน',r:'การรอ = การให้พื้นที่ ในห้องที่ทุกคนรีบ ความใจเย็นคือของขวัญ 🎁'},
-     {e:'🍪',t:'ชวนไปกินขนมหลังคาบ',r:'ความสัมพันธ์นอกห้องเรียน ทำให้คนรู้สึกปลอดภัยพอจะพูดในห้องเรียนได้ 💛'},
-     {e:'😅',t:'คงไม่ทันสังเกตเลย…',r:'ซื่อสัตย์มาก! ในห้อง TBL ที่วุ่นวาย คนเงียบมักหายไปจากสายตา — การรู้ตัวตอนนี้ก็ดีมากแล้ว 💡'}
-    ],
-    after:'สังเกตไหม? คนไข้ “ทำท่าจะถาม” แล้วถอยกลับ — ร่างกายถอยร่นออกจากวงอีกครั้ง 🫥',
-    ev:{layer:'body', t:'ทำท่าจะถามแต่ถอยกลับ ถอยร่นทางกายภาพตอนทำ TRAT'}},
-   {id:'c1c', kind:'layer', when:'หลังออกจากคาบ ระหว่างเดินกลับบ้าน',
-    who:'p', cue:'ไหงวันนี้เป็นวันที่แย่อีกแล้วอ่ะ เราก็อ่านละเอียดจัดๆ สุดๆ เลยนะ ทำไมยังไม่ได้อีก',
-    q:'ในใจคนไข้มี “สมการลับ” ซ่อนอยู่ 🔐 มันอยู่ในชั้นไหน?',
-    opts:['feeling','expectation','yearning','behavior'], ans:'expectation',
-    hints:{feeling:'มีความผิดหวังอยู่จริง แต่ลองหา “สมการ” ที่ทำให้ผิดหวังดู', yearning:'ลึกไปนิด! ชั้นนี้ยังเป็นเรื่องที่เขา “หวังว่าจะเป็น”', behavior:'ลองมองใต้น้ำลงไปอีกหน่อยนะ'},
-    aha:'เก่งมาก! <b>ความคาดหวัง</b> — สมการ “อ่านมาก = เข้าใจมาก” พอผลไม่เป็นไปตามสมการ ความหมดกำลังใจก็ตามมา',
-    ev:'ยึดสมการ “อ่านมาก = เข้าใจมาก” แต่ผลไม่เป็นอย่างนั้น'}
-  ]},
- {id:'s2', no:2, emo:'🏠', title:'บ้าน', th:'บทสนทนากับแม่', place:'บ้าน / ห้องนั่งเล่น',
-  mood:['ระเบิดอารมณ์','ตัดพ้อ','ความเข้าใจผิด'],
-  script:[
-   {w:'p',a:'หน้าเครียดๆ กังวล',t:'...'},
-   {w:'m',a:'เดินเข้าไปถามๆ',t:'ช่วงนี้เป็นอะไรรึเปล่าทำไมดูเครียดจังลูก'},
-   {w:'p',a:'ปรึกษาแม่',t:'ถอนหายใจ… ตอนนี้ผมเรียนวิชา บลาๆๆ… แล้วพยายามทำความเข้าใจเนื้อหาแต่พอทำงานกลุ่มแล้วเหมือนไม่ได้ช่วยเพื่อนตอบเลย'},
-   {w:'m',t:'ก็เรียนเนื้อหาเดียวกันใช่มั้ยลูก ลูกไม่ตั้งใจรึเปล่า'},
-   {w:'p',t:'ผมก็พยายามแล้วนะ แต่ไม่รู้จะทำยังไงเหมือนกัน'},
-   {w:'m',t:'ถ้ารู้ว่าตัวเองเรียนไม่เข้าใจเหมือนเพื่อนทำไมไม่ทบทวนเนื้อหาก่อนที่จะเรียนให้มากขึ้นล่ะ จะได้ทันเพื่อนไง'},
-   {w:'p',a:'พูดเสร็จแล้วเดินหนีแม่',link:'perception',t:'ก็ผมอ่านตลอดสัปดาห์ ทุกวัน ทุกชั่วโมง ทุกนาทีทุกวินาที! แต่ผลลัพธ์มันแทบไม่ได้ดีขึ้นเลยทั้งที่อ่านเยอะขึ้นด้วยซ้ำ! แต่แม่ดูเพื่อนผมสิ เขาอ่าน 2-3 ชั่วโมงจำได้ทุกตัวอักษรยันขอบหน้าสไลด์ แทบทุกคนเป็นแบบนั้นแล้วผมล่ะ! แล้วผมล่ะแม่!'},
-   {n:'เริ่มเชื่อว่าตนเองอ่านเท่าไหร่ก็คงไม่เข้าใจเหมือนเพื่อน'}
-  ],
-  cps:[
-   {id:'c2a', kind:'reflect', when:'ตอนแม่ถามว่า “ทำไมไม่ทบทวนให้มากขึ้นล่ะ”',
-    who:'m', cue:'ถ้ารู้ว่าตัวเองเรียนไม่เข้าใจเหมือนเพื่อน ทำไมไม่ทบทวนเนื้อหาก่อนที่จะเรียนให้มากขึ้นล่ะ จะได้ทันเพื่อนไง',
-    q:'ถ้าคุณเป็นคนไข้ ได้ยินแม่พูดแบบนี้ จะรู้สึกยังไง?',
-    opts:[
-     {e:'😣',t:'โดนเข้าใจผิด',r:'ใช่… เพราะสิ่งที่แม่แนะนำ คือสิ่งที่เขาทำมาตลอดแล้ว'},
-     {e:'💔',t:'เจ็บ เพราะพยายามสุดแล้ว',r:'ความพยายามที่มองไม่เห็น มักเจ็บกว่าความล้มเหลวที่มองเห็น'},
-     {e:'🥲',t:'รู้ว่าแม่หวังดี… แต่',r:'ใช่เลย แม่ไม่ได้ตั้งใจทำร้าย แต่ความหวังดีอาจยังไม่ตรงกับสิ่งที่ใจต้องการ'},
-     {e:'🚪',t:'อยากเดินหนีไปเลย',r:'และนั่นคือสิ่งที่คนไข้ทำจริงๆ ในฉากนี้ — พฤติกรรมที่โผล่มาจากใจที่เจ็บ'}
-    ],
-    after:'แม่เห็นแค่ “ยอดภูเขา” (ผลการเรียน) แต่ยังไม่ได้เห็นสิ่งที่อยู่ใต้น้ำของลูก 🌊'},
-   {id:'c2b', kind:'layer', when:'ตอนคนไข้ตะโกน “แล้วผมล่ะแม่!” แล้วเดินหนี',
-    who:'p', act:'พูดเสร็จแล้วเดินหนีแม่', cue:'แต่แม่ดูเพื่อนผมสิ เขาอ่าน 2-3 ชั่วโมงจำได้ทุกตัวอักษรยันขอบหน้าสไลด์ … แล้วผมล่ะ! แล้วผมล่ะแม่!',
-    q:'ใต้คำตะโกนนี้ คนไข้กำลัง “เชื่อ” อะไรบางอย่างเกี่ยวกับตัวเอง… ชั้นไหน?',
-    opts:['body','feeling','perception','expectation'], ans:'perception',
-    hints:{feeling:'อารมณ์พุ่งจริง แต่ลองฟัง “ความเชื่อ” ที่ซ่อนอยู่ในประโยคนี้', expectation:'ใกล้มาก! แต่ตรงนี้คือสิ่งที่เขา “คิดว่าตัวเองเป็น” มากกว่าสิ่งที่หวัง', body:'ลองฟังสิ่งที่เขาคิดเกี่ยวกับตัวเองดูนะ'},
-    aha:'ถูกต้อง! <b>ความคิด / มุมมอง</b> — เริ่มเชื่อว่า “อ่านเท่าไหร่ก็คงไม่เข้าใจเหมือนเพื่อน” และเอาตัวเองไปเทียบกับทุกคน',
-    ev:'เทียบตัวเองกับเพื่อน เริ่มเชื่อว่าอ่านเท่าไหร่ก็คงไม่เข้าใจเหมือนคนอื่น'},
-   {id:'c2c', kind:'reflect', when:'หลังจบฉากบ้าน (ระหว่างเปลี่ยนฉาก)',
-    q:'ถ้าย้อนเวลาได้ คุณอยากให้แม่พูดประโยคไหนแทน?',
-    opts:[
-     {e:'🫂',t:'“ช่วงนี้เหนื่อยมากเลยใช่ไหมลูก”',r:'การยอมรับความเหนื่อยก่อน ทำให้ลูกรู้สึกว่ามีคนเห็น'},
-     {e:'👂',t:'“เล่าให้แม่ฟังได้นะ แม่ฟังอยู่”',r:'การฟังโดยไม่รีบแก้ปัญหา คือยาที่ดีที่สุดบางครั้ง'},
-     {e:'🌱',t:'“ลูกพยายามเต็มที่แล้ว แม่เห็นนะ”',r:'การเห็นความพยายาม ไม่ใช่แค่ผลลัพธ์ ช่วยเติมคุณค่าในใจได้มาก'},
-     {e:'🍚',t:'“มากินข้าวก่อน เดี๋ยวค่อยคุยกัน”',r:'บางทีความรักก็มาในรูปข้าวจานนึง ให้ใจได้พักก่อนคุย'}
-    ],
-    after:'ประโยคที่ “ถามถึงใจ” ก่อน “ถามถึงผล” ช่วยให้คนฟังรู้สึกปลอดภัยพอจะเล่าต่อ 💬'}
-  ]},
- {id:'s3', no:3, emo:'🩺', title:'หาหมอ', th:'ดำดิ่งลงใต้ภูเขาน้ำแข็งกับจิตแพทย์', place:'ห้องตรวจจิตบำบัด / คลินิกให้คำปรึกษา',
-  mood:['แกะรอยโลกภายใน 7 ระดับ','จากความละอายใจ','สู่คุณค่าในตนเอง'],
-  script:[
-   {n:'คนไข้มาหาหมอเพราะไม่รู้จะทำยังไงแล้ว'},
-   {w:'p',a:'เข้าห้องตรวจ',t:'...'},
-   {w:'d',t:'สวัสดีครับ คนไข้ชื่ออะไร มาหาวันนี้เพราะอะไรเหรอครับ'},
-   {w:'p',t:'ชื่อ [...] ครับ คือผม เอ่อ…'},
-   {w:'d',t:'…ค่อยๆ ได้ครับคนไข้ พื้นที่นี้มีแค่เรา เดี๋ยวหมอรับฟังเอง'},
-   {w:'p',t:'…อ่อ ครับ คือผมมาหาเพราะว่ารู้สึกช่วงที่ผ่านมามันเรียนไม่ค่อยได้แบบ ไม่สนุกเลยครับหมอ ปกติผมจะอ่านเรื่อยๆ อ่านทุกวันได้แต่แบบ เราอ่านหนังสือไปเยอะมาก แต่ผลสุดท้ายเราก็ตามเพื่อนตลอด'},
-   {w:'d',t:'แล้วจากตรงนี้มันส่งผลยังไงกับเราบ้างเหรอ'},
-   {w:'p',link:'behavior',t:'แล้วพอเรียนไม่ได้ก็ทำให้ตัวเองไม่อยากอ่านหนังสือหรือทำอะไรแล้ว เหมือนเราไม่อยากทำอะไรแล้ว เพราะทำไปก็คงทำไม่ได้'},
-   {n:'พฤติกรรม (Behavior): หลีกเลี่ยงการอ่านหนังสือ / ไม่อยากอ่านหนังสือหรือทำอะไรแล้ว'},
-   {w:'d',t:'ดูท่าแล้วเหมือนเราดูจะติดหล่มกับเรื่องนี้มากเลยนะ แล้วทั้งหมดนี้มันทำให้เรารู้สึกยังไงเหรอ'},
-   {w:'p',link:'feeling',t:'ก็ทำให้ตัวเองรู้สึกท้อลง เหมือนไม่รู้ว่าจะทำยังไงต่อ'},
-   {n:'ความรู้สึกทางใจ (Feeling): ท้อแท้'},
-   {w:'d',t:'นอกจากมีความรู้สึกท้อแล้วยังมีความรู้สึกอื่นที่อยากจะบอกหมอเพิ่มเติม สามารถบอกหมอได้เลยนะครับ'},
-   {w:'p',link:'feeling',t:'ก็คงเครียดด้วยเพราะเราเองก็อยากได้ผลการเรียนดีๆ เหมือนมันดูตันๆ ไปมาก เอาจริงๆ คือผมอ่ะอยากกลับไปอ่านได้ดีเหมือนเดิมอ่านได้ละเอียดเหมือนเดิมครับหมอ ผมไม่อยากโดนมองด้อยหรือผิดหวังผมแค่อยากอ่านหนังสือแบบมีความสุขเท่านั้นเอง!'},
-   {n:'ความรู้สึกทางใจ (Feeling): ท้อแท้ เหนื่อย เครียด'},
-   {w:'d',t:'ครับคนไข้ หมอเข้าใจว่าคนไข้ต้องการจุดนั้น เดี๋ยวเราค่อยเป็นค่อยไปกันนะ หมอจะอยู่ตรงนี้คอยช่วย คนไข้ค่อยๆ เล่าให้หมอฟังนะ'},
-   {w:'p',t:'อ่อ เอิ่ม ได้ครับ'},
-   {w:'d',t:'แล้วสิ่งนี้มันทำให้เรารู้สึกผิดหรือไม่ดีกับตัวเองยังไงบ้างไหม'},
-   {w:'p',link:'faf',t:'ก็ทำให้ตัวเองรู้สึกละอายใจครับ ว่าเราเป็นแบบนี้ก็เพราะตัวเอง เพราะถ้ามันมาจากการเรียนจริงๆ การอ่านเยอะขึ้นๆ ก็คงช่วยได้แล้ว'},
-   {n:'ความรู้สึกต่อความรู้สึก (Feeling about feeling): ละอายใจ (ashamed)'},
-   {w:'d',t:'แสดงว่าสิ่งนี้ก็คงทำให้เราเชื่อว่าเรามีความสามารถน้อยกว่าคนอื่นไหมนะครับ'},
-   {w:'p',link:'perception',t:'คิดว่าก็ด้วยครับ เหมือนเราคงไม่สามารถเข้าใจได้เหมือนเพื่อน แม้ว่าจะอ่านมาแค่ไหน'},
-   {n:'มุมมองหรือความเชื่อ (Perception/Belief): คิดว่าตัวเองคงไม่สามารถเข้าใจได้เหมือนเพื่อน แม้ว่าจะอ่านมาแค่ไหน'},
-   {w:'d',t:'ถ้าอย่างนั้นเราก็อาจจะมีความเชื่อด้วยหรือเปล่าว่าถ้าเราอยากทำข้อสอบได้มากๆ ก็คงต้องมาจากการอ่านเยอะๆ'},
-   {w:'p',link:'expectation',t:'คิดว่าก็เชื่อแบบนั้นนะครับ แต่ก่อนเวลาอ่านหนังสืออะไรเราก็ใช้การอ่านเยอะๆ ให้ไปทำข้อสอบได้ แต่พอเข้ามาเรียนในคณะแล้ว วิธีนี้ดูจะใช้ได้ผลน้อยลงๆ แต่เพื่อนที่ไม่ได้อ่านไปมากกลับทำได้'},
-   {n:'ความคาดหวัง (Expectation): อ่านมาก = เข้าใจมาก'},
-   {w:'d',t:'แล้วเราได้เอาความรู้สึกนี้มาผูกไว้กับตัวเองยังไงไหมนะครับ'},
-   {w:'p',link:'yearning',t:'เป็นคำถามที่ยากอยู่นะครับ ผมรู้สึกว่าจากที่ผมรู้สึกแบบนี้มา มันอาจจะเป็นที่ผมผูกคุณค่าไว้กับการเรียน พอเรียนได้ไม่ดีมาก ก็เลยรู้สึกว่าเราไม่มีคุณค่า'},
-   {n:'ความต้องการที่แท้จริง (Yearning): ความรู้สึกมีคุณค่า'},
-   {w:'d',link:'yearning',t:'ผมคิดว่าสิ่งที่คุณพูดมา หากมองลึกๆ แล้ว ผมคิดว่ามันมีสิ่งที่มนุษย์ทุกคนต้องการ และมีความบริสุทธิ์อยู่มากๆ นะ ผมคิดว่าทุกคนก็รู้สึกว่าอยากมีคุณค่าในตัวเอง และก็รวมไปถึงการอยากได้รับความยอมรับจากคนอื่นนะครับ ผมคิดว่าคุณ [...] ต้องมองให้เห็นสิ่งนี้ของตัวเองให้มากๆ นะ บางครั้ง ความรู้สึกที่ไม่ดีของเรา ก็อาจจะมาจากที่เราไม่ได้ตระหนักว่าเราเองก็เป็นมนุษย์คนนึง ที่ก็มีความรู้สึกต่างๆ ได้'},
-   {n:'ความต้องการที่แท้จริง (Yearning): การยอมรับ และความรู้สึกมีคุณค่า'},
-   {w:'p',t:'อย่างนั้นเหรอครับ แล้วถ้าผมเข้าใจตรงนี้แล้ว ผมควรจะทำยังไงต่อเหรอครับ'},
-   {w:'d',t:'ผมคิดว่าคุณก็สามารถมาลองดูส่วนอื่นๆ ของความคิดคุณก็ได้นะครับว่าสิ่งต่างๆ ที่คุณเชื่อ เช่นที่ว่าถ้าเราอ่านหนังสือเยอะแล้วจะเก่ง บางครั้งการที่เราจะเก่งอะไรสักอย่าง มันก็อาจจะไม่ได้ขึ้นอยู่กับแค่ชั่วโมงบิน แต่มันก็มีส่วนอื่นๆ อีกเช่น คุณเลือกวิธีบินยังไง หลังจากการบินแต่ละรอบ คุณได้ปรับปรุงอะไรในการบินบ้าง เพราะสุดท้ายแล้วการที่เราบินนานๆ ก็อาจจะไม่ได้หมายความว่าคุณจะบินได้ไกลนะครับ'},
-   {w:'p',a:'บินทะลุหน้าต่างออกไป',t:'ผมพอจะเห็นภาพมากขึ้นนิดนึงละครับ คิดว่าตัวเองก็คงต้องปรับอะไรหลายๆ อย่าง แต่สิ่งที่สำคัญที่สุดก็คงเป็นการเข้าใจตัวเองว่าสิ่งที่เราเป็นทุกข์นั้น มันก็เป็นสิ่งที่สวยงามได้เช่นกัน และตัวผมเองก็คงต้องใจดีกับตัวเองมากขึ้น ไม่เค้นตัวเองมากเกินไป และหาวิธีใหม่ๆ ในการจัดการตัวเอง… ผมคิดว่าผมสามารถไปต่อได้แล้วครับ!!! 🚀🕊️'}
-  ],
-  cps:[
-   {id:'c3a', kind:'layer', when:'ตอนหมอถามว่า “มันส่งผลยังไงกับเราบ้าง”',
-    who:'p', cue:'พอเรียนไม่ได้ก็ทำให้ตัวเองไม่อยากอ่านหนังสือหรือทำอะไรแล้ว … เพราะทำไปก็คงทำไม่ได้',
-    q:'นี่คือสิ่งที่คนรอบตัว “มองเห็นได้” จากภายนอก — ยอดภูเขาน้ำแข็ง! ชั้นนี้ชื่อว่า?',
-    opts:['behavior','feeling','expectation','yearning'], ans:'behavior',
-    hints:{feeling:'มีความรู้สึกปนอยู่ แต่สิ่งที่ “คนอื่นเห็น” คืออะไรนะ?', expectation:'อันนี้อยู่ใต้น้ำลึกเลย ลองขึ้นมาบนผิวน้ำดู', yearning:'ลึกเกินไป! ลองดูที่ยอดภูเขา'},
-    aha:'ใช่แล้ว! <b>พฤติกรรม</b> — หลีกเลี่ยงการอ่านหนังสือ ไม่อยากทำอะไร คนภายนอกอาจเห็นแค่ “ขี้เกียจ” แต่ใต้น้ำมีอะไรอีกเยอะมาก 🧊',
-    ev:'หลีกเลี่ยงการอ่านหนังสือ ไม่อยากทำอะไรแล้ว “เพราะทำไปก็คงทำไม่ได้”'},
-   {id:'c3b', kind:'layer', when:'ตอนหมอถามว่า “ทั้งหมดนี้ทำให้รู้สึกยังไง”',
-    who:'p', cue:'ก็ทำให้ตัวเองรู้สึกท้อลง … ก็คงเครียดด้วย … ผมแค่อยากอ่านหนังสือแบบมีความสุขเท่านั้นเอง!',
-    q:'หมอเริ่มพาดำลงใต้น้ำ 🤿 ตอนนี้เราอยู่ชั้นไหน?',
-    opts:['body','feeling','faf','perception'], ans:'feeling',
-    hints:{body:'ยังไม่ใช่ร่างกาย ลองฟังคำว่า “ท้อ” “เครียด” ดู', faf:'ใกล้แล้ว แต่ยังไม่ซ้อนสองชั้น — นี่คือความรู้สึกแรกก่อน', perception:'ยังไม่ถึงความคิด ลองดูความรู้สึกก่อนนะ'},
-    aha:'เก่งมาก! <b>อารมณ์ / ความรู้สึก</b> — ท้อแท้ เหนื่อย เครียด ชั้นนี้เคยโผล่มาแล้วในฉากแรก ตอนนี้เราเห็นมันชัดขึ้นอีก 🔍',
-    ev:'ท้อแท้ เหนื่อย เครียด — “แค่อยากอ่านหนังสือแบบมีความสุข”'},
-   {id:'c3c', kind:'layer', when:'ตอนหมอถามว่า “ทำให้รู้สึกผิดหรือไม่ดีกับตัวเองไหม”',
-    who:'p', cue:'ก็ทำให้ตัวเองรู้สึกละอายใจครับ ว่าเราเป็นแบบนี้ก็เพราะตัวเอง',
-    q:'ไม่ใช่แค่ท้อ… แต่ “รู้สึกไม่ดีที่ตัวเองท้อ” ด้วย ชั้นซ้อนชั้นแบบนี้คือ?',
-    opts:['feeling','faf','perception','body'], ans:'faf',
-    hints:{feeling:'ลึกกว่านั้นอีกนิด! นี่คือความรู้สึก “ต่อ” ความรู้สึก', perception:'ใกล้แล้ว แต่ “ละอายใจ” ยังเป็นความรู้สึกอยู่นะ', body:'ลองมองข้างในใจดูนะ'},
-    aha:'สุดยอด! <b>ความรู้สึกต่อความรู้สึก</b> — ละอายใจที่ตัวเองท้อ เหมือนโดนซ้ำสองชั้น ทั้งเจ็บ และโทษตัวเองที่เจ็บ',
-    ev:'ละอายใจ — “เราเป็นแบบนี้ก็เพราะตัวเอง”'},
-   {id:'c3d', kind:'layer', when:'ตอนหมอถามว่า “เชื่อว่ามีความสามารถน้อยกว่าคนอื่นไหม”',
-    who:'p', cue:'เหมือนเราคงไม่สามารถเข้าใจได้เหมือนเพื่อน แม้ว่าจะอ่านมาแค่ไหน',
-    q:'“เรื่องเล่า” ที่คนไข้บอกตัวเองซ้ำๆ อยู่ในชั้นไหน?',
-    opts:['faf','perception','expectation','yearning'], ans:'perception',
-    hints:{faf:'ลงมาอีกนิด! นี่ไม่ใช่ความรู้สึกแล้ว แต่เป็น “ความเชื่อ”', expectation:'ใกล้มาก! แต่นี่คือมุมมองที่มีต่อตัวเอง ไม่ใช่สิ่งที่หวัง', yearning:'ยังไม่ลึกถึงก้นบึ้งนะ'},
-    aha:'ถูกต้อง! <b>ความคิด / มุมมอง</b> — “ฉันคงเข้าใจไม่ได้เหมือนเพื่อน” ความเชื่อนี้เริ่มก่อตัวตั้งแต่ฉากบ้าน และตอนนี้ถูกพูดออกมาชัดๆ',
-    ev:'เชื่อว่า “คงเข้าใจไม่ได้เหมือนเพื่อน แม้จะอ่านมาแค่ไหน”'},
-   {id:'c3e', kind:'layer', when:'ตอนหมอถามว่า “อยากทำข้อสอบได้ ต้องมาจากการอ่านเยอะๆ ไหม”',
-    who:'p', cue:'แต่ก่อน…เราก็ใช้การอ่านเยอะๆ ให้ไปทำข้อสอบได้ แต่พอเข้ามาเรียนในคณะแล้ว วิธีนี้ดูจะใช้ได้ผลน้อยลงๆ',
-    q:'สมการ “อ่านมาก = เข้าใจมาก” กลับมาอีกครั้ง! มันอยู่ชั้นไหนนะ?',
-    opts:['behavior','perception','expectation','yearning'], ans:'expectation',
-    hints:{behavior:'อันนี้อยู่ใต้น้ำลึกแล้ว ไม่ใช่สิ่งที่มองเห็น', perception:'ใกล้มาก! แต่สมการนี้คือสิ่งที่เขา “หวัง” ว่าจะเกิด', yearning:'อีกชั้นเดียว! แต่ยังไม่ถึงตรงนั้น'},
-    aha:'จำได้แม่น! <b>ความคาดหวัง</b> — สมการเก่าที่เคยใช้ได้ผลตอนมัธยม แต่ใช้ไม่ได้ในโลกใหม่ ความคาดหวังเลยกลายเป็นความผิดหวัง',
-    ev:'สมการเก่าที่เคยได้ผล แต่ใช้ไม่ได้แล้วในคณะ'},
-   {id:'c3f', kind:'layer', when:'ตอนหมอถามว่า “เอาความรู้สึกนี้มาผูกกับตัวเองยังไง”',
-    who:'p', cue:'มันอาจจะเป็นที่ผมผูกคุณค่าไว้กับการเรียน พอเรียนได้ไม่ดีมาก ก็เลยรู้สึกว่าเราไม่มีคุณค่า',
-    q:'ลึกที่สุดแล้ว… สิ่งที่หัวใจ “โหยหา” จริงๆ อยู่ในชั้นไหน? 💫',
-    opts:['faf','expectation','yearning','behavior'], ans:'yearning',
-    hints:{faf:'ลึกลงไปอีก! ใต้ความละอายใจยังมีอีกชั้น', expectation:'อีกชั้นเดียว! ใต้ความคาดหวังคือสิ่งที่หัวใจต้องการจริงๆ', behavior:'ดำลงไปให้สุดเลย!'},
-    aha:'ถึงก้นบึ้งแล้ว! <b>ความปรารถนา</b> — อยากรู้สึกมีคุณค่า และอยากได้รับการยอมรับ เป็นสิ่งที่มนุษย์ทุกคนต้องการ และบริสุทธิ์มากๆ 💗',
-    ev:'อยากรู้สึกมีคุณค่า และอยากได้รับการยอมรับ (เคยผูกคุณค่าไว้กับผลการเรียน)'},
-   {id:'c3g', kind:'reflect', when:'ตอนหมอพูดเรื่อง “ชั่วโมงบิน”',
-    who:'d', cue:'การที่เราบินนานๆ ก็อาจจะไม่ได้หมายความว่าคุณจะบินได้ไกลนะครับ',
-    q:'ถ้าการเรียนคือ “การบิน” ✈️ นอกจากชั่วโมงบินแล้ว อะไรช่วยให้บินได้ไกลขึ้น?',
-    opts:[
-     {e:'🧭',t:'เลือกวิธีบินที่เหมาะกับตัวเอง',r:'แต่ละคนมีปีกไม่เหมือนกัน — สรุปเป็นภาพ ติวเพื่อน ทำโจทย์ ลองหาแบบที่ใช่!'},
-     {e:'🔁',t:'ทบทวนหลังบินแต่ละรอบ',r:'บินเสร็จแล้วถามตัวเองว่า “รอบนี้อะไรเวิร์ก อะไรไม่เวิร์ก” = บินฉลาดขึ้นทุกรอบ'},
-     {e:'🔋',t:'พักเติมพลังบ้าง',r:'นกที่ไม่เคยพัก ก็บินไม่ไกล การพักไม่ใช่การยอมแพ้นะ'},
-     {e:'🐦',t:'ชวนเพื่อนบินไปด้วยกัน',r:'ฝูงนกบินเป็นรูปตัว V เพื่อช่วยกันต้านลม — เราไม่ต้องบินคนเดียว'}
-    ],
-    after:'ทุกคำตอบถูกหมด! และสิ่งสำคัญที่สุด… คือการใจดีกับนักบินคนนี้ — ตัวเราเอง 🕊️'}
-  ]}
-];
-const ALL_CPS = SCENES.flatMap(s=>s.cps.map(c=>({...c,scene:s.id})));
-const LAYER_CPS = ALL_CPS.filter(c=>c.kind==='layer');
-
-const FINAL_OPTS = [
-  {e:'🌙',t:'เหนื่อยได้ พักได้นะ'},
-  {e:'🌱',t:'เราเก่งในแบบของเรา'},
-  {e:'🫶',t:'ใจดีกับตัวเองหน่อยนะ'},
-  {e:'🤝',t:'ไม่ต้องสู้คนเดียวก็ได้'}
+  {id:'behavior', name:'พฤติกรรม', emo:'🚶', tag:'เหนือน้ำ · สิ่งที่คนอื่นเห็น', tint:'#ffffff', wt:60, wb:72,
+   cue:'ฉาก 3 · “ทำไปก็คงทำไม่ได้”', q:'คนรอบตัวมองเห็นอะไรจากคนไข้?',
+   opts:['ไม่อยากอ่านหนังสือ ไม่อยากทำอะไรแล้ว','อยากรู้สึกมีคุณค่า','เชื่อว่าอ่านมาก = เข้าใจมาก'], ans:0,
+   aha:'คนอื่นอาจเห็นแค่ “ขี้เกียจ” แต่ใต้น้ำยังมีอีกเยอะ'},
+  {id:'body', name:'ความรู้สึกทางกาย', emo:'💓', tint:'#ffe6dc', wt:72, wb:84,
+   cue:'ฉาก 1 · ห้อง TBL', q:'ตอนทำ TBL ร่างกายคนไข้เป็นยังไง?',
+   opts:['แย่งเพื่อนพูดไม่หยุด','นิ่ง เกร็ง ถอยออกจากวง','นั่งดูบอลชิวๆ'], ans:1,
+   aha:'ร่างกายรู้ก่อนเสมอ ว่าใจไม่โอเค'},
+  {id:'feeling', name:'อารมณ์ความรู้สึก', emo:'🌧️', tint:'#ffdcea', wt:84, wb:92,
+   cue:'ฉาก 0 · “เครียดจะตายอยู่แล้ว”', q:'ข้างในใจ คนไข้รู้สึกยังไง?',
+   opts:['ชิว สบายๆ','ตื่นเต้น ดีใจ','ท้อ เหนื่อย เครียด'], ans:2,
+   aha:'ความเครียดสะสมทั้งสัปดาห์ จนระเบิดใส่เพื่อน'},
+  {id:'faf', name:'ความรู้สึกต่อความรู้สึก', emo:'🪞', tint:'#ece0ff', wt:92, wb:97,
+   cue:'ฉาก 3 · “รู้สึกละอายใจครับ”', q:'แล้วเขารู้สึกยังไง กับการที่ตัวเองท้อ?',
+   opts:['ละอายใจ โทษตัวเอง','ภูมิใจในตัวเอง','ไม่รู้สึกอะไรเลย'], ans:0,
+   aha:'เจ็บแล้วยังโทษตัวเองที่เจ็บ = หนักเป็นสองเท่า'},
+  {id:'perception', name:'ความคิด / ความเชื่อ', emo:'💭', tint:'#dde7ff', wt:97, wb:98,
+   cue:'ฉาก 2 · “แล้วผมล่ะแม่!”', q:'คนไข้บอกตัวเองว่าอะไร?',
+   opts:['“เดี๋ยวก็ผ่านไป”','“อ่านเท่าไหร่ ก็คงไม่เข้าใจเหมือนเพื่อน”','“เพื่อนก็ไม่ได้เก่งกว่าเรา”'], ans:1,
+   aha:'เอาตัวเองไปเทียบกับทุกคน จนเชื่อว่าสู้ไม่ได้'},
+  {id:'expectation', name:'ความคาดหวัง', emo:'🎯', tint:'#d6f6ea', wt:98, wb:93,
+   cue:'ฉาก 1 · “ทำไมยังไม่ได้อีก”', q:'“สมการลับ” ในใจคนไข้คือ?',
+   opts:['นอนเยอะ = ฉลาด','อ่านมาก = เข้าใจมาก','เล่นเกม = เก่ง'], ans:1,
+   aha:'สมการที่เคยได้ผลตอนมัธยม ใช้ไม่ได้ในโลกใหม่'},
+  {id:'yearning', name:'ความปรารถนา', emo:'💗', tint:'#ffdff1', wt:93, wb:82,
+   cue:'ฉาก 3 · “ผูกคุณค่าไว้กับการเรียน”', q:'ลึกๆ หัวใจเขาต้องการอะไร?',
+   opts:['อยากเรียนได้ A อย่างเดียว','อยากรู้สึกมีคุณค่า และได้รับการยอมรับ','อยากให้เพื่อนทำไม่ได้บ้าง'], ans:1,
+   aha:'สิ่งที่ทุกคนต้องการ และบริสุทธิ์มากๆ'},
+  {id:'self', name:'ตัวตน', emo:'✨', tint:'#fff1b8', wt:82, wb:70, core:true,
+   cue:'ตอนจบ · “ผมไปต่อได้แล้วครับ!!!”', q:'ก่อนกลับบ้าน… อยากบอกอะไรกับตัวเอง?',
+   opts:['เหนื่อยได้ พักได้นะ 🌙','เราเก่งในแบบของเรา 🌱','ใจดีกับตัวเองหน่อยนะ 🫶','ไม่ต้องสู้คนเดียวก็ได้ 🤝']}
 ];
 
-/* ---------- state ---------- */
-const KEY = 'satir-iceberg-v1';
-const blank = () => ({start:{}, ans:{}, go:{}, final:null, open:{}});
-let S = blank();
-try{ const raw = localStorage.getItem(KEY); if(raw) S = Object.assign(blank(), JSON.parse(raw)); }catch(e){}
+/* state */
+const KEY = 'iceberg-v2';
+let S = {solved:{}, self:null};
+try{ const r = localStorage.getItem(KEY); if(r) S = Object.assign(S, JSON.parse(r)); }catch(e){}
 const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
-let fresh = null;   // id of element to animate once
+const isDone = l => l.core ? S.self !== null : !!S.solved[l.id];
+const activeIdx = () => LAYERS.findIndex(l => !isDone(l));
 
-const solved = c => !!(S.ans[c.id] && S.ans[c.id].done);
-const sceneDone = s => !!S.go[s.cps[s.cps.length-1].id];
-const sceneUnlocked = i => i===0 || sceneDone(SCENES[i-1]);
-const finaleOn = () => sceneDone(SCENES[SCENES.length-1]);
-function unlockedSet(){
-  const u = new Set(LAYER_CPS.filter(solved).map(c=>c.ans));
-  if(finaleOn()) u.add('self');
-  return u;
+/* build slices */
+function clipFor(wt, wb, k){
+  const j = k % 2 ? 1.4 : -1.2, mid = (wt + wb) / 4;
+  return `polygon(${50-wt/2}% 0,${50+wt/2}% 0,${50+mid+j}% 50%,${50+wb/2}% 100%,${50-wb/2}% 100%,${50-mid-j}% 50%)`;
 }
-function evidence(id){
-  const out = [];
-  for(const s of SCENES) for(const c of s.cps){
-    if(!solved(c)) continue;
-    if(c.kind==='layer' && c.ans===id) out.push({s, t:c.ev});
-    if(c.kind==='reflect' && c.ev && c.ev.layer===id) out.push({s, t:c.ev.t});
-  }
-  if(id==='self' && finaleOn()) out.push({s:SCENES[3], t:'“ตัวผมเองก็คงต้องใจดีกับตัวเองมากขึ้น ไม่เค้นตัวเองมากเกินไป… ผมคิดว่าผมสามารถไปต่อได้แล้วครับ!!!”'});
-  return out;
-}
+LAYERS.forEach((l, k) => {
+  const el = document.createElement('section');
+  el.className = 'slice' + (k === 0 ? ' above' : '') + (l.core ? ' core' : '');
+  el.id = 'L-' + l.id;
+  el.style.setProperty('--clip', clipFor(l.wt, l.wb, k));
+  el.style.setProperty('--cw', Math.min(l.wt, l.wb) - 9);
+  el.style.setProperty('--tint', l.tint);
+  el.style.setProperty('--deep0', (0.04 + k * 0.03).toFixed(2));
+  el.style.setProperty('--deep1', (0.08 + k * 0.035).toFixed(2));
+  el.innerHTML = '<div class="ice"><div class="in"></div></div>';
+  document.getElementById(k === 0 ? 'top' : 'deep').appendChild(el);
+});
 
-/* ---------- iceberg svg ---------- */
-const BERG = 'M180,44 L214,78 L238,120 L292,180 L326,260 L330,330 L306,410 L262,470 L210,522 L180,536 L150,522 L98,470 L54,410 L30,330 L34,260 L68,180 L122,120 L146,78 Z';
-function bergSVG(popId){
-  const u = unlockedSet();
-  let bands = '', labels = '';
-  for(const l of LAYERS){
-    const [y0,y1] = l.band, open = u.has(l.id), mid = (y0+y1)/2 + (l.id==='self'?-4:0);
-    bands += `<g class="band${popId===l.id?' pop':''}" data-act="layer" data-id="${l.id}" role="button" tabindex="0" aria-label="${open?l.th:'ชั้นที่ยังไม่เปิด'}">
-      <rect x="0" y="${y0}" width="360" height="${y1-y0}" ${open?`fill="${l.color}"`:`class="lk" `}/>
-      ${open?'':`<rect x="0" y="${y0}" width="360" height="${y1-y0}" fill="url(#fog)"/>`}
-      <line x1="0" x2="360" y1="${y1}" y2="${y1}" class="berg-line" opacity=".7"/>
-    </g>`;
-    labels += open
-      ? `<text class="lbl" x="180" y="${mid}" text-anchor="middle" pointer-events="none">${l.emo} ${l.th}</text>
-         <text class="lbl-en" x="180" y="${mid+14}" text-anchor="middle" pointer-events="none">${l.en}</text>`
-      : `<text class="lbl-lock" x="180" y="${mid+5}" text-anchor="middle" pointer-events="none">🔒 ${l.id==='self'?'แก่นกลาง ???':'ชั้นที่ '+L[l.id].n+' ???'}</text>`;
+function inner(l, k){
+  const n = k + 1, act = activeIdx();
+  if(isDone(l)){
+    if(l.core) return `<div class="heart">💛</div>
+      <h2 class="name">${l.emo} ${l.name} ${l.emo}</h2>
+      <div class="sticker">ถึงตัวฉัน: ${l.opts[S.self]}</div>
+      <p class="line">“ผมคิดว่าผมสามารถไปต่อได้แล้วครับ!!!” 🚀🕊️</p>
+      <button class="again" data-act="reself">เปลี่ยนข้อความ</button>`;
+    return `<span class="tag">ชั้น ${n}${l.tag ? ' · เหนือน้ำ' : ''}</span>
+      <h2 class="name"><span class="e">${l.emo}</span> ${l.name}</h2>
+      <div class="got">✓ ${l.opts[l.ans]}</div>
+      <p class="aha">${l.aha}</p>`;
   }
-  return `<svg viewBox="0 0 360 548" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ภูเขาน้ำแข็ง ${u.size} ชั้นที่เปิดแล้ว">
-  <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sky-a"/><stop offset="1" class="sky-b"/></linearGradient>
-    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sea-a"/><stop offset="1" class="sea-b"/></linearGradient>
-    <clipPath id="bergClip"><path d="${BERG}"/></clipPath>
-    <pattern id="fog" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="4" height="10" fill="#ffffff" opacity=".18"/></pattern>
-  </defs>
-  <rect width="360" height="120" fill="url(#sky)"/>
-  <rect y="120" width="360" height="428" fill="url(#sea)"/>
-  <text x="34" y="40" font-size="22">☁️</text><text x="300" y="30" font-size="20">☀️</text>
-  <g clip-path="url(#bergClip)">${bands}</g>
-  <path d="${BERG}" class="berg-line"/>
-  ${labels}
-  <path class="wave" d="M0,120 q15,-7 30,0 t30,0 t30,0 t30,0 t30,0 t30,0 t30,0 t30,0 t30,0 t30,0 t30,0 t30,0"/>
-  <text x="180" y="44" font-size="26" text-anchor="middle" pointer-events="none">🐧</text>
-  <text x="332" y="205" font-size="15" pointer-events="none">🐟</text>
-  <text x="14" y="470" font-size="14" pointer-events="none">🫧</text>
-  <text x="330" y="500" font-size="16" pointer-events="none">🐠</text>
-</svg>`;
-}
-
-/* ---------- render ---------- */
-const $ = id => document.getElementById(id);
-const lineHTML = ln => {
-  if(ln.h) return `<div class="sec">— ${ln.h} —</div>`;
-  if(ln.n) return `<div class="snote">📌 ${ln.n}</div>`;
-  const w = WHO[ln.w], lk = ln.link ? L[ln.link] : null;
-  return `<div class="line${w.me?' me':''}"><div class="av">${w.e}</div><div class="bub"><span class="nm">${w.nm}</span>${ln.a?`<span class="act">(${ln.a})</span>`:''}${ln.t}${lk?`<br><span class="link" style="background:${lk.color}">🧊 จุดเชื่อมโยง: ${lk.th}</span>`:''}</div></div>`;
-};
-
-function cueHTML(c){
-  if(!c.cue) return '';
-  const w = WHO[c.who];
-  return `<div class="cue"><div class="who">${w.e} ${w.nm}${c.act?` <span class="act">(${c.act})</span>`:''}</div><q>${c.cue}</q></div>`;
-}
-
-function cpHTML(c, isLast, s){
-  const a = S.ans[c.id], done = solved(c);
-  let opts = '';
-  if(c.kind==='layer'){
-    opts = c.opts.map(id=>{
-      const l = L[id], cls = done ? (id===c.ans?'right':'dim') : '';
-      return `<button class="opt ${cls}" data-act="pick" data-cp="${c.id}" data-v="${id}" ${done?'disabled':''}><span class="e">${l.emo}</span><span>${l.th}<small>${l.en}</small></span></button>`;
-    }).join('');
-  } else {
-    opts = c.opts.map((o,i)=>{
-      const cls = done ? (a.pick===i?'picked':'dim') : '';
-      return `<button class="opt ${cls}" data-act="pick" data-cp="${c.id}" data-v="${i}" ${done?'disabled':''}><span class="e">${o.e}</span><span>${o.t}</span></button>`;
-    }).join('');
+  if(k !== act){
+    return `<div class="lockt">❄️ ${l.core ? 'แก่นกลาง' : 'ชั้น ' + n} ❄️</div><div class="locks">🔒 ตอบชั้นบนก่อนนะ</div>`;
   }
-  let result = '';
-  if(done){
-    if(c.kind==='layer'){
-      result = `<div class="aha"><b class="t">${a.tries===0?'🎉 ถูกตั้งแต่ครั้งแรก!':'✅ เจอแล้ว!'}</b>${c.aha}</div>`;
-    } else {
-      result = `<div class="aha soft"><b class="t">${c.opts[a.pick].e} ${c.opts[a.pick].r}</b>${c.after?`<div style="margin-top:6px">${c.after}</div>`:''}</div>`;
-    }
-  }
-  const lastInScene = s.cps[s.cps.length-1].id===c.id;
-  const goBtn = done && !S.go[c.id]
-    ? `<button class="go-btn" data-act="go" data-cp="${c.id}">${lastInScene ? (s.no===3?'จบละคร ✨ ดูภูเขาน้ำแข็งทั้งลูก':'จบฉากนี้แล้ว ✓ ไปฉากถัดไป') : 'ละครเดินต่อแล้ว ▶ จุดถัดไป'}</button>` : '';
-  return `<div class="cp${!done?' current':''}${fresh===c.id?' fresh':''}" id="cp-${c.id}">
-    <div class="when">🎭 รอฟังบนเวที · ${c.when}</div>
-    ${cueHTML(c)}
-    <div class="qtext">🫧 ${c.q}</div>
+  const opts = l.opts.map((o, i) => `<button class="opt" data-act="pick" data-i="${i}">${o}</button>`).join('');
+  return `<span class="tag">${l.core ? 'แก่นกลาง · ลึกที่สุด' : (l.tag || 'ชั้น ' + n + ' · ใต้น้ำ')}</span>
+    ${l.core ? '<div class="heart" style="margin-top:8px">🤍</div>' : ''}
+    <h2 class="name"><span class="e">${l.emo}</span> ${l.name}</h2>
+    <div class="cue">🎭 ${l.cue}</div>
+    <p class="q">${l.q}</p>
     <div class="opts">${opts}</div>
-    <div class="hint" hidden></div>
-    ${result}${goBtn}
-  </div>`;
+    <div class="oops"></div>`;
 }
 
-function sceneHTML(s, i){
-  const unlocked = sceneUnlocked(i), started = S.start[s.id];
-  const nDone = s.cps.filter(solved).length;
-  let body = '';
-  if(unlocked){
-    if(!started){
-      body = `<button class="start-btn" data-act="start" data-s="${s.id}">▶ ฉาก ${s.no} เริ่มแล้วบนเวที!</button>`;
-    } else {
-      body = `<details class="script" data-s="${s.id}" ${S.open[s.id]?'open':''}>
-        <summary>📜 บทละครฉากนี้ <span style="font-weight:400;color:var(--muted);font-size:13px">(แอบอ่านได้ ถ้าตามไม่ทัน)</span></summary>
-        <div class="lines">${s.script.map(lineHTML).join('')}</div></details>`;
-      for(let k=0;k<s.cps.length;k++){
-        const c = s.cps[k];
-        if(k>0 && !S.go[s.cps[k-1].id]) break;
-        body += cpHTML(c, false, s);
-      }
-    }
-  }
-  const status = !unlocked ? '🔒' : (sceneDone(s) ? '✅' : (started ? `${nDone}/${s.cps.length}` : 'พร้อม'));
-  return `<section class="scene${unlocked?'':' locked'}" id="scene-${s.id}">
-    <div class="scene-head">
-      <div class="badge">${s.emo}</div>
-      <div style="flex:1;min-width:0">
-        <div class="no">ฉาก ${s.no} · ${s.title} <span class="pill" style="margin-left:6px;font-size:12px;padding:1px 8px">${status}</span></div>
-        <h2>${s.th}</h2>
-        <div class="place">📍 ${s.place}</div>
-        <div class="chips">${s.mood.map(m=>`<span class="chip">${m}</span>`).join('')}</div>
-      </div>
-    </div>
-    ${unlocked?'':`<div class="lockmsg">🔒 ฉากนี้จะเปิดเมื่อจบฉากก่อนหน้า</div>`}
-    <div class="scene-body">${body}</div>
-  </section>`;
-}
-
-function finaleHTML(){
-  if(!finaleOn()) return '';
-  const pick = S.final;
-  const first = LAYER_CPS.filter(c=>S.ans[c.id]&&S.ans[c.id].tries===0).length;
-  return `<section class="finale${fresh==='finale'?'':''}" id="finale">
-    <div class="big">🧊✨🕊️</div>
-    <h2>เปิดครบทุกชั้นแล้ว!</h2>
-    <p style="margin:0;color:var(--muted)">ใต้ชั้นที่ลึกที่สุด เราเจอ <b style="color:var(--ink)">✨ ตัวตน (Self)</b> — คุณค่าที่มีอยู่แล้วโดยไม่ต้องพิสูจน์</p>
-    <blockquote>“สิ่งที่สำคัญที่สุดก็คงเป็นการเข้าใจตัวเองว่าสิ่งที่เราเป็นทุกข์นั้น มันก็เป็นสิ่งที่สวยงามได้เช่นกัน และตัวผมเองก็คงต้องใจดีกับตัวเองมากขึ้น… ผมคิดว่าผมสามารถไปต่อได้แล้วครับ!!!” 🚀</blockquote>
-    <p style="margin:0">🐧 คุณดำน้ำได้แม่นตั้งแต่ครั้งแรก <b>${first}/${LAYER_CPS.length}</b> จุด</p>
-    <div class="sumlist">
-      ${LAYERS.map(l=>{const ev=evidence(l.id);return `<div class="sumrow" data-act="layer" data-id="${l.id}"><span class="sw" style="background:${l.color}">${l.emo}</span><span><b>${l.th} <span style="font-weight:400;color:var(--muted)">· ${l.en}</span></b>${ev.length?ev[ev.length-1].t:''}</span></div>`;}).join('')}
-    </div>
-    <div class="qtext" style="margin-top:6px">💌 ก่อนกลับบ้าน… อยากบอกอะไรกับตัวเองวันนี้?</div>
-    <div class="opts" style="margin-top:10px">${FINAL_OPTS.map((o,i)=>`<button class="opt ${pick===null?'':(pick===i?'picked':'dim')}" data-act="final" data-v="${i}"><span class="e">${o.e}</span><span>${o.t}</span></button>`).join('')}</div>
-    ${pick!==null?`<div class="sticker">${FINAL_OPTS[pick].e} ถึงตัวฉัน: ${FINAL_OPTS[pick].t}</div>`:''}
-    <div class="note-card">💙 ถ้าคุณหรือเพื่อนกำลังรู้สึกหนักใจ การคุยกับคนที่ไว้ใจ หรือผู้เชี่ยวชาญ ช่วยได้เสมอ · สายด่วนสุขภาพจิต <b>1323</b> (ฟรี 24 ชม.)</div>
-  </section>`;
-}
-
-let popNext = null;
 function render(){
-  $('story').innerHTML = SCENES.map(sceneHTML).join('') + finaleHTML();
-  $('berg').innerHTML = bergSVG(popNext);
-  const u = unlockedSet(), n = [...u].filter(x=>x!=='self').length;
-  const txt = u.has('self') ? '✨ ครบ!' : `${n}/7`;
-  $('topCount').textContent = '🧊 ' + txt;
-  $('fabCount').textContent = txt;
-  $('heroBar').style.width = (u.size/8*100)+'%';
-  $('panelCap').textContent = u.size ? 'แตะแต่ละชั้นเพื่อดูรายละเอียด' : 'ยังมืดอยู่… ตอบคำถามเพื่อเปิดชั้นแรก!';
-  fresh = null; popNext = null;
+  const act = activeIdx();
+  LAYERS.forEach((l, k) => {
+    const el = document.getElementById('L-' + l.id);
+    el.classList.toggle('solved', isDone(l));
+    el.classList.toggle('active', k === act);
+    el.classList.toggle('locked', !isDone(l) && k !== act);
+    el.querySelector('.in').innerHTML = inner(l, k);
+  });
+  const n = LAYERS.filter(isDone).length;
+  document.getElementById('meter').textContent = n === 8 ? '🧊 ครบแล้ว! 💛' : `🧊 ${n}/8`;
 }
 
-/* ---------- ui helpers ---------- */
-let toastTimer;
-function toast(html, withOpen){
-  const t = $('toast');
-  t.innerHTML = html + (withOpen && isMobile() ? ` <button data-act="openSheet">ดู 🧊</button>` : '');
-  t.classList.add('show'); clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>t.classList.remove('show'), 3200);
-}
-const isMobile = () => matchMedia('(max-width: 900px)').matches;
-function openSheet(){ $('panel').classList.add('open'); $('backdrop').classList.add('open'); $('toast').classList.remove('show'); }
-function closeSheet(){ $('panel').classList.remove('open'); $('backdrop').classList.remove('open'); }
-function openLayer(id){
-  const l = L[id], u = unlockedSet();
-  if(!u.has(id)){ toast(id==='self' ? '✨ แก่นกลางจะเปิดตอนจบละครนะ' : '🔒 ชั้นนี้ยังไม่ถูกค้นพบ ดูละครต่อนะ 🐧'); return; }
-  const ev = evidence(id);
-  $('modalCard').innerHTML = `
-    <div class="modal-top"><div class="sw" style="background:${l.color}">${l.emo}</div>
-      <div style="flex:1"><small>${id==='self'?'แก่นกลาง':'ชั้นที่ '+l.n}</small><h3>${l.th}</h3><small>${l.en}</small></div>
-      <button class="icon-btn" data-act="closeModal" aria-label="ปิด">✕</button></div>
-    <p style="margin:12px 0 0">${l.def}</p>
-    <div class="ask">🪞 ถามตัวเอง: “${l.ask}”</div>
-    <b>🔎 สิ่งที่เราค้นพบในตัวคนไข้</b>
-    <ul class="ev">${ev.map(e=>`<li><span>${e.s.emo} ฉาก ${e.s.no} · ${e.s.th}</span>${e.t}</li>`).join('')}</ul>`;
-  $('modal').classList.add('open');
-}
-const scrollTo = (id, block='center') => requestAnimationFrame(()=>{ const el=$(id); if(el) el.scrollIntoView({behavior:'smooth', block}); });
-
-/* ---------- events ---------- */
-document.addEventListener('click', e=>{
-  const el = e.target.closest('[data-act]'); if(!el) return;
-  const act = el.dataset.act;
-  if(act==='closeModal'){ if(e.target===el || el.tagName==='BUTTON') $('modal').classList.remove('open'); return; }
-  if(act==='openSheet') return openSheet();
-  if(act==='closeSheet') return closeSheet();
-  if(act==='layer') return openLayer(el.dataset.id);
-  if(act==='start'){
-    S.start[el.dataset.s] = true; const s = SCENES.find(x=>x.id===el.dataset.s);
-    fresh = s.cps[0].id; save(); render(); scrollTo('scene-'+s.id, 'start'); return;
+function bubbles(el){
+  for(let i = 0; i < 12; i++){
+    const b = document.createElement('span');
+    b.className = 'pop';
+    const s = 6 + Math.random() * 14;
+    b.style.cssText = `left:${15 + Math.random() * 70}%;width:${s}px;height:${s}px;animation-delay:${Math.random() * .4}s`;
+    el.appendChild(b);
+    setTimeout(() => b.remove(), 1800);
   }
-  if(act==='pick'){
-    const c = ALL_CPS.find(x=>x.id===el.dataset.cp);
-    if(solved(c)) return;
-    const a = S.ans[c.id] || (S.ans[c.id] = {tries:0});
-    if(c.kind==='layer'){
-      const v = el.dataset.v;
-      if(v !== c.ans){
-        a.tries++; save();
-        el.classList.remove('wrong'); void el.offsetWidth; el.classList.add('wrong');
-        const h = $('cp-'+c.id).querySelector('.hint');
-        h.hidden = false; h.innerHTML = '🤔 ' + ((c.hints&&c.hints[v]) || 'ยังไม่ใช่ ลองใหม่อีกทีนะ');
-        return;
-      }
-      const wasOpen = unlockedSet().has(c.ans);
-      a.done = true; save();
-      popNext = c.ans;
-      render();
-      const l = L[c.ans];
-      toast(wasOpen ? `🔍 ชั้น “${l.th}” ชัดขึ้นอีกนิด!` : `🧊 เปิดชั้นใหม่: ${l.emo} ${l.th}!`, true);
-      if(isMobile()){ $('fab').classList.remove('pulse'); void $('fab').offsetWidth; $('fab').classList.add('pulse'); }
-    } else {
-      a.pick = +el.dataset.v; a.done = true; save(); render();
-      if(c.ev) toast(`🔍 ชั้น “${L[c.ev.layer].th}” ชัดขึ้นอีกนิด!`, true);
+}
+function flash(el, cls){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+function bumpMeter(){ flash(document.getElementById('meter'), 'bump'); }
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if(!b) return;
+  const act = b.dataset.act;
+  if(act === 'pick'){
+    const k = activeIdx(), l = LAYERS[k], i = +b.dataset.i, el = document.getElementById('L-' + l.id);
+    if(l.core){
+      S.self = i; save(); render(); flash(el, 'melt'); bubbles(el); bumpMeter();
+      return;
     }
-    scrollTo('cp-'+c.id);
-    return;
+    if(i !== l.ans){
+      flash(b, 'no');
+      el.querySelector('.oops').textContent = 'ยังไม่ใช่น้า ลองอีกที 🫧';
+      return;
+    }
+    b.classList.add('yes');
+    el.querySelectorAll('.opt').forEach(o => o.disabled = true);
+    bubbles(el);
+    setTimeout(() => {
+      S.solved[l.id] = true; save(); render(); flash(el, 'melt'); bumpMeter();
+      const next = document.getElementById('L-' + LAYERS[k + 1].id);
+      flash(next, 'crack');
+      setTimeout(() => next.scrollIntoView({behavior:'smooth', block:'center'}), 700);
+    }, 550);
   }
-  if(act==='go'){
-    const c = ALL_CPS.find(x=>x.id===el.dataset.cp); S.go[c.id] = true;
-    const s = SCENES.find(x=>x.id===c.scene), k = s.cps.findIndex(x=>x.id===c.id);
-    if(k < s.cps.length-1){ fresh = s.cps[k+1].id; save(); render(); scrollTo('cp-'+fresh); }
-    else if(s.no < 3){ save(); render(); scrollTo('scene-'+SCENES[s.no+1].id, 'start'); }
-    else { popNext = 'self'; save(); render(); scrollTo('finale','start'); toast('✨ ค้นพบแก่นกลาง: ตัวตน (Self)!', true); }
-    return;
-  }
-  if(act==='final'){ S.final = +el.dataset.v; save(); render(); return; }
-  if(act==='reset'){
-    if(confirm('เริ่มใหม่ทั้งหมด? ความคืบหน้าจะถูกล้าง')){ S = blank(); save(); render(); scrollTo('story','start'); }
-    return;
+  if(act === 'reself'){ S.self = null; save(); render(); }
+  if(act === 'reset'){
+    S = {solved:{}, self:null}; save(); render();
+    window.scrollTo({top:0, behavior:'smooth'});
   }
 });
-document.addEventListener('keydown', e=>{
-  if(e.key==='Escape'){ $('modal').classList.remove('open'); closeSheet(); }
-  if((e.key==='Enter'||e.key===' ') && e.target.classList && e.target.classList.contains('band')){ e.preventDefault(); openLayer(e.target.dataset.id); }
-});
-document.addEventListener('toggle', e=>{
-  if(e.target.matches && e.target.matches('details.script')){ S.open[e.target.dataset.s] = e.target.open; save(); }
-}, true);
 
-/* theme */
-function applyTheme(t){
-  if(t) document.documentElement.setAttribute('data-theme', t); else document.documentElement.removeAttribute('data-theme');
-  const dark = t ? t==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  $('themeBtn').textContent = dark ? '☀️' : '🌙';
-}
-let theme = null; try{ theme = localStorage.getItem(KEY+'-theme'); }catch(e){}
-applyTheme(theme);
-$('themeBtn').addEventListener('click', ()=>{
-  const dark = document.documentElement.getAttribute('data-theme') ? document.documentElement.getAttribute('data-theme')==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  theme = dark ? 'light' : 'dark'; applyTheme(theme); try{ localStorage.setItem(KEY+'-theme', theme); }catch(e){}
-});
+/* sea life */
+(function(){
+  const box = document.getElementById('sealife');
+  const fish = [['🐟',12,26],['🐠',30,34],['🐡',52,40],['🐟',70,30],['🐠',86,45]];
+  fish.forEach(([e, top, dur], i) => {
+    const f = document.createElement('span'); f.className = 'fish'; f.textContent = e;
+    f.style.cssText = `top:${top}%;animation-duration:${dur}s;animation-delay:-${i * 7}s;font-size:${20 + (i % 3) * 6}px`;
+    box.appendChild(f);
+  });
+  for(let i = 0; i < 14; i++){
+    const b = document.createElement('span'); b.className = 'bub';
+    const s = 6 + Math.random() * 12, left = i % 2 ? 2 + Math.random() * 10 : 88 + Math.random() * 10;
+    b.style.cssText = `left:${left}%;width:${s}px;height:${s}px;animation-duration:${8 + Math.random() * 8}s;animation-delay:-${Math.random() * 12}s`;
+    box.appendChild(b);
+  }
+})();
 
 render();
 </script>
