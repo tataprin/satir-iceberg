@@ -17,7 +17,7 @@
 .intro .card p{margin:0 0 4px;font-size:15.5px;font-weight:600}
 .priv{font-size:13px;color:var(--ink-soft);font-weight:600}
 .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:10px}
-.chip{min-height:42px;border:2px solid #fff;background:rgba(255,255,255,.7);border-radius:99px;padding:7px 13px;font-size:15px;font-weight:600;line-height:1.3;
+.chip{max-width:100%;overflow-wrap:anywhere;min-height:42px;border:2px solid #fff;background:rgba(255,255,255,.7);border-radius:99px;padding:7px 13px;font-size:15px;font-weight:600;line-height:1.3;
   box-shadow:0 3px 0 rgba(60,120,190,.2);transition:background .25s ease,border-color .25s ease,transform .3s var(--pop),box-shadow .25s}
 .chip:active{transform:scale(.93)}
 .chip.on{background:#ffe48a;border-color:#ffc93c;box-shadow:0 3px 0 rgba(200,140,0,.35);animation:chipon .4s var(--pop)}
@@ -32,7 +32,7 @@
 .next:active{transform:translateY(3px);box-shadow:0 1px 0 #1d5bb0}
 .next.skip{background:rgba(255,255,255,.75);color:var(--ink-soft);box-shadow:0 4px 0 rgba(60,120,190,.25)}
 .mine{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:8px}
-.mine span{background:rgba(255,255,255,.85);border-radius:99px;padding:4px 12px;font-size:14.5px;font-weight:600}
+.mine span{background:rgba(255,255,255,.85);border-radius:16px;padding:4px 12px;font-size:14.5px;font-weight:600;max-width:100%;overflow-wrap:anywhere;line-height:1.45}
 .mine .txt{background:#fff7cf}
 .empty{margin-top:8px;font-size:14px;color:var(--ink-soft);font-weight:600}
 .edit{margin-top:6px;border:0;background:none;font-size:13px;font-weight:700;color:var(--ink-soft);text-decoration:underline;min-height:36px}
@@ -41,7 +41,7 @@
 .slice.above.locked .lockt{color:var(--ink);text-shadow:none}
 .slice.above.locked .locks{color:var(--ink-soft);text-shadow:none}
 .heart{font-size:54px;line-height:1;display:inline-block;filter:drop-shadow(0 0 14px #ffe27a);animation:beat 1.8s ease-in-out infinite}
-.sticker{display:inline-block;margin-top:10px;background:#fff6b8;color:#5a4500;padding:12px 18px;border-radius:6px 22px 6px 22px;font-size:18px;font-weight:700;transform:rotate(-2deg);box-shadow:0 6px 14px rgba(0,0,0,.15);animation:stick .7s var(--pop) both .2s}
+.sticker{display:inline-block;max-width:100%;overflow-wrap:anywhere;margin-top:10px;background:#fff6b8;color:#5a4500;padding:12px 18px;border-radius:6px 22px 6px 22px;font-size:18px;font-weight:700;transform:rotate(-2deg);box-shadow:0 6px 14px rgba(0,0,0,.15);animation:stick .7s var(--pop) both .2s}
 .sum{position:relative;z-index:2;max-width:600px;margin:0 auto;padding:40px 16px 50px;display:none;text-align:center;color:#fff}
 .sum.on{display:block;animation:fadeup .8s var(--pop) both}
 .done-h h2{margin:0;font-size:30px;text-shadow:0 2px 10px rgba(0,30,90,.4)}
@@ -178,7 +178,7 @@ function inner(l, k){
     <p class="q">${l.q}</p>
     <p class="hintq">${l.hint}${l.single ? '' : ' · เลือกได้ถึง ' + MAX + ' อัน'}</p>
     <div class="chips">${chips}</div>
-    <input class="own" data-id="${l.id}" maxlength="80" placeholder="✏️ หรือพิมพ์เอง…" value="${esc(S.text[l.id] || '')}">
+    <input class="own" data-id="${l.id}" maxlength="120" placeholder="✏️ หรือพิมพ์เอง…" value="${esc(S.text[l.id] || '')}">
     <button class="next${has(l.id) ? '' : ' skip'}" data-act="next">${nextLabel(l)}</button>`;
 }
 const nextLabel = l => l.core ? (has(l.id) ? 'ส่งถึงตัวเอง 💌' : 'ข้ามไปก่อน') : (has(l.id) ? 'ดำต่อ ⤵' : 'ข้ามไปก่อน ⤵');
@@ -209,35 +209,80 @@ const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
 const mix = (a, b, t) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(',')})`; };
 const answers = l => [...picks(l.id), (S.text[l.id] || '').trim()].filter(Boolean);
 
-// fit a list of answers on one line: drop extras as "+n", then trim with …
-function fitLine(g, items, maxW){
-  if(!items.length) return '—';
-  let n = items.length;
-  const txt = k => items.slice(0, k).join(' · ') + (k < items.length ? `  +${items.length - k}` : '');
-  while(n > 1 && g.measureText(txt(n)).width > maxW) n--;
-  let t = txt(n);
-  while(g.measureText(t).width > maxW && t.length > 2) t = t.slice(0, -2) + '…';
-  return t;
-}
-function wrap2(g, text, maxW){
-  if(g.measureText(text).width <= maxW) return [text];
-  const words = text.split(' '); let a = '';
-  for(let i = 0; i < words.length; i++){
-    const tryA = (a ? a + ' ' : '') + words[i];
-    if(g.measureText(tryA).width > maxW && a) return [a, words.slice(i).join(' ')];
-    a = tryA;
+// break text into lines that fit, on Thai word boundaries when the browser can
+const WORDS = window.Intl && Intl.Segmenter ? new Intl.Segmenter('th', {granularity:'word'}) : null;
+const GRAPH = window.Intl && Intl.Segmenter ? new Intl.Segmenter('th', {granularity:'grapheme'}) : null;
+const pieces = (sg, t) => sg ? [...sg.segment(t)].map(x => x.segment) : [...t];
+function wrapText(g, text, maxW, maxLines){
+  const lines = []; let cur = '';
+  for(const p of pieces(WORDS, text)){
+    const t = cur + p;
+    if(g.measureText(t).width <= maxW){ cur = t; continue; }
+    if(cur.trim()) lines.push(cur.trim());
+    cur = p.trimStart();
+    // a single very long word: split it by characters
+    while(g.measureText(cur).width > maxW){
+      const gs = pieces(GRAPH, cur); let k = gs.length;
+      while(k > 1 && g.measureText(gs.slice(0, k).join('')).width > maxW) k--;
+      lines.push(gs.slice(0, k).join('')); cur = gs.slice(k).join('');
+    }
   }
-  return [text];
+  if(cur.trim()) lines.push(cur.trim());
+  if(lines.length <= maxLines) return {lines, cut:false};
+  const keep = lines.slice(0, maxLines);
+  let last = keep[maxLines - 1];
+  while(last && g.measureText(last + '…').width > maxW) last = pieces(GRAPH, last).slice(0, -1).join('');
+  keep[maxLines - 1] = last + '…';
+  return {lines:keep, cut:true};
+}
+
+// iceberg widths (% of poster) per layer, top → bottom
+const P_WIDTHS = [[58,66],[66,75],[75,81],[81,85],[85,86],[86,82],[82,73],[73,60]];
+const P_TOP = 420, P_BOTTOM = 1690;
+
+// measure every layer at font scale s; returns heights + wrapped lines
+function layoutAt(g, s, maxLines){
+  let cut = false;
+  const rows = LAYERS.map((l, k) => {
+    const [wt, wb] = P_WIDTHS[k], maxW = Math.min(wt, wb) / 100 * 1080 - 90;
+    if(l.core){
+      const size = Math.round(48 * s); g.font = `${size}px Itim`;
+      const r = wrapText(g, answers(l).join(' · ') || 'ฉันมีค่าเสมอ 💛', maxW, maxLines);
+      cut = cut || r.cut;
+      return {size, lh:size * 1.18, lines:r.lines, h:(116 + 40) * s + r.lines.length * size * 1.18};
+    }
+    const size = Math.round(40 * s); g.font = `700 ${size}px Mali`;
+    const r = wrapText(g, answers(l).join(' · ') || '—', maxW, maxLines);
+    cut = cut || r.cut;
+    return {size, lh:size * 1.28, lines:r.lines, h:(46 + 48) * s + r.lines.length * size * 1.28};
+  });
+  return {rows, cut, total:rows.reduce((t, r) => t + r.h, 0)};
+}
+// biggest font scale whose layers fit the iceberg; if even small text is too long,
+// keep fewer lines (ending in …) rather than squashing; spare room is shared out evenly
+function fitLayout(g){
+  const room = P_BOTTOM - P_TOP;
+  let L = null;
+  for(let s = 1; s >= 0.52; s -= 0.04){ L = layoutAt(g, s, 4); L.s = s; if(L.total <= room && !L.cut) break; }
+  if(L.total > room || L.cut){
+    for(const n of [4, 3, 2, 1]){ L = layoutAt(g, 0.52, n); L.s = 0.52; if(L.total <= room) break; }
+  }
+  const extra = Math.max(0, room - L.total) / L.rows.length;
+  L.rows.forEach(r => r.h += extra);
+  let y = P_TOP;
+  L.rows.forEach(r => { r.y0 = y; y += r.h; r.y1 = y; });
+  return L;
 }
 
 async function drawPoster(){
-  const W = 1080, H = 1920, WATER = 560;
+  const W = 1080, H = 1920;
   const c = document.createElement('canvas'); c.width = W; c.height = H;
   const g = c.getContext('2d');
   try{ await Promise.all(['40px Itim', '700 40px Mali', '600 40px Mali'].map(f => document.fonts.load(f))); }catch(e){}
   const X = p => p / 100 * W;
   const circle = (x, y, r) => { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); };
   const poly = pts => { g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(X(x), y) : g.moveTo(X(x), y)); g.closePath(); };
+  const L = fitLayout(g), WATER = L.rows[0].y1;
 
   // sky + sea
   let gr = g.createLinearGradient(0, 0, 0, WATER);
@@ -263,8 +308,6 @@ async function drawPoster(){
   g.font = '600 38px Mali'; g.fillStyle = '#4a5a86';
   g.fillText((S.topic ? 'เรื่อง ' + S.topic + '  ·  ' : '') + date, W / 2, 222);
 
-  // iceberg: [top width %, bottom width %, y0, y1]
-  const BANDS = [[58,66,420,560],[66,75,560,710],[75,81,710,860],[81,85,860,1010],[85,86,1010,1160],[86,82,1160,1310],[82,73,1310,1460],[73,60,1460,1690]];
   const iceFill = (tint, y) => {
     const f = g.createLinearGradient(0, y, W, y);
     f.addColorStop(0, mix(tint, '#7fb6e0', .55)); f.addColorStop(.38, tint); f.addColorStop(.62, mix(tint, '#ffffff', .5)); f.addColorStop(1, mix(tint, '#76afdc', .55));
@@ -276,8 +319,9 @@ async function drawPoster(){
   g.font = `72px ${EMOJI}`; g.fillText('🐧', W / 2, 310);
 
   LAYERS.forEach((l, k) => {
-    const [wt, wb, y0, y1] = BANDS[k], mid = (wt + wb) / 4, j = k % 2 ? 1.2 : -1;
-    const shape = () => poly([[50 - wt/2, y0], [50 + wt/2, y0], [50 + mid + j, (y0 + y1) / 2], [50 + wb/2, y1], [50 - wb/2, y1], [50 - mid - j, (y0 + y1) / 2]]);
+    const [wt, wb] = P_WIDTHS[k], {y0, y1, size, lh, lines} = L.rows[k], s = L.s;
+    const mid = (wt + wb) / 4, j = k % 2 ? 1.2 : -1, ym = (y0 + y1) / 2;
+    const shape = () => poly([[50 - wt/2, y0], [50 + wt/2, y0], [50 + mid + j, ym], [50 + wb/2, y1], [50 - wb/2, y1], [50 - mid - j, ym]]);
     shape();
     if(l.core){
       const rg = g.createRadialGradient(W / 2, y0 + 70, 20, W / 2, y0 + 90, 420);
@@ -289,23 +333,23 @@ async function drawPoster(){
     g.strokeStyle = 'rgba(255,255,255,.75)'; g.lineWidth = 4;
     g.beginPath(); g.moveTo(X(50 - wt/2), y0); g.lineTo(X(50 + wt/2), y0); g.stroke();
 
-    const maxW = X(Math.min(wt, wb)) - 70, cy = (y0 + y1) / 2;
-    g.fillStyle = '#1d2b53';
+    // content is centred as one block inside its layer
     if(l.core){
-      g.font = `70px ${EMOJI}`; g.fillText('💛', W / 2, y0 + 82);
-      g.font = '600 30px Mali'; g.fillStyle = '#7a5a10'; g.fillText('✨ ถึงตัวฉัน ✨', W / 2, y0 + 128);
-      g.font = '48px Itim'; g.fillStyle = '#4a3500';
-      const lines = wrap2(g, answers(l).join(' · ') || 'ฉันมีค่าเสมอ 💛', maxW);
-      lines.forEach((t, i) => g.fillText(t, W / 2, y0 + 182 + i * 54 - (lines.length - 1) * 20));
+      const y = ym - (116 * s + lines.length * lh) / 2;
+      g.font = `${Math.round(66 * s)}px ${EMOJI}`; g.fillText('💛', W / 2, y + 60 * s);
+      g.font = `600 ${Math.round(30 * s)}px Mali`; g.fillStyle = '#7a5a10'; g.fillText('✨ ถึงตัวฉัน ✨', W / 2, y + 104 * s);
+      g.font = `${size}px Itim`; g.fillStyle = '#4a3500';
+      lines.forEach((t, i) => g.fillText(t, W / 2, y + 116 * s + (i + 1) * lh - lh * .22));
     } else {
-      g.font = '600 30px Mali'; g.fillStyle = '#4a5a86';
-      g.fillText(`${l.emo} ${l.name}`, W / 2, cy - 14);
-      g.font = '700 42px Mali'; g.fillStyle = '#1d2b53';
-      g.fillText(fitLine(g, answers(l), maxW), W / 2, cy + 38);
+      const y = ym - (40 * s + lines.length * lh) / 2;
+      g.font = `600 ${Math.round(30 * s)}px Mali`; g.fillStyle = '#4a5a86';
+      g.fillText(`${l.emo} ${l.name}`, W / 2, y + 28 * s);
+      g.font = `700 ${size}px Mali`; g.fillStyle = '#1d2b53';
+      lines.forEach((t, i) => g.fillText(t, W / 2, y + 40 * s + (i + 1) * lh - lh * .22));
     }
   });
   // bottom tip
-  poly([[30,1690],[38,1730],[43,1760],[50,1800],[57,1758],[63,1728],[70,1690]]);
+  poly([[30,P_BOTTOM],[38,P_BOTTOM + 40],[43,P_BOTTOM + 70],[50,P_BOTTOM + 110],[57,P_BOTTOM + 68],[63,P_BOTTOM + 38],[70,P_BOTTOM]]);
   g.fillStyle = '#5f98cc'; g.fill();
 
   // water surface over the waterline
@@ -314,11 +358,11 @@ async function drawPoster(){
   for(let x = 0; x <= W; x += 10) g.lineTo(x, WATER + Math.sin(x / 60) * 9);
   g.lineTo(W, WATER + 26); g.closePath(); g.fill();
 
-  // sea life
-  g.font = `60px ${EMOJI}`; g.fillText('🐟', 80, 880); g.fillText('🐠', 1000, 1240);
-  g.font = `52px ${EMOJI}`; g.fillText('🫧', 1010, 760); g.fillText('🐡', 70, 1560);
+  // sea life, kept to the edges so it never covers answers
+  g.font = `52px ${EMOJI}`; g.fillText('🐟', 50, 900); g.fillText('🐠', 1035, 1260);
+  g.font = `44px ${EMOJI}`; g.fillText('🫧', 1040, 780); g.fillText('🐡', 45, 1580);
   g.strokeStyle = 'rgba(255,255,255,.5)'; g.lineWidth = 3;
-  [[60,1100,14],[95,1040,9],[1020,1420,12],[990,1500,8],[1030,980,10]].forEach(([x, y, r]) => { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.stroke(); });
+  [[40,1100,14],[70,1040,9],[1040,1420,12],[1015,1500,8],[1045,990,10]].forEach(([x, y, r]) => { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.stroke(); });
 
   // footer
   g.font = '600 32px Mali'; g.fillStyle = 'rgba(255,255,255,.88)';
