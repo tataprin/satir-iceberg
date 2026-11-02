@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ภูเขาน้ำแข็งคืออะไร 📖</title>
+<meta name="theme-color" content="#a9dcff">
 <meta name="description" content="Satir Iceberg Model แต่ละชั้นหมายถึงอะไร อธิบายแบบสั้นๆ น่ารักๆ">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,9 +49,7 @@
 </head>
 <body class="boot">
 
-<nav class="meter nav">
-  <a href="index.html" data-fade>🎮 เล่น</a><a class="on" href="info.html">📖 ความรู้</a><a href="script.html" data-fade>🎭 บทละคร</a>
-</nav>
+<nav class="tabbar" data-on="info"></nav>
 
 <header class="sky">
   <div class="sun"></div>
@@ -114,7 +113,7 @@
 <script src="ocean.js"></script>
 <script>
 const LAYERS = [
-  {id:'behavior', name:'พฤติกรรม', en:'Behavior', emo:'🚶', tint:'#ffffff', wt:66, wb:76,
+  {id:'behavior', name:'พฤติกรรม', en:'Behavior', emo:'🚶', tint:'#ffffff', wt:60, wb:76,
    what:'สิ่งที่เราทำ พูด หรือแสดงออกให้คนอื่นเห็น เป็นส่วนเดียวที่โผล่พ้นน้ำ คนส่วนใหญ่เลยมักตัดสินกันจากชั้นนี้',
    ex:'ไม่อยากอ่านหนังสือ ไม่อยากทำอะไรแล้ว เดินหนีแม่', ask:'ตอนนั้นฉันทำอะไรลงไป?'},
   {id:'body', name:'ความรู้สึกทางกาย', en:'Body Sensation', emo:'💓', tint:'#ffe6dc', wt:76, wb:85,
@@ -135,7 +134,7 @@ const LAYERS = [
   {id:'yearning', name:'ความปรารถนา', en:'Yearnings', emo:'💗', tint:'#ffdff1', wt:93, wb:84,
    what:'ความต้องการพื้นฐานที่มนุษย์ทุกคนมีเหมือนกัน อยากถูกรัก ถูกยอมรับ มีคุณค่า มีความหมาย รู้สึกปลอดภัย และเป็นอิสระ',
    ex:'อยากรู้สึกมีคุณค่า และได้รับการยอมรับ', ask:'ลึกๆ แล้ว หัวใจฉันต้องการอะไร?'},
-  {id:'self', name:'ตัวตน', en:'Self · I Am', emo:'✨', tint:'#fff1b8', wt:84, wb:72, core:true,
+  {id:'self', name:'ตัวตน', en:'Self · I Am', emo:'✨', tint:'#fff1b8', wt:84, wb:70, core:true,
    what:'แก่นแท้ของเรา คือพลังชีวิตและคุณค่าที่มีอยู่แล้ว ไม่ต้องพิสูจน์ด้วยเกรดหรือผลงาน เมื่อเชื่อมกับชั้นนี้ได้ เราจะเลือกตอบสนองต่อชีวิตได้อย่างสอดคล้องกลมกลืน',
    ex:'“ใจดีกับตัวเองมากขึ้น… ผมไปต่อได้แล้วครับ!!!”', ask:'ฉันคือใคร เมื่อไม่มีอะไรมาตัดสิน?'}
 ];

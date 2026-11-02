@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ภูเขาน้ำแข็งของฉัน 🧊</title>
+<meta name="theme-color" content="#a9dcff">
+<meta name="description" content="ลองดำลงไปสำรวจภูเขาน้ำแข็งในใจของตัวเอง ทีละชั้น">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧊</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.intro{position:relative;z-index:2;max-width:560px;margin:16px auto 0;padding:0 16px}
+.intro .card{background:rgba(255,255,255,.78);border:2px solid #fff;border-radius:22px;padding:14px 16px;text-align:center;box-shadow:0 6px 18px rgba(60,120,190,.15)}
+.intro .card p{margin:0 0 4px;font-size:15.5px;font-weight:600}
+.priv{font-size:13px;color:var(--ink-soft);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:10px}
+.chip{min-height:42px;border:2px solid #fff;background:rgba(255,255,255,.7);border-radius:99px;padding:7px 13px;font-size:15px;font-weight:600;line-height:1.3;
+  box-shadow:0 3px 0 rgba(60,120,190,.2);transition:background .25s ease,border-color .25s ease,transform .3s var(--pop),box-shadow .25s}
+.chip:active{transform:scale(.93)}
+.chip.on{background:#ffe48a;border-color:#ffc93c;box-shadow:0 3px 0 rgba(200,140,0,.35);animation:chipon .4s var(--pop)}
+.chip.no{animation:wobble .45s ease-in-out}
+.q{margin:10px 0 0;font-size:17px;font-weight:700;line-height:1.45}
+.hintq{margin:2px 0 0;font-size:13.5px;color:var(--ink-soft);font-weight:600}
+.own{display:block;width:100%;margin-top:10px;min-height:46px;border:2px solid #fff;border-radius:16px;background:rgba(255,255,255,.75);padding:10px 14px;
+  font:inherit;font-size:16px;color:var(--ink);text-align:center;outline:none;transition:border-color .25s,background .25s}
+.own:focus{border-color:#7cc2ff;background:#fff}
+.next{margin-top:12px;min-height:50px;border:0;border-radius:99px;padding:12px 24px;font-weight:700;font-size:16px;background:#2f7de1;color:#fff;
+  box-shadow:0 4px 0 #1d5bb0;transition:transform .2s var(--pop),box-shadow .2s,background .3s}
+.next:active{transform:translateY(3px);box-shadow:0 1px 0 #1d5bb0}
+.next.skip{background:rgba(255,255,255,.75);color:var(--ink-soft);box-shadow:0 4px 0 rgba(60,120,190,.25)}
+.mine{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:8px}
+.mine span{background:rgba(255,255,255,.85);border-radius:99px;padding:4px 12px;font-size:14.5px;font-weight:600}
+.mine .txt{background:#fff7cf}
+.empty{margin-top:8px;font-size:14px;color:var(--ink-soft);font-weight:600}
+.edit{margin-top:6px;border:0;background:none;font-size:13px;font-weight:700;color:var(--ink-soft);text-decoration:underline;min-height:36px}
+.lockt{font-family:"Itim";font-size:20px;color:#fff;text-shadow:0 2px 6px rgba(20,60,140,.5)}
+.locks{font-size:13px;color:#eaf6ff;font-weight:600;text-shadow:0 1px 4px rgba(20,60,140,.5)}
+.slice.above.locked .lockt{color:var(--ink);text-shadow:none}
+.slice.above.locked .locks{color:var(--ink-soft);text-shadow:none}
+.heart{font-size:54px;line-height:1;display:inline-block;filter:drop-shadow(0 0 14px #ffe27a);animation:beat 1.8s ease-in-out infinite}
+.sticker{display:inline-block;margin-top:10px;background:#fff6b8;color:#5a4500;padding:12px 18px;border-radius:6px 22px 6px 22px;font-size:18px;font-weight:700;transform:rotate(-2deg);box-shadow:0 6px 14px rgba(0,0,0,.15);animation:stick .7s var(--pop) both .2s}
+.sum{position:relative;z-index:2;max-width:600px;margin:0 auto;padding:30px 16px 50px;display:none}
+.sum.on{display:block;animation:fadeup .8s var(--pop) both}
+.sumc{background:rgba(255,255,255,.93);border-radius:26px;padding:18px;box-shadow:0 12px 34px rgba(0,20,60,.3);text-align:center}
+.sumc h2{margin:0;font-size:26px}
+.sumc .sub{margin:4px 0 12px;font-size:14.5px;color:var(--ink-soft);font-weight:600}
+.row{display:flex;gap:10px;align-items:flex-start;text-align:left;background:#eef6ff;border-radius:16px;padding:9px 12px;margin-top:7px;font-size:14.5px;font-weight:500}
+.row .sw{flex:none;width:34px;height:34px;border-radius:12px;display:grid;place-items:center;font-size:18px}
+.row b{display:block;font-size:13px;color:var(--ink-soft)}
+.kind{margin-top:14px;font-size:16px;font-weight:700}
+.snap{font-size:13px;color:var(--ink-soft);font-weight:600;margin-top:6px}
+@keyframes chipon{0%{transform:scale(1)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes wobble{20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes stick{from{opacity:0;transform:rotate(-10deg) scale(.6)}to{opacity:1;transform:rotate(-2deg) scale(1)}}
+</style>
+</head>
+<body class="boot">
+<nav class="tabbar" data-on="me"></nav>
+
+<header class="sky">
+  <div class="sun"></div>
+  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+  <div class="title">
+    <h1>ภูเขาน้ำแข็งของฉัน</h1>
+    <p>ลองดำลงไปดูใจตัวเองบ้าง ทีละชั้นนะ 🤿</p>
+  </div>
+  <div class="intro"><div class="card">
+    <p>ก่อนดำน้ำ… ช่วงนี้มีเรื่องอะไรอยู่ในใจ?</p>
+    <div class="chips" id="topic"></div>
+    <div class="priv" style="margin-top:10px">🔒 ไม่มีถูกผิด และคำตอบเก็บไว้ในเครื่องคุณเท่านั้น</div>
+  </div></div>
+  <div class="col">
+    <div class="peak"><div class="ice"></div><div class="snow"></div><div class="penguin">🐧</div><div class="say">ค่อยๆ ไปด้วยกันนะ</div></div>
+    <div id="top"></div>
+  </div>
+</header>
+
+<main class="sea">
+  <div class="waves">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 T 750 20 T 900 20 T 1050 20 T 1200 20 V40 H0Z" fill="#7fd0ff"/></svg>
+    <svg class="w2" viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 100 4 200 20 T 400 20 T 600 20 T 800 20 T 1000 20 T 1200 20 V40 H0Z" fill="#a8e1ff"/></svg>
+  </div>
+  <div class="rays"></div>
+  <div id="sealife"></div>
+  <div class="col" id="deep"></div>
+  <div class="col tip"><div class="ice"></div></div>
+
+  <section class="sum" id="sum"></section>
+
+  <footer class="bed">
+    <span class="deco" style="left:6%">🌿</span><span class="deco" style="left:20%;top:34px;animation-delay:-1s">🐚</span>
+    <span class="deco" style="right:8%;animation-delay:-2s">🪸</span><span class="deco" style="right:24%;top:36px;animation-delay:-3s">⭐</span>
+    <p>💙 ถ้าใจหนักๆ คุยกับคนที่ไว้ใจได้เสมอนะ · สายด่วนสุขภาพจิต <b>1323</b></p>
+    <button class="pillbtn" data-act="reset">↺ ลบคำตอบ เริ่มใหม่</button>
+  </footer>
+</main>
+
+<script src="ocean.js"></script>
+<script>
+const TOPICS = ['📚 การเรียน','👫 เพื่อน','🏠 ครอบครัว','💘 ความรัก','🔮 อนาคต','🙂 ตัวเอง'];
+const LAYERS = [
+  {id:'behavior', name:'พฤติกรรม', emo:'🚶', tint:'#ffffff', wt:60, wb:72,
+   q:'ช่วงนี้ฉันมักจะ…', hint:'สิ่งที่คนอื่นมองเห็นจากฉัน',
+   chips:['เก็บตัว','เลื่อนมือถือทั้งวัน','ผัดวันประกันพรุ่ง','ทำงานหนักไม่หยุด','หงุดหงิดใส่คนอื่น','นอนไม่เป็นเวลา','ยิ้มทั้งที่ไม่โอเค']},
+  {id:'body', name:'ความรู้สึกทางกาย', emo:'💓', tint:'#ffe6dc', wt:72, wb:84,
+   q:'ร่างกายฉันรู้สึกยังไง?', hint:'ลองหายใจลึกๆ แล้วสังเกตตัวเอง',
+   chips:['เหนื่อยล้า','ใจเต้นแรง','ไหล่ตึง','ปวดหัว','แน่นหน้าอก','นอนไม่หลับ','ท้องปั่นป่วน','ตัวเบาสบาย']},
+  {id:'feeling', name:'อารมณ์ความรู้สึก', emo:'🌧️', tint:'#ffdcea', wt:84, wb:92,
+   q:'ตอนนี้ฉันรู้สึก…', hint:'ทุกความรู้สึกเป็นของจริง',
+   chips:['เครียด','เศร้า','กังวล','โกรธ','เหงา','ท้อ','สับสน','โล่งใจ','มีความหวัง']},
+  {id:'faf', name:'ความรู้สึกต่อความรู้สึก', emo:'🪞', tint:'#ece0ff', wt:92, wb:97,
+   q:'ฉันรู้สึกยังไง กับความรู้สึกนั้น?', hint:'ชั้นที่เราไม่ค่อยได้ถามตัวเอง',
+   chips:['ไม่ควรรู้สึกแบบนี้เลย','อายที่รู้สึกแบบนี้','โทษตัวเอง','กลัวคนอื่นรู้','ยอมรับได้นะ','เข้าใจตัวเอง']},
+  {id:'perception', name:'ความคิด / ความเชื่อ', emo:'💭', tint:'#dde7ff', wt:97, wb:98,
+   q:'ฉันกำลังบอกตัวเองว่า…', hint:'เสียงในหัวที่พูดซ้ำๆ',
+   chips:['ฉันยังไม่ดีพอ','คนอื่นเก่งกว่าฉัน','ฉันต้องทำได้ทุกอย่าง','ไม่มีใครเข้าใจฉัน','ฉันเป็นภาระ','ฉันพยายามเต็มที่แล้ว','เดี๋ยวก็ผ่านไป']},
+  {id:'expectation', name:'ความคาดหวัง', emo:'🎯', tint:'#d6f6ea', wt:98, wb:93,
+   q:'ฉันคาดหวังว่า…', hint:'จากตัวเอง หรือจากคนอื่น',
+   chips:['ต้องได้ผลการเรียนดี','ต้องไม่ทำให้ใครผิดหวัง','ต้องเก่งเท่าเพื่อน','คนอื่นควรเข้าใจฉัน','ทุกอย่างต้องเป๊ะ','อยากให้ชีวิตง่ายกว่านี้']},
+  {id:'yearning', name:'ความปรารถนา', emo:'💗', tint:'#ffdff1', wt:93, wb:82,
+   q:'ลึกๆ หัวใจฉันอยาก…', hint:'สิ่งที่ทุกคนต้องการเหมือนกัน',
+   chips:['ถูกยอมรับ','รู้สึกมีคุณค่า','ถูกรัก','รู้สึกปลอดภัย','ได้เป็นตัวเอง','มีอิสระ','มีความหมาย']},
+  {id:'self', name:'ตัวตน', emo:'✨', tint:'#fff1b8', wt:82, wb:70, core:true, single:true,
+   q:'ฉันอยากบอกตัวเองว่า…', hint:'ส่งข้อความถึงแก่นกลางของตัวเอง',
+   chips:['เหนื่อยได้ พักได้นะ 🌙','เราเก่งในแบบของเรา 🌱','ใจดีกับตัวเองหน่อยนะ 🫶','ไม่ต้องสู้คนเดียวก็ได้ 🤝','ฉันมีค่าเสมอ 💛']}
+];
+const byId = Object.fromEntries(LAYERS.map(l => [l.id, l]));
+const MAX = 3;
+
+const KEY = 'my-iceberg-v1';
+const blank = () => ({topic:null, picks:{}, text:{}, done:{}});
+let S = blank();
+try{ const r = localStorage.getItem(KEY); if(r) S = Object.assign(blank(), JSON.parse(r)); }catch(e){}
+const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
+const esc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $ = id => document.getElementById(id);
+const activeId = () => (LAYERS.find(l => !S.done[l.id]) || {}).id;
+const picks = id => S.picks[id] || (S.picks[id] = []);
+const has = id => picks(id).length > 0 || (S.text[id] || '').trim() !== '';
+
+LAYERS.forEach((l, k) => $(k === 0 ? 'top' : 'deep').appendChild(makeSlice(l, k, l.core ? ' core' : '')));
+
+function chosenHTML(l){
+  const bits = picks(l.id).map(c => `<span>${esc(c)}</span>`);
+  if((S.text[l.id] || '').trim()) bits.push(`<span class="txt">“${esc(S.text[l.id].trim())}”</span>`);
+  return bits.length ? `<div class="mine">${bits.join('')}</div>` : '<div class="empty">— ข้ามไว้ก่อน ไม่เป็นไรนะ —</div>';
+}
+
+function inner(l, k){
+  if(S.done[l.id]){
+    if(l.core){
+      const words = [...picks(l.id), (S.text[l.id] || '').trim()].filter(Boolean).map(esc).join(' · ') || 'ฉันมีค่าเสมอ 💛';
+      return `<div class="heart">💛</div><h2 class="name">✨ ตัวตน ✨</h2>
+        <div class="sticker">ถึงตัวฉัน: ${words}</div><br>
+        <button class="edit" data-act="edit" data-id="${l.id}">แก้ไข</button>`;
+    }
+    return `<span class="tag">ชั้น ${k + 1}${k === 0 ? ' · เหนือน้ำ' : ''}</span>
+      <h2 class="name"><span class="e">${l.emo}</span> ${l.name}</h2>
+      ${chosenHTML(l)}
+      <button class="edit" data-act="edit" data-id="${l.id}">แก้ไข</button>`;
+  }
+  if(l.id !== activeId()){
+    return `<div class="lockt">❄️ ${l.core ? 'แก่นกลาง' : 'ชั้น ' + (k + 1)} ❄️</div><div class="locks">🔒 ค่อยๆ ดำลงมานะ</div>`;
+  }
+  const chips = l.chips.map(c => `<button class="chip${picks(l.id).includes(c) ? ' on' : ''}" data-act="chip" data-v="${esc(c)}">${esc(c)}</button>`).join('');
+  return `<span class="tag">${l.core ? 'แก่นกลาง · ลึกที่สุด' : 'ชั้น ' + (k + 1) + (k === 0 ? ' · เหนือน้ำ' : ' · ใต้น้ำ')}</span>
+    ${l.core ? '<div class="heart" style="margin-top:8px">🤍</div>' : ''}
+    <h2 class="name"><span class="e">${l.emo}</span> ${l.name}</h2>
+    <p class="q">${l.q}</p>
+    <p class="hintq">${l.hint}${l.single ? '' : ' · เลือกได้ถึง ' + MAX + ' อัน'}</p>
+    <div class="chips">${chips}</div>
+    <input class="own" data-id="${l.id}" maxlength="80" placeholder="✏️ หรือพิมพ์เอง…" value="${esc(S.text[l.id] || '')}">
+    <button class="next${has(l.id) ? '' : ' skip'}" data-act="next">${nextLabel(l)}</button>`;
+}
+const nextLabel = l => l.core ? (has(l.id) ? 'ส่งถึงตัวเอง 💌' : 'ข้ามไปก่อน') : (has(l.id) ? 'ดำต่อ ⤵' : 'ข้ามไปก่อน ⤵');
+
+const shown = {};
+const stateOf = l => S.done[l.id] ? 'done:' + JSON.stringify([picks(l.id), S.text[l.id]]) : (l.id === activeId() ? 'active' : 'locked');
+function render(animate){
+  LAYERS.forEach((l, k) => {
+    const st = stateOf(l);
+    if(shown[l.id] === st) return;
+    shown[l.id] = st;
+    const el = $('L-' + l.id);
+    const apply = () => {
+      el.classList.toggle('solved', st.startsWith('done'));
+      el.classList.toggle('active', st === 'active');
+      el.classList.toggle('locked', st === 'locked');
+      el.querySelector('.in').innerHTML = inner(l, k);
+    };
+    animate && !REDUCE ? morph(el, apply) : apply();
+  });
+  $('topic').innerHTML = TOPICS.map(t => `<button class="chip${S.topic === t ? ' on' : ''}" data-act="topic" data-v="${t}">${t}</button>`).join('');
+  renderSum();
+}
+
+function renderSum(){
+  const box = $('sum');
+  if(activeId()){ box.classList.remove('on'); return; }
+  const rows = LAYERS.filter(l => !l.core).map(l => `<div class="row"><span class="sw" style="background:${l.tint}">${l.emo}</span><span><b>${l.name}</b>${
+    [...picks(l.id), (S.text[l.id] || '').trim()].filter(Boolean).map(esc).join(' · ') || '—'}</span></div>`).join('');
+  box.innerHTML = `<div class="sumc">
+    <div style="font-size:44px">🧊💛</div>
+    <h2>ภูเขาน้ำแข็งของฉัน</h2>
+    <p class="sub">${S.topic ? 'เรื่อง ' + S.topic + ' · ' : ''}ดำมาถึงก้นบึ้งแล้ว เก่งมากเลย</p>
+    ${rows}
+    <p class="kind">ทุกชั้นคือส่วนหนึ่งของคุณ ไม่มีชั้นไหนผิด<br>ใจดีกับตัวเองนะ 🫶</p>
+    <p class="snap">📸 แคปหน้าจอเก็บไว้ดูทีหลังได้นะ</p>
+  </div>`;
+  if(!box.classList.contains('on')) box.classList.add('on');
+}
+
+let busy = false;
+document.addEventListener('input', e => {
+  const t = e.target; if(!t.matches('.own')) return;
+  S.text[t.dataset.id] = t.value; save();
+  const l = byId[t.dataset.id], btn = t.parentNode.querySelector('.next');
+  btn.textContent = nextLabel(l); btn.classList.toggle('skip', !has(l.id));
+});
+document.addEventListener('keydown', e => { if(e.key === 'Enter' && e.target.matches('.own')){ e.target.blur(); e.target.parentNode.querySelector('.next').click(); } });
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if(!b) return;
+  const act = b.dataset.act;
+  if(act === 'topic'){
+    S.topic = S.topic === b.dataset.v ? null : b.dataset.v; save(); buzz(10);
+    b.parentNode.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.v === S.topic));
+    if(S.topic) setTimeout(() => glide($('L-' + (activeId() || 'self'))), 450);
+    return;
+  }
+  if(act === 'chip'){
+    const l = byId[activeId()], list = picks(l.id), v = b.dataset.v, i = list.indexOf(v);
+    if(i >= 0){ list.splice(i, 1); b.classList.remove('on'); }
+    else if(l.single){ list.length = 0; list.push(v); b.parentNode.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === b)); }
+    else if(list.length >= MAX){ b.classList.remove('no'); void b.offsetWidth; b.classList.add('no'); buzz([20, 30, 20]); return; }
+    else { list.push(v); b.classList.add('on'); }
+    buzz(10); save();
+    const btn = b.closest('.in').querySelector('.next');
+    btn.textContent = nextLabel(l); btn.classList.toggle('skip', !has(l.id));
+    return;
+  }
+  if(act === 'next'){
+    if(busy) return; busy = true;
+    const l = byId[activeId()], el = $('L-' + l.id);
+    S.done[l.id] = true; save(); buzz(15); shine(el);
+    render(true);
+    const nx = activeId() ? $('L-' + activeId()) : $('sum');
+    setTimeout(() => { if(activeId()) shine(nx); }, 500);
+    setTimeout(() => { glide(nx); busy = false; }, 1000);
+    return;
+  }
+  if(act === 'edit'){
+    S.done[b.dataset.id] = false; save(); render(true);
+    setTimeout(() => glide($('L-' + activeId())), 800);
+    return;
+  }
+  if(act === 'reset'){
+    if(!confirm('ลบคำตอบทั้งหมดแล้วเริ่มใหม่?')) return;
+    S = blank(); save(); render(true);
+    setTimeout(() => glide(document.body), 300);
+  }
+});
+
+sealife($('sealife'));
+render(false);
+setTimeout(() => document.body.classList.remove('boot'), 2000);
+</script>
+</body>
+</html>

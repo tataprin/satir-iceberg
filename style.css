@@ -4,7 +4,8 @@
 html,body{margin:0;overflow-x:hidden}
 body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);background:#0b2150;line-height:1.55;-webkit-tap-highlight-color:transparent;animation:pagein .6s ease both}
 body.leaving{opacity:0;transition:opacity .3s ease}
-button{font:inherit;color:inherit;cursor:pointer}
+button,a{touch-action:manipulation}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-user-select:none;user-select:none}
 a{color:inherit}
 h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
 
@@ -24,7 +25,7 @@ h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
 .btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px}
 .go{display:inline-block;text-decoration:none;border:0;border-radius:99px;padding:10px 20px;font-weight:700;font-size:16px;background:#fff;color:var(--ink);
   box-shadow:0 4px 0 rgba(60,120,190,.3);transition:transform .25s var(--pop),box-shadow .25s var(--pop)}
-.go:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(60,120,190,.3)}
+@media (hover:hover){.go:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(60,120,190,.3)}}
 .go:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(60,120,190,.3)}
 .go.alt{background:rgba(255,255,255,.55)}
 
@@ -89,20 +90,39 @@ h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
 .fish i{display:inline-block;font-style:normal;animation:bobfish 2.4s ease-in-out infinite}
 .bub{position:absolute;bottom:0;border-radius:50%;border:2px solid rgba(255,255,255,.55);z-index:0;pointer-events:none;will-change:transform;animation:rise linear infinite}
 
-.bed{position:relative;z-index:2;margin-top:-30px;padding:70px 16px 90px;text-align:center;
+.bed{position:relative;z-index:2;margin-top:-30px;padding:70px 16px calc(150px + env(safe-area-inset-bottom));text-align:center;
   background:linear-gradient(#e9cf96,#d9b574);clip-path:polygon(0 30px,10% 18px,25% 34px,42% 14px,58% 30px,75% 12px,90% 28px,100% 16px,100% 100%,0 100%)}
 .bed .deco{position:absolute;top:22px;font-size:28px;animation:sway 4s ease-in-out infinite;transform-origin:50% 100%}
 .bed p{margin:6px 0;font-size:14px;font-weight:600;color:#5b4520}
 .pillbtn{border:2px solid #fff;background:rgba(255,255,255,.6);border-radius:99px;padding:8px 18px;font-weight:700;color:#5b4520;text-decoration:none;display:inline-block;margin:4px;transition:transform .25s var(--pop),background .25s}
-.pillbtn:hover{transform:translateY(-2px);background:#fff}
+@media (hover:hover){.pillbtn:hover{transform:translateY(-2px);background:#fff}}
+.pillbtn:active{transform:scale(.95)}
 
 /* floating bottom pill */
-.meter{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:20;border:0;color:var(--ink);text-decoration:none;
+.meter{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:20;border:0;color:var(--ink);text-decoration:none;
   background:rgba(255,255,255,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:99px;padding:8px 16px;font-weight:700;font-size:15px;
   box-shadow:0 6px 18px rgba(20,60,140,.25);white-space:nowrap;max-width:calc(100vw - 32px);transition:box-shadow .3s}
 .meter.bump{animation:bumpm .7s var(--pop)}
 .meter .txt{display:inline-block}
 .meter .txt.swap{animation:fadeup .5s var(--pop)}
+
+/* bottom tab bar */
+.tabbar{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:30;width:min(440px,calc(100% - 20px));
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:6px;border-radius:24px;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(20,60,140,.28)}
+.tabbar a{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 0 5px;border-radius:18px;text-decoration:none;font-size:11.5px;font-weight:700;color:var(--ink-soft);transition:background .3s,transform .2s var(--pop)}
+.tabbar a b{font-size:22px;line-height:1.1;font-weight:400}
+.tabbar a.on{background:#dceeff;color:var(--ink)}
+.tabbar a:active{transform:scale(.92)}
+
+/* phones: wider iceberg tip/bottom to match the chubbier slices */
+@media (max-width:560px){
+  .peak .ice,.peak .snow{clip-path:polygon(9% 100%,28% 48%,35% 58%,50% 6%,61% 40%,68% 32%,91% 100%)}
+  .tip .ice{clip-path:polygon(7% 0,25% 40%,36% 68%,50% 100%,63% 64%,75% 36%,93% 0)}
+  .peak{margin-top:56px}
+  .title p{font-size:15px}
+  .say{font-size:12px}
+}
 
 @keyframes pagein{from{opacity:0}to{opacity:1}}
 @keyframes sunglow{50%{transform:scale(1.06)}}

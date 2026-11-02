@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ภูเขาน้ำแข็งในใจ 🧊</title>
+<meta name="theme-color" content="#a9dcff">
 <meta name="description" content="ดูละครไป ดำน้ำไป — เปิดภูเขาน้ำแข็งในใจทีละชั้น">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧊</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,10 +16,10 @@
 .cue{margin:2px auto 0;font-size:13.5px;color:var(--ink-soft);font-weight:600}
 .q{margin:10px 0 12px;font-size:17px;font-weight:700;line-height:1.45}
 .opts{display:flex;flex-direction:column;gap:8px}
-.opt{border:2px solid #fff;background:rgba(255,255,255,.72);border-radius:18px;padding:10px 14px;font-size:15px;font-weight:600;line-height:1.35;
+.opt{min-height:50px;border:2px solid #fff;background:rgba(255,255,255,.72);border-radius:18px;padding:11px 14px;font-size:16px;font-weight:600;line-height:1.35;
   box-shadow:0 4px 0 rgba(60,120,190,.25);
   transition:transform .3s var(--pop),background .3s ease,border-color .3s ease,box-shadow .3s var(--pop),opacity .45s ease}
-.opt:hover:not(:disabled){transform:translateY(-2px);background:#fff;box-shadow:0 6px 0 rgba(60,120,190,.25)}
+@media (hover:hover){.opt:hover:not(:disabled){transform:translateY(-2px);background:#fff;box-shadow:0 6px 0 rgba(60,120,190,.25)}}
 .opt:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 rgba(60,120,190,.25)}
 .opt:disabled{cursor:default}
 .opt.no{background:#ffe4e9;border-color:#ff9cb0;animation:wobble .55s ease-in-out}
@@ -51,6 +52,7 @@
 <body class="boot">
 
 <button class="meter" id="meter" data-act="jump"><span class="txt">🧊 0/8</span></button>
+<nav class="tabbar" data-on="game"></nav>
 
 <header class="sky">
   <div class="sun"></div>
@@ -147,7 +149,8 @@ function inner(l, k){
       <h2 class="name">${l.emo} ${l.name} ${l.emo}</h2>
       <div class="sticker">ถึงตัวฉัน: ${l.opts[S.self]}</div>
       <p class="line">“ผมคิดว่าผมสามารถไปต่อได้แล้วครับ!!!” 🚀🕊️</p>
-      <button class="again" data-act="reself">เปลี่ยนข้อความ</button>`;
+      <a class="go" style="margin-top:14px" href="me.html" data-fade>🧊 ลองดูภูเขาน้ำแข็งของตัวเอง →</a>
+      <br><button class="again" data-act="reself">เปลี่ยนข้อความ</button>`;
     return `<span class="tag">ชั้น ${n}${k === 0 ? ' · เหนือน้ำ' : ''}</span>
       <h2 class="name"><span class="e">${l.emo}</span> ${l.name}</h2>
       <div class="got">✓ ${l.opts[l.ans]}</div>
@@ -169,23 +172,6 @@ function inner(l, k){
 
 const shown = {};   // last rendered state per slice, so only changed slices animate
 const stateOf = l => isDone(l) ? 'solved' + (l.core ? S.self : '') : (l.id === activeId() ? 'active' : 'locked');
-
-// swap a slice's content: fade out, resize the ice smoothly, fade in
-function morph(el, apply){
-  const ice = el.querySelector('.ice'), inn = el.querySelector('.in');
-  const h0 = ice.offsetHeight;
-  inn.classList.add('out');
-  setTimeout(() => {
-    apply();
-    ice.style.transition = 'none'; ice.style.height = '';
-    const h1 = ice.offsetHeight;
-    ice.style.height = h0 + 'px'; void ice.offsetHeight;
-    ice.style.transition = '';
-    ice.style.height = h1 + 'px';
-    requestAnimationFrame(() => inn.classList.remove('out'));
-    setTimeout(() => { ice.style.height = ''; }, 750);
-  }, 260);
-}
 
 function render(animate){
   LAYERS.forEach((l, k) => {
@@ -234,9 +220,10 @@ document.addEventListener('click', e => {
     if(!l.core && i !== l.ans){
       b.classList.remove('no'); void b.offsetWidth; b.classList.add('no');
       el.querySelector('.oops').classList.add('show');
+      buzz([30, 40, 30]);
       return;
     }
-    busy = true;
+    busy = true; buzz(20);
     b.classList.add('yes');
     el.querySelectorAll('.opt').forEach(o => { o.disabled = true; if(o !== b) o.classList.add('fade'); });
     burst(el, b); shine(el);
