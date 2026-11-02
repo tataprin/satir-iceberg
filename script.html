@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>บทละคร 🎭</title>
+<meta name="description" content="บทละครเรื่องภูเขาน้ำแข็งในใจ ทั้ง 4 ฉาก">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎭</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.sky{padding-bottom:70px}
+.syn{position:relative;z-index:2;max-width:560px;margin:16px auto 0;padding:0 16px}
+.syn .card{background:rgba(255,255,255,.75);border:2px solid #fff;border-radius:22px;padding:14px 18px;font-size:15.5px;font-weight:500;text-align:center;box-shadow:0 6px 18px rgba(60,120,190,.15)}
+.cast{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+.who{display:flex;flex-direction:column;align-items:center;font-size:12.5px;font-weight:700;width:66px}
+.who span{width:46px;height:46px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:24px;box-shadow:0 4px 10px rgba(60,120,190,.2);margin-bottom:2px;transition:transform .3s var(--pop)}
+.who:hover span{transform:translateY(-3px) rotate(-6deg)}
+.jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px;position:relative;z-index:2;padding:0 16px}
+.jump button{border:2px solid #fff;background:rgba(255,255,255,.6);border-radius:99px;padding:6px 14px;font-weight:700;font-size:14px;transition:transform .25s var(--pop),background .25s}
+.jump button:hover{transform:translateY(-2px);background:#fff}
+
+.scenes{position:relative;z-index:2;max-width:640px;margin:0 auto;padding:40px 12px 70px;display:flex;flex-direction:column;gap:22px}
+.scene{background:rgba(255,255,255,.93);border-radius:28px;box-shadow:0 12px 34px rgba(0,20,60,.3);overflow:hidden;
+  opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s var(--pop)}
+.scene.seen{opacity:1;transform:none}
+.sh{display:flex;gap:12px;align-items:center;padding:16px 18px;background:linear-gradient(100deg,#d4eafc,#ffffff 50%,#e6f4ff)}
+.sh .bd{flex:none;width:52px;height:52px;border-radius:18px;background:#fff;display:grid;place-items:center;font-size:28px;box-shadow:0 4px 10px rgba(60,120,190,.18)}
+.sh small{display:block;font-size:12.5px;font-weight:700;color:#e0457b}
+.sh h2{margin:0;font-size:22px;line-height:1.25}
+.sh .pl{font-size:13px;color:var(--ink-soft);font-weight:600}
+.lines{padding:14px 14px 18px;display:flex;flex-direction:column;gap:9px}
+.ln{display:flex;gap:8px;align-items:flex-end;max-width:90%}
+.ln .av{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#eef6ff;font-size:18px}
+.bb{background:#eef3fb;border-radius:18px 18px 18px 5px;padding:8px 13px;font-size:15px;font-weight:500}
+.bb .nm{display:block;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.bb .act{display:block;font-size:12.5px;font-style:italic;color:var(--ink-soft)}
+.ln.me{align-self:flex-end;flex-direction:row-reverse}
+.ln.me .av{background:#ece4ff}
+.ln.me .bb{background:#e4dcff;border-radius:18px 18px 5px 18px}
+.ln.d .bb{background:#dff5ec}
+.ln.m .bb{background:#ffe9ef}
+.link{display:inline-block;margin-top:5px;font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px;color:var(--ink);text-decoration:none;border:1.5px solid rgba(29,43,83,.12);transition:transform .25s var(--pop)}
+.link:hover{transform:translateY(-1px)}
+.sec{align-self:center;font-size:12.5px;font-weight:700;color:var(--ink-soft);padding:3px 14px;border-radius:99px;background:#fff;border:1.5px dashed #c9dbf2;margin-top:6px}
+.note{align-self:center;font-size:13px;background:#fff8dc;color:#7a5b00;padding:5px 14px;border-radius:14px;max-width:92%;text-align:center;font-weight:600}
+.end{text-align:center;padding:4px 16px 18px;font-size:30px}
+.nav{display:flex;gap:4px;padding:4px}
+.nav a{padding:6px 12px;border-radius:99px;text-decoration:none;font-size:14px}
+.nav a.on{background:#dceeff}
+</style>
+</head>
+<body>
+
+<nav class="meter nav">
+  <a href="index.html" data-fade>🎮 เล่น</a><a href="info.html" data-fade>📖 ความรู้</a><a class="on" href="script.html">🎭 บทละคร</a>
+</nav>
+
+<header class="sky">
+  <div class="sun"></div>
+  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+  <div class="title">
+    <h1>บทละคร 🎭</h1>
+    <p>เรื่อง “ภูเขาน้ำแข็งในใจ”</p>
+  </div>
+  <div class="syn"><div class="card">
+    นักศึกษาแพทย์ปีหนึ่งที่ตั้งใจอ่านหนังสือหนักกว่าใคร แต่ทำ TBL ตามเพื่อนไม่ทันสักที
+    จนเริ่มหมดแรง ทะเลาะกับแม่ และต้องไปหาหมอ
+    ที่นั่น หมอพาเขาค่อยๆ ดำลงใต้ภูเขาน้ำแข็งในใจตัวเอง ทีละชั้น 🧊
+    <div class="cast">
+      <div class="who"><span>🧑‍🎓</span>คนไข้</div>
+      <div class="who"><span>🎮</span>เพื่อน</div>
+      <div class="who"><span>🙋</span>เพื่อน TBL</div>
+      <div class="who"><span>👩</span>แม่</div>
+      <div class="who"><span>🩺</span>หมอ</div>
+    </div>
+  </div></div>
+  <div class="jump" id="jump"></div>
+</header>
+
+<main class="sea">
+  <div class="waves">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 T 750 20 T 900 20 T 1050 20 T 1200 20 V40 H0Z" fill="#7fd0ff"/></svg>
+    <svg class="w2" viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 100 4 200 20 T 400 20 T 600 20 T 800 20 T 1000 20 T 1200 20 V40 H0Z" fill="#a8e1ff"/></svg>
+  </div>
+  <div class="rays"></div>
+  <div id="sealife"></div>
+  <div class="scenes" id="scenes"></div>
+  <footer class="bed">
+    <span class="deco" style="left:6%">🌿</span><span class="deco" style="left:20%;top:34px;animation-delay:-1s">🐚</span>
+    <span class="deco" style="right:8%;animation-delay:-2s">🪸</span><span class="deco" style="right:24%;top:36px;animation-delay:-3s">⭐</span>
+    <p>💙 ถ้าใจหนักๆ คุยกับคนที่ไว้ใจได้เสมอนะ · สายด่วนสุขภาพจิต <b>1323</b></p>
+    <a class="pillbtn" href="index.html" data-fade>🎮 ไปเล่นกัน</a>
+    <a class="pillbtn" href="info.html" data-fade>📖 แต่ละชั้นคืออะไร?</a>
+  </footer>
+</main>
+
+<script src="ocean.js"></script>
+<script>
+const LAYER = {
+  behavior:['🚶 พฤติกรรม','#fff6c9'], body:['💓 ความรู้สึกทางกาย','#ffe6dc'], feeling:['🌧️ อารมณ์ความรู้สึก','#ffdcea'],
+  faf:['🪞 ความรู้สึกต่อความรู้สึก','#ece0ff'], perception:['💭 ความคิด / ความเชื่อ','#dde7ff'],
+  expectation:['🎯 ความคาดหวัง','#d6f6ea'], yearning:['💗 ความปรารถนา','#ffdff1']
+};
+const WHO = {
+  p:{nm:'คนไข้',e:'🧑‍🎓',c:'me'}, f:{nm:'เพื่อน',e:'🎮'}, tb:{nm:'เพื่อน TBL',e:'👥'},
+  t1:{nm:'เพื่อน TBL 1',e:'🙋'}, t2:{nm:'เพื่อน TBL 2',e:'😎'}, both:{nm:'เพื่อนทั้งคู่',e:'🙌'},
+  f1:{nm:'เพื่อน 1',e:'🙋'}, f2:{nm:'เพื่อน 2',e:'😎'}, f12:{nm:'เพื่อน 1 & 2',e:'🙌'},
+  m:{nm:'แม่',e:'👩',c:'m'}, d:{nm:'หมอ',e:'🩺',c:'d'}
+};
+const SCENES = [
+ {no:0, emo:'📚', th:'เตรียมตัวก่อนเข้าเรียน TBL', place:'ความตื่นเต้น ความมุ่งมั่น และความเครียดที่เริ่มสะสม',
+  lines:[
+   {w:'p',t:'ฉันเข้าคณะแพทย์มาแล้วและจะได้เรียนวิชาคณะสักที! อีก 1 สัปดาห์ก็เป็น TBL แรกของฉันแล้ว! ฉันจะต้องอ่านให้ละเอียดก่อนเข้าคาบ ว่าแต่เพื่อนๆ ก็น่าจะเก่งกันทั้งนั้น เราก็ต้องเตรียมตัวให้ดี ไปอ่านหนังสือกัน!'},
+   {w:'p',t:'นี่ก็จะ 5 วันละ ยังอ่านไม่จบเลย อีกสองวันก็เข้าคาบ ไหนจะต้องเรียนคาบ lecture ให้ทันอีก อ้อใช่สิ ถ้าเราไม่เข้าใจก็ถามเพื่อนได้นี่นา แต่เราจะทำตัวเป็นตัวถ่วงไม่ได้ ต้องสู้แม้จะเหนื่อย เฮ้อ! นี่สินะคณะแพทย์'},
+   {w:'f',a:'นั่งตีป้อม',t:'ชิวๆ เหลืออีกตั้งหลายวัน มากดแรงค์กันสักตาไหม'},
+   {w:'p',t:'ใกล้ TBL แล้วนะ ยังไม่อ่านหนังสือหรอ'},
+   {w:'f',t:'ชิวๆ เหลืออีกตั้งหลายวัน มากดแรงค์กันสักตาไหม'},
+   {w:'p',link:'feeling',t:'กดแรงค์อะไร! อ่านหนังสือก็ไม่ทัน lecture ก็ยังเก็บไม่ครบ เครียดจะตายอยู่แล้ว'},
+   {n:'เริ่มแสดงความเครียดและความเหนื่อยล้าสะสมจากการอ่านหนังสือตลอดสัปดาห์'}
+  ]},
+ {no:1, emo:'🏫', th:'ในห้องเรียน TBL 1 & TBL 2', place:'บรรยากาศการทำ IRAT, TRAT และสภาวะเงียบเก็บตัว',
+  lines:[
+   {h:'TBL 1: ช่วงสอบเดี่ยว (IRAT)'},
+   {w:'p',a:'ดูนิ่งๆ ทำได้บ้างไม่ได้บ้าง',link:'body',t:'...'},
+   {n:'นิ่งๆ เก็บตัว ไม่ interact กับเพื่อนในกลุ่ม'},
+   {w:'tb',a:'ดูทำได้เรื่อยๆ แย่งๆ กันพูด',t:'...'},
+   {h:'จบ IRAT เตรียมทำสอบกลุ่ม (TRAT)'},
+   {w:'t1',t:'โอเคฉันพอรอด แกทำได้ปะ'},
+   {w:'t2',t:'ทำได้ ชิวเลย มันไม่ได้เข้าใจยากขนาดนั้น'},
+   {w:'t1',t:'แหม่พูดงี้อ่านจิงปะจ้ะ'},
+   {w:'t2',t:'อ่านเมื่อเช้าเอง ชิว~'},
+   {w:'t1',t:'โหแบบนี้อ่ะนะชิว นี่ฉันอ่านเมื่อคืนไปรอบเดียวเอง ดีนะพอไหวอยู่'},
+   {w:'p',a:'เริ่มลังเลและไม่กล้าแทรก',t:'…อ่า คือว่า'},
+   {w:'t2',t:'เมื่อกี้ข้อสามมันตอบ C ปะ'},
+   {w:'t1',t:'เออใช่ๆ มันถาม Patho นิ ตอนแรกจะตอบ A แล้วแต่เอ้ะก่อน'},
+   {w:'p',t:'…เราตอบ B ไป…'},
+   {w:'t1',t:'แล้วไอรูปนั่นอ่ะมันอะไรวะ D ปะ เมื่อเช้าดูรูปมาแล้วมันเขียนอยู่ล่างรูป'},
+   {w:'t2',t:'แม่นจ้ะ ถูกๆๆๆ นี่ก็ว่าใช่ มันเขียนอยู่ล่างรูปสไลด์อาจารย์'},
+   {w:'both',a:'ดีใจกันฉ่ำ',t:'เย้!'},
+   {w:'p',a:'ทำท่าจะถามแต่ก็ ไม่ดีกว่า',link:'body',t:'...'},
+   {n:'ถอยร่นทางกายภาพ ไม่ interact กับเพื่อนในกลุ่ม'},
+   {h:'ก่อนเริ่ม TBL 2'},
+   {w:'p',t:'อ่านหนังสือเหนื่อยแล้ว ไปหาเพื่อนดีกว่า ใกล้จะ TBL แล้วด้วย เพื่อนอ่านหนังสืออยู่มั้ยนะ'},
+   {w:'f',a:'นั่งดูบอล',t:'goal! นำห่างแล้ว เกมนี้ชนะแน่'},
+   {w:'p',t:'…'},
+   {h:'TBL 2: กำลังทำ TRAT'},
+   {w:'f1',t:'D ปะ ข้อนี้'},
+   {w:'f2',t:'เซม เขาก็ถามตรงเกินข้อนี้อ่ะ ละต่อไปว่า A ปะ'},
+   {w:'f1',t:'มันยังไงอ่ะ มันใช่กลไกยาที่ไป affect ที่ตับปะ'},
+   {w:'f2',t:'นี่คือว่างั้น ลองฝนดูซิ'},
+   {w:'f12',t:'เย้! ถูก!'},
+   {w:'p',t:'…อ่าข้อ… ข้อต่อไปนี่ว่า B ปะ อาจารย์เขาพู-'},
+   {w:'f2',t:'ไม่ปะนี่ว่า C ตัว D เหมือนอาจารย์ไม่เน้น มันเข้ากะหลายตัวปะ'},
+   {w:'f1',t:'นี่ก็ว่างั้น คือตัว C มันเจาะไปที่ Receptor เลย ไม่ใช่ครอบจักรวาลเหมือน D แกลองฝนดู'},
+   {w:'f12',t:'เย้! D ถูก!'},
+   {w:'p',t:'…อีกแล้วหรอ…'},
+   {h:'หลังออกจากคาบ กำลังกลับบ้าน'},
+   {w:'p',link:'expectation',t:'ไหงวันนี้เป็นวันที่แย่อีกแล้วอ่ะ เราก็อ่านละเอียดจัดๆ สุดๆ เลยนะ ทำไมยังไม่ได้อีก ไม่เป็นไรเดี๋ยวค่อยเอาใหม่ แล้วกลับบ้านไปจะคุยกับแม่ยังไงดีเนี่ย…'},
+   {n:'ยึดถือสมการ อ่านมาก = เข้าใจมาก เมื่อไม่ได้ผลจึงเริ่มหมดกำลังใจ'}
+  ]},
+ {no:2, emo:'🏠', th:'บ้าน · บทสนทนากับแม่', place:'การระเบิดอารมณ์ ตัดพ้อ และความเข้าใจผิด',
+  lines:[
+   {w:'p',a:'หน้าเครียดๆ กังวล',t:'...'},
+   {w:'m',a:'เดินเข้าไปถาม',t:'ช่วงนี้เป็นอะไรรึเปล่าทำไมดูเครียดจังลูก'},
+   {w:'p',a:'ปรึกษาแม่',t:'ถอนหายใจ… ตอนนี้ผมเรียนวิชา บลาๆๆ… แล้วพยายามทำความเข้าใจเนื้อหาแต่พอทำงานกลุ่มแล้วเหมือนไม่ได้ช่วยเพื่อนตอบเลย'},
+   {w:'m',t:'ก็เรียนเนื้อหาเดียวกันใช่มั้ยลูก ลูกไม่ตั้งใจรึเปล่า'},
+   {w:'p',t:'ผมก็พยายามแล้วนะ แต่ไม่รู้จะทำยังไงเหมือนกัน'},
+   {w:'m',t:'ถ้ารู้ว่าตัวเองเรียนไม่เข้าใจเหมือนเพื่อนทำไมไม่ทบทวนเนื้อหาก่อนที่จะเรียนให้มากขึ้นล่ะ จะได้ทันเพื่อนไง'},
+   {w:'p',a:'พูดเสร็จแล้วเดินหนีแม่',link:'perception',t:'ก็ผมอ่านตลอดสัปดาห์ ทุกวัน ทุกชั่วโมง ทุกนาทีทุกวินาที! แต่ผลลัพธ์มันแทบไม่ได้ดีขึ้นเลยทั้งที่อ่านเยอะขึ้นด้วยซ้ำ! แต่แม่ดูเพื่อนผมสิ เขาอ่าน 2-3 ชั่วโมงจำได้ทุกตัวอักษรยันขอบหน้าสไลด์ แทบทุกคนเป็นแบบนั้นแล้วผมล่ะ! แล้วผมล่ะแม่!'},
+   {n:'เริ่มเชื่อว่าตนเองอ่านเท่าไหร่ก็คงไม่เข้าใจเหมือนเพื่อน'}
+  ]},
+ {no:3, emo:'🩺', th:'หาหมอ', place:'การแกะรอยโลกภายใน จากความละอายใจสู่คุณค่าในตนเอง',
+  lines:[
+   {n:'คนไข้มาหาหมอเพราะไม่รู้จะทำยังไงแล้ว'},
+   {w:'p',a:'เข้าห้องตรวจ',t:'...'},
+   {w:'d',t:'สวัสดีครับ คนไข้ชื่ออะไร มาหาวันนี้เพราะอะไรเหรอครับ'},
+   {w:'p',t:'ชื่อ [...] ครับ คือผม เอ่อ…'},
+   {w:'d',t:'…ค่อยๆ ได้ครับคนไข้ พื้นที่นี้มีแค่เรา เดี๋ยวหมอรับฟังเอง'},
+   {w:'p',t:'…อ่อ ครับ คือผมมาหาเพราะว่ารู้สึกช่วงที่ผ่านมามันเรียนไม่ค่อยได้แบบ ไม่สนุกเลยครับหมอ ปกติผมจะอ่านเรื่อยๆ อ่านทุกวันได้แต่แบบ เราอ่านหนังสือไปเยอะมาก แต่ผลสุดท้ายเราก็ตามเพื่อนตลอด'},
+   {w:'d',t:'แล้วจากตรงนี้มันส่งผลยังไงกับเราบ้างเหรอ'},
+   {w:'p',link:'behavior',t:'แล้วพอเรียนไม่ได้ก็ทำให้ตัวเองไม่อยากอ่านหนังสือหรือทำอะไรแล้ว เหมือนเราไม่อยากทำอะไรแล้ว เพราะทำไปก็คงทำไม่ได้'},
+   {w:'d',t:'ดูท่าแล้วเหมือนเราดูจะติดหล่มกับเรื่องนี้มากเลยนะ แล้วทั้งหมดนี้มันทำให้เรารู้สึกยังไงเหรอ'},
+   {w:'p',link:'feeling',t:'ก็ทำให้ตัวเองรู้สึกท้อลง เหมือนไม่รู้ว่าจะทำยังไงต่อ'},
+   {w:'d',t:'นอกจากมีความรู้สึกท้อแล้วยังมีความรู้สึกอื่นที่อยากจะบอกหมอเพิ่มเติม สามารถบอกหมอได้เลยนะครับ'},
+   {w:'p',link:'feeling',t:'ก็คงเครียดด้วยเพราะเราเองก็อยากได้ผลการเรียนดีๆ เหมือนมันดูตันๆ ไปมาก เอาจริงๆ คือผมอ่ะอยากกลับไปอ่านได้ดีเหมือนเดิมอ่านได้ละเอียดเหมือนเดิมครับหมอ ผมไม่อยากโดนมองด้อยหรือผิดหวังผมแค่อยากอ่านหนังสือแบบมีความสุขเท่านั้นเอง!'},
+   {w:'d',t:'ครับคนไข้ หมอเข้าใจว่าคนไข้ต้องการจุดนั้น เดี๋ยวเราค่อยเป็นค่อยไปกันนะ หมอจะอยู่ตรงนี้คอยช่วย คนไข้ค่อยๆ เล่าให้หมอฟังนะ'},
+   {w:'p',t:'อ่อ เอิ่ม ได้ครับ'},
+   {w:'d',t:'แล้วสิ่งนี้มันทำให้เรารู้สึกผิดหรือไม่ดีกับตัวเองยังไงบ้างไหม'},
+   {w:'p',link:'faf',t:'ก็ทำให้ตัวเองรู้สึกละอายใจครับ ว่าเราเป็นแบบนี้ก็เพราะตัวเอง เพราะถ้ามันมาจากการเรียนจริงๆ การอ่านเยอะขึ้นๆ ก็คงช่วยได้แล้ว'},
+   {w:'d',t:'แสดงว่าสิ่งนี้ก็คงทำให้เราเชื่อว่าเรามีความสามารถน้อยกว่าคนอื่นไหมนะครับ'},
+   {w:'p',link:'perception',t:'คิดว่าก็ด้วยครับ เหมือนเราคงไม่สามารถเข้าใจได้เหมือนเพื่อน แม้ว่าจะอ่านมาแค่ไหน'},
+   {w:'d',t:'ถ้าอย่างนั้นเราก็อาจจะมีความเชื่อด้วยหรือเปล่าว่าถ้าเราอยากทำข้อสอบได้มากๆ ก็คงต้องมาจากการอ่านเยอะๆ'},
+   {w:'p',link:'expectation',t:'คิดว่าก็เชื่อแบบนั้นนะครับ แต่ก่อนเวลาอ่านหนังสืออะไรเราก็ใช้การอ่านเยอะๆ ให้ไปทำข้อสอบได้ แต่พอเข้ามาเรียนในคณะแล้ว วิธีนี้ดูจะใช้ได้ผลน้อยลงๆ แต่เพื่อนที่ไม่ได้อ่านไปมากกลับทำได้'},
+   {w:'d',t:'แล้วเราได้เอาความรู้สึกนี้มาผูกไว้กับตัวเองยังไงไหมนะครับ'},
+   {w:'p',link:'yearning',t:'เป็นคำถามที่ยากอยู่นะครับ ผมรู้สึกว่าจากที่ผมรู้สึกแบบนี้มา มันอาจจะเป็นที่ผมผูกคุณค่าไว้กับการเรียน พอเรียนได้ไม่ดีมาก ก็เลยรู้สึกว่าเราไม่มีคุณค่า'},
+   {w:'d',link:'yearning',t:'ผมคิดว่าสิ่งที่คุณพูดมา หากมองลึกๆ แล้ว ผมคิดว่ามันมีสิ่งที่มนุษย์ทุกคนต้องการ และมีความบริสุทธิ์อยู่มากๆ นะ ผมคิดว่าทุกคนก็รู้สึกว่าอยากมีคุณค่าในตัวเอง และก็รวมไปถึงการอยากได้รับความยอมรับจากคนอื่นนะครับ ผมคิดว่าคุณ [...] ต้องมองให้เห็นสิ่งนี้ของตัวเองให้มากๆ นะ บางครั้ง ความรู้สึกที่ไม่ดีของเรา ก็อาจจะมาจากที่เราไม่ได้ตระหนักว่าเราเองก็เป็นมนุษย์คนนึง ที่ก็มีความรู้สึกต่างๆ ได้'},
+   {w:'p',t:'อย่างนั้นเหรอครับ แล้วถ้าผมเข้าใจตรงนี้แล้ว ผมควรจะทำยังไงต่อเหรอครับ'},
+   {w:'d',t:'ผมคิดว่าคุณก็สามารถมาลองดูส่วนอื่นๆ ของความคิดคุณก็ได้นะครับว่าสิ่งต่างๆ ที่คุณเชื่อ เช่นที่ว่าถ้าเราอ่านหนังสือเยอะแล้วจะเก่ง บางครั้งการที่เราจะเก่งอะไรสักอย่าง มันก็อาจจะไม่ได้ขึ้นอยู่กับแค่ชั่วโมงบิน แต่มันก็มีส่วนอื่นๆ อีกเช่น คุณเลือกวิธีบินยังไง หลังจากการบินแต่ละรอบ คุณได้ปรับปรุงอะไรในการบินบ้าง เพราะสุดท้ายแล้วการที่เราบินนานๆ ก็อาจจะไม่ได้หมายความว่าคุณจะบินได้ไกลนะครับ'},
+   {w:'p',a:'บินทะลุหน้าต่างออกไป',t:'ผมพอจะเห็นภาพมากขึ้นนิดนึงละครับ คิดว่าตัวเองก็คงต้องปรับอะไรหลายๆ อย่าง แต่สิ่งที่สำคัญที่สุดก็คงเป็นการเข้าใจตัวเองว่าสิ่งที่เราเป็นทุกข์นั้น มันก็เป็นสิ่งที่สวยงามได้เช่นกัน และตัวผมเองก็คงต้องใจดีกับตัวเองมากขึ้น ไม่เค้นตัวเองมากเกินไป และหาวิธีใหม่ๆ ในการจัดการตัวเอง… ผมคิดว่าผมสามารถไปต่อได้แล้วครับ!!!'},
+   {n:'✨ จุดคลี่คลาย: การตระหนักรู้ในคุณค่าตนเอง และความใจดีกับตนเอง'}
+  ], end:'🚀🕊️'}
+];
+
+const line = l => {
+  if(l.h) return `<div class="sec">${l.h}</div>`;
+  if(l.n) return `<div class="note">📌 ${l.n}</div>`;
+  const w = WHO[l.w], lk = l.link && LAYER[l.link];
+  return `<div class="ln ${w.c || ''}"><div class="av">${w.e}</div><div class="bb"><span class="nm">${w.nm}</span>${l.a ? `<span class="act">(${l.a})</span>` : ''}${l.t}${lk ? `<br><a class="link" href="info.html#${l.link}" data-fade style="background:${lk[1]}">🧊 ${lk[0]}</a>` : ''}</div></div>`;
+};
+const $ = id => document.getElementById(id);
+$('scenes').innerHTML = SCENES.map(s => `
+  <article class="scene" id="s${s.no}">
+    <div class="sh"><div class="bd">${s.emo}</div><div><small>ฉาก ${s.no}</small><h2>${s.th}</h2><div class="pl">${s.place}</div></div></div>
+    <div class="lines">${s.lines.map(line).join('')}</div>
+    ${s.end ? `<div class="end">${s.end}</div>` : ''}
+  </article>`).join('');
+$('jump').innerHTML = SCENES.map(s => `<button data-s="s${s.no}">${s.emo} ฉาก ${s.no}</button>`).join('');
+$('jump').addEventListener('click', e => { const b = e.target.closest('button'); if(b) glide($(b.dataset.s)); });
+
+const io = new IntersectionObserver(es => es.forEach(x => { if(x.isIntersecting){ x.target.classList.add('seen'); io.unobserve(x.target); } }), {threshold:.05});
+document.querySelectorAll('.scene').forEach(s => io.observe(s));
+sealife($('sealife'));
+</script>
+</body>
+</html>

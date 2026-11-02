@@ -9,160 +9,48 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-:root{
-  --ink:#1d2b53; --ink-soft:#4a5a86;
-  --col:min(100vw, 640px);
-  color-scheme:light;
-}
-*{box-sizing:border-box}
-html,body{margin:0;overflow-x:hidden}
-body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);background:#0b2150;line-height:1.55;-webkit-tap-highlight-color:transparent}
-button{font:inherit;color:inherit;cursor:pointer}
-h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
-
-/* ---------- sky ---------- */
-.sky{position:relative;background:linear-gradient(#a9dcff 0%,#cdeaff 45%,#eef8ff 100%);padding-top:28px;overflow:hidden}
-.sun{position:absolute;right:8%;top:26px;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#fff6b0 0 45%,#ffe27a 46% 60%,rgba(255,226,122,0) 61%);animation:spin 30s linear infinite}
-.cloud{position:absolute;background:#fff;border-radius:99px;opacity:.9;animation:drift linear infinite}
-.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
-.cloud::before{width:55%;height:160%;left:15%;bottom:20%}
-.cloud::after{width:40%;height:130%;right:12%;bottom:15%}
-.c1{width:110px;height:30px;top:70px;left:-120px;animation-duration:60s}
-.c2{width:80px;height:22px;top:150px;left:-120px;animation-duration:85s;animation-delay:-40s;opacity:.75}
-.c3{width:130px;height:34px;top:240px;left:-140px;animation-duration:110s;animation-delay:-70s;opacity:.6}
-.title{position:relative;z-index:2;text-align:center;padding:0 16px}
-.title h1{margin:0;font-size:clamp(34px,9vw,52px);line-height:1.15;color:var(--ink);text-shadow:0 3px 0 #fff}
-.title p{margin:6px 0 0;font-size:16px;color:var(--ink-soft);font-weight:600}
-
-/* ---------- iceberg column ---------- */
-.col{position:relative;z-index:1;width:var(--col);margin:0 auto}
-.peak{position:relative;height:150px;margin-top:64px}
-.peak .ice{position:absolute;inset:0;padding:0;
-  clip-path:polygon(20% 100%,33% 50%,38% 58%,50% 6%,59% 42%,64% 35%,80% 100%);
-  background:linear-gradient(100deg,#cfe7fb 0%,#ffffff 40%,#f2faff 62%,#bcdcf6 100%)}
-.peak .snow{position:absolute;inset:0;clip-path:polygon(20% 100%,33% 50%,38% 58%,50% 6%,59% 42%,64% 35%,80% 100%);
-  background:linear-gradient(170deg,transparent 55%,rgba(150,200,240,.35) 56%,transparent 80%)}
-.penguin{position:absolute;left:50%;top:-34px;transform:translateX(-50%);font-size:40px;animation:bob 2.6s ease-in-out infinite;z-index:3}
-.say{position:absolute;left:calc(50% + 34px);top:-44px;background:#fff;border-radius:14px 14px 14px 4px;padding:4px 10px;font-size:13px;font-weight:700;white-space:nowrap;box-shadow:0 4px 10px rgba(30,60,120,.15);z-index:3}
-
-.slice{position:relative;transition:filter .4s}
-.slice .ice{position:relative;clip-path:var(--clip);padding:34px 0 30px;min-height:120px;display:flex;justify-content:center;
-  border-top:2px solid rgba(255,255,255,.7);
-  background:linear-gradient(100deg,#8ec4ea 0%,#c9e7fc 38%,#b3daf5 64%,#7cb4df 100%);transition:background .6s}
-.slice .ice::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
-  background:radial-gradient(rgba(255,255,255,.75) 1px,transparent 1.6px) 0 0/16px 16px,
-             radial-gradient(rgba(255,255,255,.5) 1px,transparent 1.6px) 8px 8px/16px 16px;transition:opacity .6s}
-.in{position:relative;z-index:2;width:calc(var(--cw) * 1%);max-width:500px;text-align:center}
-
-.slice.above .ice{background:linear-gradient(100deg,#d4eafc 0%,#ffffff 38%,#f3faff 62%,#c2dff6 100%)}
-.slice.above .ice::before{opacity:.25}
-.sea .slice .ice::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
-  background:linear-gradient(180deg,rgba(40,130,220,var(--deep0)),rgba(20,70,160,var(--deep1)))}
-
-/* locked */
-.slice.locked .in{opacity:.75}
-.lockt{font-family:"Itim";font-size:20px;color:#fff;text-shadow:0 2px 6px rgba(20,60,140,.5)}
-.locks{font-size:13px;color:#eaf6ff;font-weight:600;text-shadow:0 1px 4px rgba(20,60,140,.5)}
-
-/* active */
-.slice.active{filter:drop-shadow(0 0 14px rgba(255,255,255,.95)) drop-shadow(0 0 30px rgba(140,220,255,.7))}
-.slice.active .ice{background:linear-gradient(100deg,#b9e0fb 0%,#f5fcff 38%,#e6f5ff 64%,#a4d1f2 100%)}
-.slice.active .ice::before{opacity:.2}
-.slice.active.above .ice{background:linear-gradient(100deg,#d4eafc 0%,#ffffff 38%,#f3faff 62%,#c2dff6 100%)}
-
-/* solved */
-.slice.solved .ice{background:linear-gradient(100deg,color-mix(in srgb,var(--tint) 50%,#8ec4ea) 0%,var(--tint) 36%,color-mix(in srgb,var(--tint) 65%,#fff) 62%,color-mix(in srgb,var(--tint) 50%,#7cb4df) 100%);padding:26px 0 24px}
-.slice.solved .ice::before{opacity:.18}
-.sea .slice.solved .ice::after{opacity:.3}
-.slice.core.solved .ice{background:radial-gradient(ellipse at 50% 30%,#fffbe0 0%,#ffe9a0 40%,#f5cf6a 75%,#d9a93e 100%)}
-.slice.core.solved .ice::after{opacity:0}
-
-.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px;background:rgba(255,255,255,.75);color:var(--ink-soft)}
-.name{margin:6px 0 0;font-size:26px;line-height:1.2}
-.name .e{display:inline-block;animation:bob 3s ease-in-out infinite}
-.cue{margin:6px auto 0;font-size:13.5px;color:var(--ink-soft);font-weight:600}
+.scene{margin-top:6px;font-size:14px;font-weight:700;color:#e0457b}
+.cue{margin:2px auto 0;font-size:13.5px;color:var(--ink-soft);font-weight:600}
 .q{margin:10px 0 12px;font-size:17px;font-weight:700;line-height:1.45}
 .opts{display:flex;flex-direction:column;gap:8px}
 .opt{border:2px solid #fff;background:rgba(255,255,255,.72);border-radius:18px;padding:10px 14px;font-size:15px;font-weight:600;line-height:1.35;
-  box-shadow:0 4px 0 rgba(60,120,190,.25);transition:transform .12s,background .2s}
-.opt:hover{transform:translateY(-2px);background:#fff}
-.opt:active{transform:translateY(2px);box-shadow:none}
-.opt.no{background:#ffe1e6;border-color:#ff9cb0;animation:shake .4s}
-.opt.yes{background:#d3f7e6;border-color:#3ccf92}
-.oops{margin-top:8px;font-size:14px;font-weight:700;color:#d2456b;min-height:1px}
+  box-shadow:0 4px 0 rgba(60,120,190,.25);
+  transition:transform .3s var(--pop),background .3s ease,border-color .3s ease,box-shadow .3s var(--pop),opacity .45s ease}
+.opt:hover:not(:disabled){transform:translateY(-2px);background:#fff;box-shadow:0 6px 0 rgba(60,120,190,.25)}
+.opt:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 rgba(60,120,190,.25)}
+.opt:disabled{cursor:default}
+.opt.no{background:#ffe4e9;border-color:#ff9cb0;animation:wobble .55s ease-in-out}
+.opt.yes{background:#d3f7e6;border-color:#3ccf92;animation:yay .55s var(--pop)}
+.opt.fade{opacity:.3;transform:scale(.97)}
+.oops{margin-top:8px;font-size:14px;font-weight:700;color:#d2456b;opacity:0;transform:translateY(-4px);transition:opacity .3s ease,transform .3s var(--pop)}
+.oops.show{opacity:1;transform:none}
 .got{display:inline-block;margin-top:8px;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.85);font-weight:700;font-size:15px}
 .aha{margin:8px 0 0;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
-
-.slice.melt .ice{animation:glow 1.2s ease-out}
-.slice.crack .ice{animation:crack .6s ease-out}
-.pop{position:absolute;bottom:20%;width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.95);z-index:5;pointer-events:none;animation:popup 1.2s ease-out forwards}
-
-/* self core */
-.slice.core .ice{padding:34px 0 26px}
-.heart{font-size:54px;line-height:1;display:inline-block;filter:drop-shadow(0 0 14px #ffe27a);animation:beat 1.6s ease-in-out infinite}
-.slice.core .opts{display:grid;grid-template-columns:1fr 1fr}
-.sticker{display:inline-block;margin-top:10px;background:#fff6b8;color:#5a4500;padding:12px 18px;border-radius:6px 22px 6px 22px;font-size:18px;font-weight:700;transform:rotate(-2deg);box-shadow:0 6px 14px rgba(0,0,0,.15)}
-.line{margin:12px 0 0;font-size:14.5px;font-weight:600}
-.again{margin-top:8px;border:0;background:none;font-size:13px;font-weight:700;color:var(--ink-soft);text-decoration:underline}
-
-.tip{height:100px}
-.tip .ice{position:absolute;inset:0;clip-path:polygon(15% 0,29% 42%,37% 66%,50% 100%,62% 62%,72% 36%,85% 0);
-  background:linear-gradient(100deg,#6fa8d8,#a9d3f0 40%,#8fc0e6 64%,#5f98cc);border-top:2px solid rgba(255,255,255,.6)}
-.tip .ice::after{content:"";position:absolute;inset:0;background:rgba(10,40,110,.35)}
-
-/* ---------- sea ---------- */
-.sea{position:relative;background:linear-gradient(#7fd0ff 0%,#46a6ea 18%,#2477cc 45%,#164a99 72%,#0d2a66 100%);padding-bottom:0}
-.waves{position:absolute;left:0;right:0;top:-20px;height:40px;z-index:4;pointer-events:none;overflow:hidden}
-.waves svg{position:absolute;left:0;width:200%;height:100%;animation:wave 9s linear infinite}
-.waves svg.w2{animation-duration:14s;animation-direction:reverse;top:6px;opacity:.7}
-.rays{position:absolute;inset:0 0 auto 0;height:700px;pointer-events:none;z-index:0;
-  background:repeating-linear-gradient(105deg,rgba(255,255,255,0) 0 60px,rgba(255,255,255,.08) 60px 90px,rgba(255,255,255,0) 90px 170px);
-  -webkit-mask:linear-gradient(#000,transparent);mask:linear-gradient(#000,transparent);animation:shimmer 6s ease-in-out infinite}
-.fish{position:absolute;z-index:0;font-size:26px;left:0;animation:swim linear infinite;pointer-events:none}
-.bub{position:absolute;bottom:0;border-radius:50%;border:2px solid rgba(255,255,255,.55);z-index:0;animation:rise linear infinite;pointer-events:none}
-
-.bed{position:relative;z-index:2;margin-top:-30px;padding:70px 16px 80px;text-align:center;
-  background:linear-gradient(#e9cf96,#d9b574);clip-path:polygon(0 30px,10% 18px,25% 34px,42% 14px,58% 30px,75% 12px,90% 28px,100% 16px,100% 100%,0 100%)}
-.bed .deco{position:absolute;top:22px;font-size:28px}
-.bed p{margin:6px 0;font-size:14px;font-weight:600;color:#5b4520}
-.reset{margin-top:6px;border:2px solid #fff;background:rgba(255,255,255,.6);border-radius:99px;padding:8px 18px;font-weight:700;color:#5b4520}
-
-/* progress pill */
-.meter{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:20;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  border-radius:99px;padding:6px 14px;font-weight:700;font-size:15px;box-shadow:0 4px 14px rgba(20,60,140,.2)}
-.meter.bump{animation:beatm .6s}
-@keyframes beatm{50%{transform:translateX(-50%) scale(1.12)}}
-
-@keyframes bob{50%{transform:translate(-50%,-6px)}}
-.name .e{animation-name:bob2}
-@keyframes bob2{50%{transform:translateY(-4px) rotate(-6deg)}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes drift{to{transform:translateX(calc(100vw + 300px))}}
-@keyframes wave{to{transform:translateX(-50%)}}
-@keyframes shimmer{50%{opacity:.5}}
-@keyframes swim{from{transform:translateX(105vw)}to{transform:translateX(-15vw)}}
-@keyframes rise{from{transform:translateY(0);opacity:0}10%{opacity:1}to{transform:translateY(-900px);opacity:0}}
-@keyframes shake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
-@keyframes glow{0%{filter:brightness(1.6)}100%{filter:none}}
-@keyframes crack{0%{transform:scale(.97);filter:brightness(1.4)}60%{transform:scale(1.01)}100%{transform:none;filter:none}}
-@keyframes popup{from{transform:translateY(0) scale(.6);opacity:1}to{transform:translateY(-110px) scale(1.4);opacity:0}}
-@keyframes beat{50%{transform:scale(1.12)}}
-
-.go{margin-top:12px;border:0;border-radius:99px;padding:10px 20px;font-weight:700;font-size:16px;background:#fff;color:var(--ink);box-shadow:0 4px 0 rgba(60,120,190,.3)}
-.go:active{transform:translateY(2px);box-shadow:none}
-.meter{border:0;color:var(--ink);white-space:nowrap;max-width:calc(100vw - 32px)}
-.meter .cnt{margin-left:6px;padding-left:8px;border-left:2px solid rgba(29,43,83,.15)}
-.scene{margin-top:6px;font-size:14px;font-weight:700;color:#e0457b}
-.cue{margin-top:2px}
+.lockt{font-family:"Itim";font-size:20px;color:#fff;text-shadow:0 2px 6px rgba(20,60,140,.5)}
+.locks{font-size:13px;color:#eaf6ff;font-weight:600;text-shadow:0 1px 4px rgba(20,60,140,.5)}
 .slice.above.locked .lockt{color:var(--ink);text-shadow:none}
 .slice.above.locked .locks{color:var(--ink-soft);text-shadow:none}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.slice.locked .in{opacity:.8}
+.pop{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.95);background:rgba(255,255,255,.15);z-index:6;pointer-events:none;
+  animation:popup 1.3s cubic-bezier(.2,.7,.3,1) forwards}
+.heart{font-size:54px;line-height:1;display:inline-block;filter:drop-shadow(0 0 14px #ffe27a);animation:beat 1.8s ease-in-out infinite}
+.slice.core .opts{display:grid;grid-template-columns:1fr 1fr}
+.sticker{display:inline-block;margin-top:10px;background:#fff6b8;color:#5a4500;padding:12px 18px;border-radius:6px 22px 6px 22px;font-size:18px;font-weight:700;transform:rotate(-2deg);box-shadow:0 6px 14px rgba(0,0,0,.15);animation:stick .7s var(--pop) both .2s}
+.line{margin:12px 0 0;font-size:14.5px;font-weight:600}
+.again{margin-top:8px;border:0;background:none;font-size:13px;font-weight:700;color:var(--ink-soft);text-decoration:underline}
+.meter .cnt{margin-left:6px;padding-left:8px;border-left:2px solid rgba(29,43,83,.15)}
+@keyframes wobble{0%,100%{transform:none}20%{transform:translateX(-7px) rotate(-1deg)}40%{transform:translateX(6px) rotate(1deg)}60%{transform:translateX(-4px)}80%{transform:translateX(2px)}}
+@keyframes yay{0%{transform:scale(1)}45%{transform:scale(1.07)}100%{transform:scale(1)}}
+@keyframes popup{from{transform:translate(0,0) scale(.4);opacity:1}to{transform:translate(var(--dx),-130px) scale(1.3);opacity:0}}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes stick{from{opacity:0;transform:rotate(-10deg) scale(.6)}to{opacity:1;transform:rotate(-2deg) scale(1)}}
 </style>
 </head>
-<body>
+<body class="boot">
 
-<button class="meter" id="meter" data-act="jump">🧊 0/8</button>
+<button class="meter" id="meter" data-act="jump"><span class="txt">🧊 0/8</span></button>
 
 <header class="sky">
   <div class="sun"></div>
@@ -170,7 +58,11 @@ h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
   <div class="title">
     <h1>ภูเขาน้ำแข็งในใจ</h1>
     <p>ละครเล่นถึงไหน ก็ตอบไปตรงนั้น แล้วน้ำแข็งจะค่อยๆ เปิด 🤿</p>
-    <button class="go" data-act="jump">🎭 เริ่มเลย! ไปคำถามแรก ⤵</button>
+    <div class="btns">
+      <button class="go" data-act="jump">🎭 เริ่มเลย! ⤵</button>
+      <a class="go alt" href="info.html" data-fade>📖 แต่ละชั้นคืออะไร?</a>
+      <a class="go alt" href="script.html" data-fade>🎭 บทละคร</a>
+    </div>
   </div>
   <div class="col">
     <div class="peak"><div class="ice"></div><div class="snow"></div><div class="penguin">🐧</div><div class="say">ดำลงไปด้วยกันนะ!</div></div>
@@ -188,17 +80,20 @@ h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
   <div class="col" id="deep"></div>
   <div class="col tip"><div class="ice"></div></div>
   <footer class="bed">
-    <span class="deco" style="left:6%">🌿</span><span class="deco" style="left:20%;top:34px">🐚</span>
-    <span class="deco" style="right:8%">🪸</span><span class="deco" style="right:24%;top:36px">⭐</span>
+    <span class="deco" style="left:6%">🌿</span><span class="deco" style="left:20%;top:34px;animation-delay:-1s">🐚</span>
+    <span class="deco" style="right:8%;animation-delay:-2s">🪸</span><span class="deco" style="right:24%;top:36px;animation-delay:-3s">⭐</span>
     <p>💙 ถ้าใจหนักๆ คุยกับคนที่ไว้ใจได้เสมอนะ · สายด่วนสุขภาพจิต <b>1323</b></p>
     <p style="font-weight:500;font-size:12.5px">Satir Iceberg Model</p>
-    <button class="reset" data-act="reset">↺ เล่นใหม่</button>
+    <a class="pillbtn" href="info.html" data-fade>📖 แต่ละชั้นคืออะไร?</a>
+    <a class="pillbtn" href="script.html" data-fade>🎭 บทละคร</a>
+    <button class="pillbtn" data-act="reset">↺ เล่นใหม่</button>
   </footer>
 </main>
 
+<script src="ocean.js"></script>
 <script>
 const LAYERS = [
-  {id:'behavior', name:'พฤติกรรม', emo:'🚶', tag:'เหนือน้ำ · สิ่งที่คนอื่นเห็น', tint:'#ffffff', wt:60, wb:72,
+  {id:'behavior', name:'พฤติกรรม', emo:'🚶', tint:'#ffffff', wt:60, wb:72,
    scene:'ฉาก 3 · หาหมอ', cue:'“พอเรียนไม่ได้ ก็ไม่อยากอ่านหนังสือแล้ว”', q:'แล้วคนรอบตัวมองเห็นอะไรจากคนไข้?',
    opts:['ไม่อยากอ่านหนังสือ ไม่อยากทำอะไรแล้ว','อยากรู้สึกมีคุณค่า','เชื่อว่าอ่านมาก = เข้าใจมาก'], ans:0,
    aha:'อยู่บนสุด แต่เพิ่งโผล่ตอนท้าย — คนอื่นอาจเห็นแค่ “ขี้เกียจ”'},
@@ -241,39 +136,24 @@ try{ const r = localStorage.getItem(KEY); if(r) S = Object.assign(S, JSON.parse(
 const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
 const isDone = l => l.core ? S.self !== null : !!S.solved[l.id];
 const activeId = () => ORDER.find(id => !isDone(byId[id]));
+const $ = id => document.getElementById(id);
 
-/* build slices */
-function clipFor(wt, wb, k){
-  const j = k % 2 ? 1.4 : -1.2, mid = (wt + wb) / 4;
-  return `polygon(${50-wt/2}% 0,${50+wt/2}% 0,${50+mid+j}% 50%,${50+wb/2}% 100%,${50-wb/2}% 100%,${50-mid-j}% 50%)`;
-}
-LAYERS.forEach((l, k) => {
-  const el = document.createElement('section');
-  el.className = 'slice' + (k === 0 ? ' above' : '') + (l.core ? ' core' : '');
-  el.id = 'L-' + l.id;
-  el.style.setProperty('--clip', clipFor(l.wt, l.wb, k));
-  el.style.setProperty('--cw', Math.min(l.wt, l.wb) - 9);
-  el.style.setProperty('--tint', l.tint);
-  el.style.setProperty('--deep0', (0.04 + k * 0.03).toFixed(2));
-  el.style.setProperty('--deep1', (0.08 + k * 0.035).toFixed(2));
-  el.innerHTML = '<div class="ice"><div class="in"></div></div>';
-  document.getElementById(k === 0 ? 'top' : 'deep').appendChild(el);
-});
+LAYERS.forEach((l, k) => $(k === 0 ? 'top' : 'deep').appendChild(makeSlice(l, k, l.core ? ' core' : '')));
 
 function inner(l, k){
-  const n = k + 1, act = activeId();
+  const n = k + 1;
   if(isDone(l)){
     if(l.core) return `<div class="heart">💛</div>
       <h2 class="name">${l.emo} ${l.name} ${l.emo}</h2>
       <div class="sticker">ถึงตัวฉัน: ${l.opts[S.self]}</div>
       <p class="line">“ผมคิดว่าผมสามารถไปต่อได้แล้วครับ!!!” 🚀🕊️</p>
       <button class="again" data-act="reself">เปลี่ยนข้อความ</button>`;
-    return `<span class="tag">ชั้น ${n}${l.tag ? ' · เหนือน้ำ' : ''}</span>
+    return `<span class="tag">ชั้น ${n}${k === 0 ? ' · เหนือน้ำ' : ''}</span>
       <h2 class="name"><span class="e">${l.emo}</span> ${l.name}</h2>
       <div class="got">✓ ${l.opts[l.ans]}</div>
       <p class="aha">${l.aha}</p>`;
   }
-  if(l.id !== act){
+  if(l.id !== activeId()){
     return `<div class="lockt">❄️ ${l.core ? 'แก่นกลาง' : 'ชั้น ' + n} ❄️</div><div class="locks">🔒 จะเปิดตอน ${l.scene}</div>`;
   }
   const opts = l.opts.map((o, i) => `<button class="opt" data-act="pick" data-i="${i}">${o}</button>`).join('');
@@ -284,88 +164,100 @@ function inner(l, k){
     <div class="cue">${l.cue}</div>
     <p class="q">${l.q}</p>
     <div class="opts">${opts}</div>
-    <div class="oops"></div>`;
+    <div class="oops">ยังไม่ใช่น้า ลองอีกที 🫧</div>`;
 }
 
-function render(){
-  const act = activeId();
+const shown = {};   // last rendered state per slice, so only changed slices animate
+const stateOf = l => isDone(l) ? 'solved' + (l.core ? S.self : '') : (l.id === activeId() ? 'active' : 'locked');
+
+// swap a slice's content: fade out, resize the ice smoothly, fade in
+function morph(el, apply){
+  const ice = el.querySelector('.ice'), inn = el.querySelector('.in');
+  const h0 = ice.offsetHeight;
+  inn.classList.add('out');
+  setTimeout(() => {
+    apply();
+    ice.style.transition = 'none'; ice.style.height = '';
+    const h1 = ice.offsetHeight;
+    ice.style.height = h0 + 'px'; void ice.offsetHeight;
+    ice.style.transition = '';
+    ice.style.height = h1 + 'px';
+    requestAnimationFrame(() => inn.classList.remove('out'));
+    setTimeout(() => { ice.style.height = ''; }, 750);
+  }, 260);
+}
+
+function render(animate){
   LAYERS.forEach((l, k) => {
-    const el = document.getElementById('L-' + l.id);
-    el.classList.toggle('solved', isDone(l));
-    el.classList.toggle('active', l.id === act);
-    el.classList.toggle('locked', !isDone(l) && l.id !== act);
-    el.querySelector('.in').innerHTML = inner(l, k);
+    const st = stateOf(l);
+    if(shown[l.id] === st) return;
+    shown[l.id] = st;
+    const el = $('L-' + l.id);
+    const apply = () => {
+      el.classList.toggle('solved', st.startsWith('solved'));
+      el.classList.toggle('active', st === 'active');
+      el.classList.toggle('locked', st === 'locked');
+      el.querySelector('.in').innerHTML = inner(l, k);
+    };
+    animate && !REDUCE ? morph(el, apply) : apply();
   });
-  const n = LAYERS.filter(isDone).length;
-  document.getElementById('meter').innerHTML = act
-    ? `🎭 ${byId[act].scene} <span class="cnt">🧊 ${n}/8</span> ⤵`
-    : '🧊 ครบแล้ว! 💛';
-}
-const jump = () => { const a = activeId(); if(a) document.getElementById('L-' + a).scrollIntoView({behavior:'smooth', block:'center'}); };
-
-function bubbles(el){
-  for(let i = 0; i < 12; i++){
-    const b = document.createElement('span');
-    b.className = 'pop';
-    const s = 6 + Math.random() * 14;
-    b.style.cssText = `left:${15 + Math.random() * 70}%;width:${s}px;height:${s}px;animation-delay:${Math.random() * .4}s`;
-    el.appendChild(b);
-    setTimeout(() => b.remove(), 1800);
+  const act = activeId(), n = LAYERS.filter(isDone).length;
+  const html = act ? `🎭 ${byId[act].scene} <span class="cnt">🧊 ${n}/8</span> ⤵` : '🧊 ครบแล้ว! 💛';
+  const txt = $('meter').querySelector('.txt');
+  if(txt.innerHTML !== html){
+    txt.innerHTML = html;
+    if(animate){ txt.classList.remove('swap'); void txt.offsetWidth; txt.classList.add('swap'); }
   }
 }
-function flash(el, cls){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
-function bumpMeter(){ flash(document.getElementById('meter'), 'bump'); }
 
+function burst(el, from){
+  const r = el.getBoundingClientRect(), b = from.getBoundingClientRect();
+  for(let i = 0; i < 14; i++){
+    const p = document.createElement('span'); p.className = 'pop';
+    const s = 6 + Math.random() * 14;
+    p.style.cssText = `left:${b.left - r.left + Math.random() * b.width}px;top:${b.top - r.top + b.height / 2}px;width:${s}px;height:${s}px;--dx:${(Math.random() - .5) * 80}px;animation-delay:${Math.random() * .25}s`;
+    el.appendChild(p);
+    setTimeout(() => p.remove(), 1800);
+  }
+}
+function bump(){ const m = $('meter'); m.classList.remove('bump'); void m.offsetWidth; m.classList.add('bump'); }
+const jump = () => { const a = activeId(); glide($('L-' + (a || 'self'))); };
+
+let busy = false;
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-act]'); if(!b) return;
   const act = b.dataset.act;
+  if(act === 'jump') return jump();
   if(act === 'pick'){
-    const l = byId[activeId()], i = +b.dataset.i, el = document.getElementById('L-' + l.id);
-    if(l.core){
-      S.self = i; save(); render(); flash(el, 'melt'); bubbles(el); bumpMeter();
+    if(busy) return;
+    const l = byId[activeId()], i = +b.dataset.i, el = $('L-' + l.id);
+    if(!l.core && i !== l.ans){
+      b.classList.remove('no'); void b.offsetWidth; b.classList.add('no');
+      el.querySelector('.oops').classList.add('show');
       return;
     }
-    if(i !== l.ans){
-      flash(b, 'no');
-      el.querySelector('.oops').textContent = 'ยังไม่ใช่น้า ลองอีกที 🫧';
-      return;
-    }
+    busy = true;
     b.classList.add('yes');
-    el.querySelectorAll('.opt').forEach(o => o.disabled = true);
-    bubbles(el);
+    el.querySelectorAll('.opt').forEach(o => { o.disabled = true; if(o !== b) o.classList.add('fade'); });
+    burst(el, b); shine(el);
     setTimeout(() => {
-      S.solved[l.id] = true; save(); render(); flash(el, 'melt'); bumpMeter();
-      const next = document.getElementById('L-' + activeId());
-      flash(next, 'crack');
-      setTimeout(() => next.scrollIntoView({behavior:'smooth', block:'center'}), 1300);
-    }, 550);
+      if(l.core) S.self = i; else S.solved[l.id] = true;
+      save(); render(true); bump();
+      const nx = activeId() && $('L-' + activeId());
+      if(nx) setTimeout(() => shine(nx), 500);
+      setTimeout(() => { if(nx) glide(nx); busy = false; }, 1050);
+    }, 750);
   }
-  if(act === 'jump') jump();
-  if(act === 'reself'){ S.self = null; save(); render(); }
+  if(act === 'reself'){ S.self = null; save(); render(true); }
   if(act === 'reset'){
-    S = {solved:{}, self:null}; save(); render();
-    window.scrollTo({top:0, behavior:'smooth'});
+    S = {solved:{}, self:null}; save(); render(true);
+    setTimeout(() => glide(document.body), 300);
   }
 });
 
-/* sea life */
-(function(){
-  const box = document.getElementById('sealife');
-  const fish = [['🐟',12,26],['🐠',30,34],['🐡',52,40],['🐟',70,30],['🐠',86,45]];
-  fish.forEach(([e, top, dur], i) => {
-    const f = document.createElement('span'); f.className = 'fish'; f.textContent = e;
-    f.style.cssText = `top:${top}%;animation-duration:${dur}s;animation-delay:-${i * 7}s;font-size:${20 + (i % 3) * 6}px`;
-    box.appendChild(f);
-  });
-  for(let i = 0; i < 14; i++){
-    const b = document.createElement('span'); b.className = 'bub';
-    const s = 6 + Math.random() * 12, left = i % 2 ? 2 + Math.random() * 10 : 88 + Math.random() * 10;
-    b.style.cssText = `left:${left}%;width:${s}px;height:${s}px;animation-duration:${8 + Math.random() * 8}s;animation-delay:-${Math.random() * 12}s`;
-    box.appendChild(b);
-  }
-})();
-
-render();
+sealife($('sealife'));
+render(false);
+setTimeout(() => document.body.classList.remove('boot'), 2000);
 </script>
 </body>
 </html>

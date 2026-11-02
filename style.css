@@ -1,0 +1,126 @@
+/* shared ocean + iceberg look for every page */
+:root{--ink:#1d2b53;--ink-soft:#4a5a86;--col:min(100vw,640px);--ease:cubic-bezier(.65,0,.35,1);--pop:cubic-bezier(.2,.8,.2,1);color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;overflow-x:hidden}
+body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);background:#0b2150;line-height:1.55;-webkit-tap-highlight-color:transparent;animation:pagein .6s ease both}
+body.leaving{opacity:0;transition:opacity .3s ease}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
+
+/* sky */
+.sky{position:relative;background:linear-gradient(#a9dcff 0%,#cdeaff 45%,#eef8ff 100%);padding-top:28px;overflow:hidden}
+.sun{position:absolute;right:8%;top:26px;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#fff6b0 0 45%,#ffe27a 46% 60%,rgba(255,226,122,0) 61%);animation:sunglow 6s ease-in-out infinite}
+.cloud{position:absolute;background:#fff;border-radius:99px;opacity:.9;animation:drift linear infinite;will-change:transform}
+.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud::before{width:55%;height:160%;left:15%;bottom:20%}
+.cloud::after{width:40%;height:130%;right:12%;bottom:15%}
+.c1{width:110px;height:30px;top:70px;left:-120px;animation-duration:60s}
+.c2{width:80px;height:22px;top:150px;left:-120px;animation-duration:85s;animation-delay:-40s;opacity:.75}
+.c3{width:130px;height:34px;top:240px;left:-140px;animation-duration:110s;animation-delay:-70s;opacity:.6}
+.title{position:relative;z-index:2;text-align:center;padding:0 16px}
+.title h1{margin:0;font-size:clamp(34px,9vw,52px);line-height:1.15;text-shadow:0 3px 0 #fff}
+.title p{margin:6px 0 0;font-size:16px;color:var(--ink-soft);font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px}
+.go{display:inline-block;text-decoration:none;border:0;border-radius:99px;padding:10px 20px;font-weight:700;font-size:16px;background:#fff;color:var(--ink);
+  box-shadow:0 4px 0 rgba(60,120,190,.3);transition:transform .25s var(--pop),box-shadow .25s var(--pop)}
+.go:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(60,120,190,.3)}
+.go:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(60,120,190,.3)}
+.go.alt{background:rgba(255,255,255,.55)}
+
+/* iceberg column */
+.col{position:relative;z-index:1;width:var(--col);margin:0 auto}
+.peak{position:relative;height:150px;margin-top:64px}
+.peak .ice,.peak .snow{position:absolute;inset:0;clip-path:polygon(20% 100%,33% 50%,38% 58%,50% 6%,59% 42%,64% 35%,80% 100%)}
+.peak .ice{background:linear-gradient(100deg,#cfe7fb 0%,#ffffff 40%,#f2faff 62%,#bcdcf6 100%)}
+.peak .snow{background:linear-gradient(170deg,transparent 55%,rgba(150,200,240,.35) 56%,transparent 80%)}
+.penguin{position:absolute;left:50%;top:-34px;font-size:40px;z-index:3;animation:waddle 3.2s ease-in-out infinite;transform-origin:50% 100%}
+.say{position:absolute;left:calc(50% + 34px);top:-44px;background:#fff;border-radius:14px 14px 14px 4px;padding:4px 10px;font-size:13px;font-weight:700;white-space:nowrap;box-shadow:0 4px 10px rgba(30,60,120,.15);z-index:3;animation:float 4s ease-in-out infinite}
+
+.slice{position:relative}
+.slice .ice{position:relative;clip-path:var(--clip);padding:34px 0 30px;min-height:120px;display:flex;justify-content:center;align-items:center;overflow:hidden;
+  border-top:2px solid rgba(255,255,255,.7);
+  background:linear-gradient(100deg,#8ec4ea 0%,#c9e7fc 38%,#b3daf5 64%,#7cb4df 100%);
+  transition:height .7s var(--ease),padding .7s var(--ease)}
+.slice .ice::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.55;transition:opacity 1s ease;
+  background:radial-gradient(rgba(255,255,255,.75) 1px,transparent 1.6px) 0 0/16px 16px,radial-gradient(rgba(255,255,255,.5) 1px,transparent 1.6px) 8px 8px/16px 16px}
+.lit,.tintl,.glow,.shine{position:absolute;inset:0;pointer-events:none}
+.lit{z-index:0;opacity:0;transition:opacity 1s ease;background:linear-gradient(100deg,#b9e0fb 0%,#f5fcff 38%,#e6f5ff 64%,#a4d1f2 100%)}
+.tintl{z-index:0;opacity:0;transition:opacity 1.1s ease;
+  background:linear-gradient(100deg,color-mix(in srgb,var(--tint) 50%,#8ec4ea) 0%,var(--tint) 36%,color-mix(in srgb,var(--tint) 65%,#fff) 62%,color-mix(in srgb,var(--tint) 50%,#7cb4df) 100%)}
+.glow{z-index:3;opacity:0;transition:opacity .9s ease;box-shadow:inset 0 0 38px 8px rgba(255,255,255,.95)}
+.shine{z-index:4;transform:translateX(-130%);background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.85) 50%,transparent 65%)}
+.shine.run{animation:sweep 1.2s cubic-bezier(.45,0,.2,1)}
+.in{position:relative;z-index:5;width:calc(var(--cw) * 1%);max-width:500px;text-align:center;transition:opacity .35s ease,transform .5s var(--pop)}
+.in.out{opacity:0;transform:translateY(10px) scale(.98)}
+
+.slice.active .lit{opacity:1}
+.slice.active .ice::before{opacity:.2}
+.slice.active .glow,.slice.open .glow{opacity:1;animation:breathe 3.2s ease-in-out infinite}
+.slice.solved .tintl{opacity:1}
+.slice.solved .ice::before{opacity:.18}
+.slice.solved .ice{padding:26px 0 24px}
+.slice.above .ice,.slice.above .lit{background:linear-gradient(100deg,#d4eafc 0%,#ffffff 38%,#f3faff 62%,#c2dff6 100%)}
+.slice.above .ice::before{opacity:.25}
+.sea .slice .ice::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;transition:opacity 1s ease;
+  background:linear-gradient(180deg,rgba(40,130,220,var(--deep0)),rgba(20,70,160,var(--deep1)))}
+.sea .slice.solved .ice::after{opacity:.3}
+.slice.core .tintl{background:radial-gradient(ellipse at 50% 30%,#fffbe0 0%,#ffe9a0 40%,#f5cf6a 75%,#d9a93e 100%)}
+.slice.core.solved .ice::after{opacity:0}
+
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px;background:rgba(255,255,255,.75);color:var(--ink-soft)}
+.name{margin:6px 0 0;font-size:26px;line-height:1.2}
+.name .e{display:inline-block;animation:wiggle 3.4s ease-in-out infinite}
+
+.tip{height:100px}
+.tip .ice{position:absolute;inset:0;clip-path:polygon(15% 0,29% 42%,37% 66%,50% 100%,62% 62%,72% 36%,85% 0);
+  background:linear-gradient(100deg,#6fa8d8,#a9d3f0 40%,#8fc0e6 64%,#5f98cc);border-top:2px solid rgba(255,255,255,.6)}
+.tip .ice::after{content:"";position:absolute;inset:0;background:rgba(10,40,110,.35)}
+
+/* sea */
+.sea{position:relative;background:linear-gradient(#7fd0ff 0%,#46a6ea 18%,#2477cc 45%,#164a99 72%,#0d2a66 100%)}
+.waves{position:absolute;left:0;right:0;top:-20px;height:40px;z-index:4;pointer-events:none;overflow:hidden}
+.waves svg{position:absolute;left:0;width:200%;height:100%;animation:wave 12s linear infinite;will-change:transform}
+.waves svg.w2{animation-duration:18s;animation-direction:reverse;top:6px;opacity:.7}
+.rays{position:absolute;inset:0 0 auto 0;height:700px;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(105deg,rgba(255,255,255,0) 0 60px,rgba(255,255,255,.08) 60px 90px,rgba(255,255,255,0) 90px 170px);
+  -webkit-mask:linear-gradient(#000,transparent);mask:linear-gradient(#000,transparent);animation:shimmer 7s ease-in-out infinite}
+.fish{position:absolute;z-index:0;left:0;pointer-events:none;will-change:transform;animation:swim linear infinite}
+.fish i{display:inline-block;font-style:normal;animation:bobfish 2.4s ease-in-out infinite}
+.bub{position:absolute;bottom:0;border-radius:50%;border:2px solid rgba(255,255,255,.55);z-index:0;pointer-events:none;will-change:transform;animation:rise linear infinite}
+
+.bed{position:relative;z-index:2;margin-top:-30px;padding:70px 16px 90px;text-align:center;
+  background:linear-gradient(#e9cf96,#d9b574);clip-path:polygon(0 30px,10% 18px,25% 34px,42% 14px,58% 30px,75% 12px,90% 28px,100% 16px,100% 100%,0 100%)}
+.bed .deco{position:absolute;top:22px;font-size:28px;animation:sway 4s ease-in-out infinite;transform-origin:50% 100%}
+.bed p{margin:6px 0;font-size:14px;font-weight:600;color:#5b4520}
+.pillbtn{border:2px solid #fff;background:rgba(255,255,255,.6);border-radius:99px;padding:8px 18px;font-weight:700;color:#5b4520;text-decoration:none;display:inline-block;margin:4px;transition:transform .25s var(--pop),background .25s}
+.pillbtn:hover{transform:translateY(-2px);background:#fff}
+
+/* floating bottom pill */
+.meter{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:20;border:0;color:var(--ink);text-decoration:none;
+  background:rgba(255,255,255,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:99px;padding:8px 16px;font-weight:700;font-size:15px;
+  box-shadow:0 6px 18px rgba(20,60,140,.25);white-space:nowrap;max-width:calc(100vw - 32px);transition:box-shadow .3s}
+.meter.bump{animation:bumpm .7s var(--pop)}
+.meter .txt{display:inline-block}
+.meter .txt.swap{animation:fadeup .5s var(--pop)}
+
+@keyframes pagein{from{opacity:0}to{opacity:1}}
+@keyframes sunglow{50%{transform:scale(1.06)}}
+@keyframes drift{to{transform:translateX(calc(100vw + 300px))}}
+@keyframes waddle{0%,100%{transform:translateX(-50%) rotate(-4deg)}50%{transform:translateX(-50%) translateY(-5px) rotate(4deg)}}
+@keyframes float{50%{transform:translateY(-4px)}}
+@keyframes wiggle{0%,100%{transform:none}50%{transform:translateY(-3px) rotate(-6deg)}}
+@keyframes breathe{50%{opacity:.5}}
+@keyframes sweep{from{transform:translateX(-130%)}to{transform:translateX(130%)}}
+@keyframes wave{to{transform:translateX(-50%)}}
+@keyframes shimmer{50%{opacity:.45}}
+@keyframes swim{from{transform:translateX(105vw)}to{transform:translateX(-15vw)}}
+@keyframes bobfish{50%{transform:translateY(-6px)}}
+@keyframes rise{from{transform:translateY(0);opacity:0}10%{opacity:1}to{transform:translateY(-900px);opacity:0}}
+@keyframes sway{50%{transform:rotate(6deg)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes bumpm{0%{transform:translateX(-50%) scale(1)}40%{transform:translateX(-50%) scale(1.1)}100%{transform:translateX(-50%) scale(1)}}
+@keyframes boot{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.boot .slice{animation:boot .8s var(--pop) both;animation-delay:calc(var(--k) * 80ms + 150ms)}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
