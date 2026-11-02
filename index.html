@@ -149,20 +149,28 @@ h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
 @keyframes popup{from{transform:translateY(0) scale(.6);opacity:1}to{transform:translateY(-110px) scale(1.4);opacity:0}}
 @keyframes beat{50%{transform:scale(1.12)}}
 
-@media (min-width:560px){ .opts:not(.two){} }
+.go{margin-top:12px;border:0;border-radius:99px;padding:10px 20px;font-weight:700;font-size:16px;background:#fff;color:var(--ink);box-shadow:0 4px 0 rgba(60,120,190,.3)}
+.go:active{transform:translateY(2px);box-shadow:none}
+.meter{border:0;color:var(--ink);white-space:nowrap;max-width:calc(100vw - 32px)}
+.meter .cnt{margin-left:6px;padding-left:8px;border-left:2px solid rgba(29,43,83,.15)}
+.scene{margin-top:6px;font-size:14px;font-weight:700;color:#e0457b}
+.cue{margin-top:2px}
+.slice.above.locked .lockt{color:var(--ink);text-shadow:none}
+.slice.above.locked .locks{color:var(--ink-soft);text-shadow:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
-<div class="meter" id="meter">🧊 0/8</div>
+<button class="meter" id="meter" data-act="jump">🧊 0/8</button>
 
 <header class="sky">
   <div class="sun"></div>
   <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
   <div class="title">
     <h1>ภูเขาน้ำแข็งในใจ</h1>
-    <p>ดูละครไป แตะตอบไป แล้วดำลงไปทีละชั้น 🤿</p>
+    <p>ละครเล่นถึงไหน ก็ตอบไปตรงนั้น แล้วน้ำแข็งจะค่อยๆ เปิด 🤿</p>
+    <button class="go" data-act="jump">🎭 เริ่มเลย! ไปคำถามแรก ⤵</button>
   </div>
   <div class="col">
     <div class="peak"><div class="ice"></div><div class="snow"></div><div class="penguin">🐧</div><div class="say">ดำลงไปด้วยกันนะ!</div></div>
@@ -191,37 +199,40 @@ h1,h2,.itim{font-family:"Itim","Mali",sans-serif;font-weight:400}
 <script>
 const LAYERS = [
   {id:'behavior', name:'พฤติกรรม', emo:'🚶', tag:'เหนือน้ำ · สิ่งที่คนอื่นเห็น', tint:'#ffffff', wt:60, wb:72,
-   cue:'ฉาก 3 · “ทำไปก็คงทำไม่ได้”', q:'คนรอบตัวมองเห็นอะไรจากคนไข้?',
+   scene:'ฉาก 3 · หาหมอ', cue:'“พอเรียนไม่ได้ ก็ไม่อยากอ่านหนังสือแล้ว”', q:'แล้วคนรอบตัวมองเห็นอะไรจากคนไข้?',
    opts:['ไม่อยากอ่านหนังสือ ไม่อยากทำอะไรแล้ว','อยากรู้สึกมีคุณค่า','เชื่อว่าอ่านมาก = เข้าใจมาก'], ans:0,
-   aha:'คนอื่นอาจเห็นแค่ “ขี้เกียจ” แต่ใต้น้ำยังมีอีกเยอะ'},
+   aha:'อยู่บนสุด แต่เพิ่งโผล่ตอนท้าย — คนอื่นอาจเห็นแค่ “ขี้เกียจ”'},
   {id:'body', name:'ความรู้สึกทางกาย', emo:'💓', tint:'#ffe6dc', wt:72, wb:84,
-   cue:'ฉาก 1 · ห้อง TBL', q:'ตอนทำ TBL ร่างกายคนไข้เป็นยังไง?',
+   scene:'ฉาก 1 · ห้อง TBL', cue:'ตอนสอบ IRAT คนไข้นั่งนิ่งๆ ไม่คุยกับใคร', q:'ตอนนี้ร่างกายคนไข้เป็นยังไง?',
    opts:['แย่งเพื่อนพูดไม่หยุด','นิ่ง เกร็ง ถอยออกจากวง','นั่งดูบอลชิวๆ'], ans:1,
    aha:'ร่างกายรู้ก่อนเสมอ ว่าใจไม่โอเค'},
   {id:'feeling', name:'อารมณ์ความรู้สึก', emo:'🌧️', tint:'#ffdcea', wt:84, wb:92,
-   cue:'ฉาก 0 · “เครียดจะตายอยู่แล้ว”', q:'ข้างในใจ คนไข้รู้สึกยังไง?',
+   scene:'ฉาก 0 · ก่อนเรียน', cue:'ตอนเพื่อนชวนกดแรงค์ · “เครียดจะตายอยู่แล้ว”', q:'ตอนนี้คนไข้รู้สึกยังไง?',
    opts:['ชิว สบายๆ','ตื่นเต้น ดีใจ','ท้อ เหนื่อย เครียด'], ans:2,
    aha:'ความเครียดสะสมทั้งสัปดาห์ จนระเบิดใส่เพื่อน'},
   {id:'faf', name:'ความรู้สึกต่อความรู้สึก', emo:'🪞', tint:'#ece0ff', wt:92, wb:97,
-   cue:'ฉาก 3 · “รู้สึกละอายใจครับ”', q:'แล้วเขารู้สึกยังไง กับการที่ตัวเองท้อ?',
+   scene:'ฉาก 3 · หาหมอ', cue:'“รู้สึกละอายใจครับ ว่าเราเป็นแบบนี้ก็เพราะตัวเอง”', q:'เขารู้สึกยังไง กับการที่ตัวเองท้อ?',
    opts:['ละอายใจ โทษตัวเอง','ภูมิใจในตัวเอง','ไม่รู้สึกอะไรเลย'], ans:0,
    aha:'เจ็บแล้วยังโทษตัวเองที่เจ็บ = หนักเป็นสองเท่า'},
   {id:'perception', name:'ความคิด / ความเชื่อ', emo:'💭', tint:'#dde7ff', wt:97, wb:98,
-   cue:'ฉาก 2 · “แล้วผมล่ะแม่!”', q:'คนไข้บอกตัวเองว่าอะไร?',
+   scene:'ฉาก 2 · บ้าน', cue:'ตอนคุยกับแม่ · “แล้วผมล่ะแม่!”', q:'คนไข้กำลังบอกตัวเองว่าอะไร?',
    opts:['“เดี๋ยวก็ผ่านไป”','“อ่านเท่าไหร่ ก็คงไม่เข้าใจเหมือนเพื่อน”','“เพื่อนก็ไม่ได้เก่งกว่าเรา”'], ans:1,
    aha:'เอาตัวเองไปเทียบกับทุกคน จนเชื่อว่าสู้ไม่ได้'},
   {id:'expectation', name:'ความคาดหวัง', emo:'🎯', tint:'#d6f6ea', wt:98, wb:93,
-   cue:'ฉาก 1 · “ทำไมยังไม่ได้อีก”', q:'“สมการลับ” ในใจคนไข้คือ?',
+   scene:'ฉาก 1 · หลังเลิกคาบ', cue:'เดินกลับบ้าน · “อ่านละเอียดจัดๆ ทำไมยังไม่ได้อีก”', q:'“สมการลับ” ในใจคนไข้คือ?',
    opts:['นอนเยอะ = ฉลาด','อ่านมาก = เข้าใจมาก','เล่นเกม = เก่ง'], ans:1,
    aha:'สมการที่เคยได้ผลตอนมัธยม ใช้ไม่ได้ในโลกใหม่'},
   {id:'yearning', name:'ความปรารถนา', emo:'💗', tint:'#ffdff1', wt:93, wb:82,
-   cue:'ฉาก 3 · “ผูกคุณค่าไว้กับการเรียน”', q:'ลึกๆ หัวใจเขาต้องการอะไร?',
+   scene:'ฉาก 3 · หาหมอ', cue:'“ผมผูกคุณค่าไว้กับการเรียน”', q:'ลึกๆ หัวใจเขาต้องการอะไร?',
    opts:['อยากเรียนได้ A อย่างเดียว','อยากรู้สึกมีคุณค่า และได้รับการยอมรับ','อยากให้เพื่อนทำไม่ได้บ้าง'], ans:1,
    aha:'สิ่งที่ทุกคนต้องการ และบริสุทธิ์มากๆ'},
   {id:'self', name:'ตัวตน', emo:'✨', tint:'#fff1b8', wt:82, wb:70, core:true,
-   cue:'ตอนจบ · “ผมไปต่อได้แล้วครับ!!!”', q:'ก่อนกลับบ้าน… อยากบอกอะไรกับตัวเอง?',
+   scene:'ตอนจบ', cue:'“ผมคิดว่าผมสามารถไปต่อได้แล้วครับ!!!”', q:'ก่อนกลับบ้าน… อยากบอกอะไรกับตัวเอง?',
    opts:['เหนื่อยได้ พักได้นะ 🌙','เราเก่งในแบบของเรา 🌱','ใจดีกับตัวเองหน่อยนะ 🫶','ไม่ต้องสู้คนเดียวก็ได้ 🤝']}
 ];
+// questions follow the play, not the iceberg's depth
+const ORDER = ['feeling','body','expectation','perception','behavior','faf','yearning','self'];
+const byId = Object.fromEntries(LAYERS.map(l => [l.id, l]));
 
 /* state */
 const KEY = 'iceberg-v2';
@@ -229,7 +240,7 @@ let S = {solved:{}, self:null};
 try{ const r = localStorage.getItem(KEY); if(r) S = Object.assign(S, JSON.parse(r)); }catch(e){}
 const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
 const isDone = l => l.core ? S.self !== null : !!S.solved[l.id];
-const activeIdx = () => LAYERS.findIndex(l => !isDone(l));
+const activeId = () => ORDER.find(id => !isDone(byId[id]));
 
 /* build slices */
 function clipFor(wt, wb, k){
@@ -250,7 +261,7 @@ LAYERS.forEach((l, k) => {
 });
 
 function inner(l, k){
-  const n = k + 1, act = activeIdx();
+  const n = k + 1, act = activeId();
   if(isDone(l)){
     if(l.core) return `<div class="heart">💛</div>
       <h2 class="name">${l.emo} ${l.name} ${l.emo}</h2>
@@ -262,31 +273,35 @@ function inner(l, k){
       <div class="got">✓ ${l.opts[l.ans]}</div>
       <p class="aha">${l.aha}</p>`;
   }
-  if(k !== act){
-    return `<div class="lockt">❄️ ${l.core ? 'แก่นกลาง' : 'ชั้น ' + n} ❄️</div><div class="locks">🔒 ตอบชั้นบนก่อนนะ</div>`;
+  if(l.id !== act){
+    return `<div class="lockt">❄️ ${l.core ? 'แก่นกลาง' : 'ชั้น ' + n} ❄️</div><div class="locks">🔒 จะเปิดตอน ${l.scene}</div>`;
   }
   const opts = l.opts.map((o, i) => `<button class="opt" data-act="pick" data-i="${i}">${o}</button>`).join('');
-  return `<span class="tag">${l.core ? 'แก่นกลาง · ลึกที่สุด' : (l.tag || 'ชั้น ' + n + ' · ใต้น้ำ')}</span>
+  return `<span class="tag">คำถาม ${ORDER.indexOf(l.id) + 1}/8 · ${l.core ? 'แก่นกลาง' : 'ชั้น ' + n}</span>
     ${l.core ? '<div class="heart" style="margin-top:8px">🤍</div>' : ''}
     <h2 class="name"><span class="e">${l.emo}</span> ${l.name}</h2>
-    <div class="cue">🎭 ${l.cue}</div>
+    <div class="scene">🎭 ${l.scene}</div>
+    <div class="cue">${l.cue}</div>
     <p class="q">${l.q}</p>
     <div class="opts">${opts}</div>
     <div class="oops"></div>`;
 }
 
 function render(){
-  const act = activeIdx();
+  const act = activeId();
   LAYERS.forEach((l, k) => {
     const el = document.getElementById('L-' + l.id);
     el.classList.toggle('solved', isDone(l));
-    el.classList.toggle('active', k === act);
-    el.classList.toggle('locked', !isDone(l) && k !== act);
+    el.classList.toggle('active', l.id === act);
+    el.classList.toggle('locked', !isDone(l) && l.id !== act);
     el.querySelector('.in').innerHTML = inner(l, k);
   });
   const n = LAYERS.filter(isDone).length;
-  document.getElementById('meter').textContent = n === 8 ? '🧊 ครบแล้ว! 💛' : `🧊 ${n}/8`;
+  document.getElementById('meter').innerHTML = act
+    ? `🎭 ${byId[act].scene} <span class="cnt">🧊 ${n}/8</span> ⤵`
+    : '🧊 ครบแล้ว! 💛';
 }
+const jump = () => { const a = activeId(); if(a) document.getElementById('L-' + a).scrollIntoView({behavior:'smooth', block:'center'}); };
 
 function bubbles(el){
   for(let i = 0; i < 12; i++){
@@ -305,7 +320,7 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-act]'); if(!b) return;
   const act = b.dataset.act;
   if(act === 'pick'){
-    const k = activeIdx(), l = LAYERS[k], i = +b.dataset.i, el = document.getElementById('L-' + l.id);
+    const l = byId[activeId()], i = +b.dataset.i, el = document.getElementById('L-' + l.id);
     if(l.core){
       S.self = i; save(); render(); flash(el, 'melt'); bubbles(el); bumpMeter();
       return;
@@ -320,11 +335,12 @@ document.addEventListener('click', e => {
     bubbles(el);
     setTimeout(() => {
       S.solved[l.id] = true; save(); render(); flash(el, 'melt'); bumpMeter();
-      const next = document.getElementById('L-' + LAYERS[k + 1].id);
+      const next = document.getElementById('L-' + activeId());
       flash(next, 'crack');
-      setTimeout(() => next.scrollIntoView({behavior:'smooth', block:'center'}), 700);
+      setTimeout(() => next.scrollIntoView({behavior:'smooth', block:'center'}), 1300);
     }, 550);
   }
+  if(act === 'jump') jump();
   if(act === 'reself'){ S.self = null; save(); render(); }
   if(act === 'reset'){
     S = {solved:{}, self:null}; save(); render();
