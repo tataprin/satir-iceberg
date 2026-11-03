@@ -278,6 +278,11 @@ async function drawPoster(){
   const W = 1080, H = 1920;
   const c = document.createElement('canvas'); c.width = W; c.height = H;
   const g = c.getContext('2d');
+  // iPhone Safari ignored textAlign:'center' here and drew every line from the middle
+  // to the right, so all text is centred by measuring it instead
+  const rawFill = g.fillText.bind(g), rawStroke = g.strokeText.bind(g);
+  g.fillText = (t, x, y) => { g.textAlign = 'left'; rawFill(t, x - g.measureText(t).width / 2, y); };
+  g.strokeText = (t, x, y) => { g.textAlign = 'left'; rawStroke(t, x - g.measureText(t).width / 2, y); };
   try{ await Promise.all(['40px Itim', '700 40px Mali', '600 40px Mali'].map(f => document.fonts.load(f))); }catch(e){}
   const X = p => p / 100 * W;
   const circle = (x, y, r) => { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); };
@@ -301,7 +306,7 @@ async function drawPoster(){
   [[150, 110, 1], [800, 330, .7], [120, 390, .55]].forEach(([x, y, s]) => { circle(x, y, 34 * s); circle(x + 40 * s, y - 18 * s, 44 * s); circle(x + 90 * s, y, 34 * s); g.fillRect(x, y - 10 * s, 90 * s, 44 * s); });
 
   // title
-  g.textAlign = 'center'; g.lineJoin = 'round';
+  g.lineJoin = 'round';
   g.font = '96px Itim'; g.lineWidth = 16; g.strokeStyle = '#fff';
   g.strokeText('ภูเขาน้ำแข็งของฉัน', W / 2, 160); g.fillStyle = '#1d2b53'; g.fillText('ภูเขาน้ำแข็งของฉัน', W / 2, 160);
   const date = new Date().toLocaleDateString('th-TH', {day:'numeric', month:'short', year:'numeric'});
