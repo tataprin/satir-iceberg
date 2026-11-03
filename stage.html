@@ -25,12 +25,12 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧊</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;600;700&family=Sniglet:wght@800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=8">
 <style>
 /* one screen, no scrolling. Each scene shows its room first; the iceberg comes in when a layer is revealed.
    --wl is the waterline (bottom of the first layer); the "tank" is the iceberg's own window of sea */
-:root{--top:4vh;--pk:10vh;--lh:9.2vh;--tip:5vh;--bw:min(50vw,98vh);--wl:calc(var(--top) + var(--pk) + var(--lh));
+:root{--out:cubic-bezier(.22,1,.36,1);--soft:cubic-bezier(.34,1.32,.64,1);--io:cubic-bezier(.45,0,.55,1);--top:4vh;--pk:10vh;--lh:9.2vh;--tip:5vh;--bw:min(50vw,98vh);--wl:calc(var(--top) + var(--pk) + var(--lh));
   --tt:2vh;--tb:2vh;--tw:calc(var(--bw) + 3vw);--tx:calc((100vw - var(--tw)) / 2)}
 @media (max-aspect-ratio:1/1){
   :root{--top:12vh;--pk:7vh;--lh:8.4vh;--tip:4vh;--bw:88vw;--tt:7vh;--tb:4vh;--tw:94vw;--tx:3vw}
@@ -43,14 +43,181 @@ body{cursor:pointer;user-select:none;-webkit-user-select:none;
 .seawrap .rays{height:100%}
 .seawrap .waves{z-index:1}
 
-/* title (first slide only) */
-.cover{position:absolute;z-index:3;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;
-  transition:opacity .8s ease,transform 1s var(--pop)}
-body:not(.cover-on) .cover{opacity:0;transform:translateY(-4vh) scale(.96)}
-.cover .pg{font-size:clamp(48px,12vh,140px);line-height:1;animation:float 3s ease-in-out infinite}
-.cover h1{margin:.1em 0 0;padding:0 4vw;font-size:clamp(32px,min(12vh,11vw),150px);line-height:1.15;color:var(--ink);
+/* thank-you (last slide) in the open sea */
+.thanks{position:absolute;z-index:3;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;
+  transition:opacity .8s ease,transform 1s var(--out)}
+body:not(.thanks-on) .thanks{opacity:0;transform:translateY(5vh) scale(.94)}
+.thanks .pg{font-size:clamp(48px,12vh,140px);line-height:1;animation:bobwater 5s var(--io) infinite}
+.thanks h1{margin:.1em 0 0;padding:0 4vw;font-size:clamp(32px,min(12vh,11vw),150px);line-height:1.15;color:var(--ink);
   text-shadow:0 .05em 0 #fff,.04em 0 0 #fff,-.04em 0 0 #fff,0 -.04em 0 #fff,0 .1em .3em rgba(0,40,100,.25)}
-.cover p{margin:.6em 0 0;padding:.25em 1em;border-radius:99px;background:rgba(255,255,255,.85);font-size:clamp(14px,2.6vh,30px);font-weight:700;color:var(--ink-soft)}
+.thanks p{margin:.6em 0 0;padding:.25em 1em;border-radius:99px;background:rgba(255,255,255,.85);font-size:clamp(14px,2.6vh,30px);font-weight:700;color:var(--ink-soft)}
+
+.thanks h1{line-height:1.05}
+.thanks>*:not(.hearts){position:relative;z-index:1}
+@media (max-aspect-ratio:1/1){ .thanks p{font-size:min(2.4vh,4vw)} }
+.thanks .wave{position:absolute;right:-.55em;top:.05em;font-size:.6em;transform-origin:70% 90%;animation:wave2 3s var(--io) infinite}
+/* credits under the thank-you */
+.thanks .ty{display:flex;align-items:center;gap:2.4vw;text-align:left}
+.thanks .ty .pg{position:relative}
+.thanks .ty h1{font-size:clamp(48px,min(15vh,16vw),190px)}
+.thanks .ty p{display:inline-block;margin-top:.3em}
+.tags2{display:flex;gap:1vw;justify-content:center;margin-top:2.6vh}
+.tags2 .stk{font-size:2.3vh;padding:.25em .9em}
+.tags2 .stk:nth-child(1){background:#ffe27a;transform:rotate(-2deg)}
+.tags2 .stk:nth-child(3){transform:rotate(2deg)}
+.credits{display:flex;gap:2.4vw;justify-content:center;align-items:flex-start;margin-top:3.4vh;pointer-events:none}
+.crew{position:relative;width:min(38vw,560px);padding:3.4vh 2vw 2.4vh;background:#fbfdff;border:3px solid var(--ink);border-radius:3vh;box-shadow:7px 8px 0 rgba(29,43,83,.2);text-align:left}
+.crew:nth-child(1){transform:rotate(-1deg)}
+.crew:nth-child(2){transform:rotate(1deg)}
+.crew>.stk{position:absolute;left:50%;top:0;translate:-50% -55%;white-space:nowrap;font-size:2.4vh;background:#dff1ff}
+.crew:nth-child(2)>.stk{background:#ffdff1}
+.crew ol{margin:0;padding:0;list-style:none}
+.crew li{display:flex;justify-content:space-between;gap:1.4vw;padding:.55vh 0;border-bottom:2px dashed rgba(29,43,83,.14);font:700 2.6vh/1.4 "Mali",sans-serif}
+.crew li:last-child{border-bottom:0}
+.crew li span{font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.crew li em{font-style:normal;font-weight:600;color:var(--ink-soft)}
+body.thanks-on .thanks .ty{animation:rise2 1s var(--out) both .2s}
+body.thanks-on .tags2{animation:rise2 1s var(--out) both .45s}
+body.thanks-on .crew{animation:rise2 1s var(--out) both .7s}
+body.thanks-on .crew:nth-child(2){animation-delay:.85s}
+@media (max-aspect-ratio:1/1){
+  .thanks .ty{flex-direction:column;gap:0;text-align:center}
+  .thanks .ty .pg{font-size:min(8vh,16vw)}
+  .thanks .ty h1{font-size:min(14vw,9vh)}
+  .tags2 .stk{font-size:min(1.8vh,3.3vw)}
+  .credits{flex-direction:column;align-items:center;gap:3.4vh;margin-top:3vh}
+  .crew{width:88vw;padding:2.6vh 4vw 1.4vh}
+  .crew>.stk{font-size:min(1.8vh,3.4vw)}
+  .crew li{font-size:min(1.7vh,3.2vw);padding:.3vh 0}
+}
+/* hearts and bubbles drifting up, only while the thank-you is showing */
+.hearts{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hearts span{position:absolute;bottom:-12vh;font-size:clamp(20px,4vh,46px);opacity:0;animation:drift-up linear infinite;animation-play-state:paused}
+body.thanks-on .hearts span{animation-play-state:running}
+@keyframes drift-up{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.95}90%{opacity:.9}100%{transform:translateY(-118vh) rotate(25deg);opacity:0}}
+
+/* ---------- opening slides: the group (SOULution) and the Satir Model ----------
+   bright day at sea, same world as the iceberg: sticker-style bubbly titles, the penguin says hi */
+.deck{position:absolute;inset:0;z-index:7;overflow:hidden;color:var(--ink);opacity:0;pointer-events:none;transition:opacity 1s ease}
+body.deck-on .deck{opacity:1}
+.dk{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;--hz:66vh}
+.dk.on{opacity:1}
+body.warm .dk:not(.on){opacity:.002;transition:none}
+.dk-satir{--hz:31vh}
+.day{position:absolute;inset:0;background:linear-gradient(#9fd8ff 0,#e6f6ff var(--hz),#7fd0ff var(--hz),#46a6ea calc(var(--hz) + 18vh),#2477cc 100%)}
+.dk .sun{right:6vw;top:6vh;left:auto}
+.dkw{position:absolute;left:0;right:0;top:var(--hz);bottom:0;overflow:hidden}
+.dkw .waves{top:-20px}
+
+/* sticker titles: white/yellow fill, thick ink outline, chunky drop */
+.toon{margin:0;font:800 21vh/1 "Sniglet","Itim",sans-serif;letter-spacing:.01em;white-space:nowrap;text-shadow:.05em 0 0 #1d2b53,-.05em 0 0 #1d2b53,0 .05em 0 #1d2b53,0 -.05em 0 #1d2b53,.036em .036em 0 #1d2b53,-.036em .036em 0 #1d2b53,.036em -.036em 0 #1d2b53,-.036em -.036em 0 #1d2b53,0 .11em 0 #1d2b53,.04em .11em 0 #1d2b53,-.04em .11em 0 #1d2b53,0 .2em .14em rgba(29,43,83,.22)}
+.toon{animation:titlefloat 6s var(--io) infinite}
+.toon i{display:inline-block;font-style:normal;color:#fff;will-change:transform}
+.toon .u i{color:#ffd23f}
+.dk.play .toon i{animation:letterin .9s var(--soft) both;animation-delay:calc(var(--i) * 55ms + .25s)}
+@keyframes letterin{from{opacity:0;transform:translateY(5vh) scale(.9)}to{opacity:1;transform:none}}
+@keyframes titlefloat{50%{transform:translateY(-.9vh)}}
+.dk-soul .toon{position:absolute;left:0;right:0;top:15vh;text-align:center}
+
+.stk{display:inline-block;border:3px solid var(--ink);border-radius:99px;padding:.35em 1.1em;box-shadow:4px 5px 0 rgba(29,43,83,.22);font:700 3.1vh "Mali",sans-serif;background:#fff}
+.brand{position:absolute;left:4vw;top:5vh;font-size:2.6vh;padding:.3em .9em;transform:rotate(-3deg)}
+.dk.play .brand{animation:rise2 .8s var(--out) both .15s}
+.tags{position:absolute;left:0;right:0;top:42vh;display:flex;justify-content:center;gap:1.4vw;flex-wrap:wrap}
+.tags .stk:first-child{transform:rotate(-2deg)}
+.tags .stk:last-child{background:#ffe27a;transform:rotate(2deg)}
+.dk.play .tags .stk{animation:rise2 .9s var(--out) both}
+.dk.play .tags .stk:first-child{animation-delay:.85s}
+.dk.play .tags .stk:last-child{animation-delay:1s}
+@keyframes rise2{from{opacity:0;translate:0 2.5vh}to{opacity:1;translate:0 0}}
+
+/* the penguin on its ice floe, bobbing on the water and waving */
+.buddy{position:absolute;left:50%;top:calc(var(--hz) - 10.3vh);width:26vh;margin-left:-13vh;will-change:transform;animation:bobwater 5s var(--io) infinite}
+.buddy svg{display:block;width:100%;height:auto;overflow:visible}
+.buddy .pg{position:absolute;left:50%;top:-6.6vh;font-size:11vh;line-height:1;translate:-50% 0}
+.buddy .hand{position:absolute;left:58%;top:-5.6vh;font-size:4.6vh;transform-origin:25% 90%;animation:wave2 3s var(--io) infinite}
+.dk.play .buddy{animation:buddyin 1.2s var(--out) both .9s,bobwater 5s var(--io) 2.1s infinite}
+@keyframes buddyin{from{opacity:0;transform:translateY(6vh)}to{opacity:1;transform:none}}
+@keyframes bobwater{0%,100%{transform:translateY(0) rotate(-1.2deg)}50%{transform:translateY(-.9vh) rotate(1.2deg)}}
+@keyframes wave2{0%,48%,100%{transform:rotate(0)}12%{transform:rotate(-16deg)}24%{transform:rotate(8deg)}36%{transform:rotate(-10deg)}}
+.buddy .rip{transform-box:fill-box;transform-origin:50% 50%;animation:ripple2 3.4s var(--io) infinite}
+.buddy .rip.b{animation-delay:-1.7s}
+@keyframes ripple2{0%{transform:scale(.85);opacity:.9}100%{transform:scale(1.25);opacity:0}}
+.spk{position:absolute;font-size:4vh;animation:twinkle2 4.5s var(--io) infinite}
+@keyframes twinkle2{50%{transform:scale(.82);opacity:.55}}
+
+/* SATIR MODEL */
+.dk-satir .toon{position:absolute;left:5vw;top:calc(var(--hz) - 17vh);font-size:14vh}
+.dk-satir .toon i{color:#ffd23f}
+.card2{position:absolute;left:5vw;top:calc(var(--hz) + 6vh);width:min(47vw,64em)}
+.card2 .sbub{padding:3.4vh 2.6vw 3.8vh}
+.card2 .en{display:inline-block;margin:0 0 1.6vh;background:#dff1ff;font-size:2.4vh}
+.card2 .pw{font-size:3vh}
+.card2 .note{font-size:3vh;margin-top:3vh}
+.dk.play .card2 .sbub{animation:settle 1s var(--out) both .4s}
+.dk.play .card2 .note{animation:stick2 .8s var(--out) both 1s}
+@keyframes settle{from{opacity:0;transform:translateY(3vh) rotate(-1deg) scale(.97)}to{opacity:1;transform:rotate(-1deg)}}
+@keyframes stick2{from{opacity:0;transform:translateY(-1.6vh) rotate(4deg)}to{opacity:1;transform:rotate(1.4deg)}}
+.bigberg{position:absolute;left:58vw;top:calc(var(--hz) - 22vh);height:86vh;width:auto;overflow:visible}
+.bigberg .tipg,.bigberg .lab{transform-box:fill-box;transform-origin:50% 100%}
+.dk.play .bigberg .tipg{animation:tipup 1.2s var(--out) both .35s}
+@keyframes tipup{from{transform:translateY(35%);opacity:0}to{transform:none;opacity:1}}
+.dk.play .bigberg .bodyg{animation:bodyin 1.4s cubic-bezier(.6,0,.2,1) both .7s}
+@keyframes bodyin{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+.dk.play .bigberg .lab{animation:rise2 .9s var(--out) both;animation-delay:var(--d)}
+
+@media (max-aspect-ratio:1/1){
+  .dk{--hz:62vh}
+  .dk-satir{--hz:22vh}
+  .brand{font-size:min(2.2vh,4vw)}
+  .dk-soul .toon{top:20vh;font-size:min(13.5vw,12vh)}
+  .tags{top:34vh;flex-direction:column;align-items:center;gap:1.4vh}
+  .tags .stk{font-size:min(2.4vh,4.4vw)}
+  .buddy{width:20vh;margin-left:-10vh;top:calc(var(--hz) - 6.2vh)}
+  .buddy .pg{font-size:10vh;top:-6vh}
+  .dk-satir .toon{font-size:min(9.6vw,8vh);top:calc(var(--hz) - 8vh)}
+  .card2{left:5vw;width:90vw;top:calc(var(--hz) + 3vh)}
+  .card2 .sbub{padding:16px 18px}
+  .card2 .en{font-size:min(1.7vh,3.2vw)}
+  .card2 .pw{font-size:min(1.9vh,3.6vw)}
+  .card2 .note{font-size:min(1.9vh,3.6vw);margin-top:14px}
+  .bigberg{left:22vw;top:auto;bottom:-4vh;height:40vh}
+}
+
+/* scan to play: the QR to the phone game */
+.dk-qr{--hz:82vh}
+.qhead{position:absolute;left:6vw;top:13vh;margin:0;font:400 10.5vh/1.15 "Itim",sans-serif;color:#fff;text-shadow:.05em 0 0 #1d2b53,-.05em 0 0 #1d2b53,0 .05em 0 #1d2b53,0 -.05em 0 #1d2b53,.036em .036em 0 #1d2b53,-.036em .036em 0 #1d2b53,.036em -.036em 0 #1d2b53,-.036em -.036em 0 #1d2b53,0 .09em 0 #1d2b53,0 .16em .12em rgba(29,43,83,.2)}
+.qhead span{color:#ffd23f}
+.dk.play .qhead{animation:rise2 1s var(--out) both .2s}
+.steps{position:absolute;left:6vw;top:44vh;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2.2vh}
+.steps li{display:flex;align-items:center;gap:1.2vw;font:700 3.4vh "Mali",sans-serif}
+.steps b{flex:0 0 auto;width:6.4vh;height:6.4vh;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid var(--ink);box-shadow:3px 4px 0 rgba(29,43,83,.2);font:400 3.4vh "Itim",sans-serif}
+.steps li:nth-child(2) b{background:#ffe27a}
+.steps li:nth-child(3) b{background:#ffdff1}
+.dk.play .steps li{animation:rise2 .9s var(--out) both}
+.dk.play .steps li:nth-child(1){animation-delay:.6s}
+.dk.play .steps li:nth-child(2){animation-delay:.75s}
+.dk.play .steps li:nth-child(3){animation-delay:.9s}
+.qcard{position:absolute;right:9vw;top:9vh;padding:2.6vh;background:#fff;border:4px solid var(--ink);border-radius:4vh;box-shadow:9px 10px 0 rgba(29,43,83,.22);transform:rotate(2deg)}
+.qcard .qimg{position:relative;width:min(56vh,40vw);aspect-ratio:1;overflow:hidden}
+.qcard img{display:block;width:100%;height:100%;image-rendering:pixelated}
+.qcard .scan{position:absolute;left:-2%;right:-2%;top:0;height:.8vh;border-radius:99px;background:linear-gradient(90deg,transparent,rgba(63,157,230,.55),transparent);animation:scan 3.2s var(--io) infinite alternate}
+@keyframes scan{to{top:calc(100% - .8vh)}}
+.qcard .url{display:block;margin-top:1.8vh;text-align:center;font:700 2.3vh "Mali",sans-serif;color:var(--ink-soft)}
+.dk.play .qcard{animation:settleq 1.1s var(--out) both .35s}
+@keyframes settleq{from{opacity:0;transform:translateY(5vh) rotate(5deg) scale(.95)}to{opacity:1;transform:rotate(2deg)}}
+.dk-qr .buddy{left:28vw}
+@media (max-aspect-ratio:1/1){
+  .dk-qr{--hz:88vh}
+  .qhead{left:6vw;right:6vw;top:10vh;text-align:center;font-size:min(9vw,5.6vh)}
+  .qcard{left:50%;right:auto;top:26vh;transform:translateX(-50%) rotate(2deg);padding:2vh}
+  .dk.play .qcard{animation:none}
+  .qcard .qimg{width:62vw}
+  .qcard .url{font-size:min(1.8vh,3.4vw)}
+  .steps{left:8vw;top:auto;bottom:16vh;gap:1.4vh}
+  .steps li{font-size:min(2.2vh,4.2vw);gap:3vw}
+  .steps b{width:min(4.6vh,9vw);height:min(4.6vh,9vw);font-size:min(2.4vh,4.4vw)}
+  .dk-qr .buddy{display:none}
+}
 
 /* room photos behind the play's scenes (title + finale stay in the open sea) */
 .rooms{position:absolute;inset:0;z-index:1;pointer-events:none}
@@ -61,8 +228,8 @@ body.room:not(.hide) .rooms::after{opacity:1}
 
 .tank{position:absolute;z-index:2;top:var(--tt);bottom:var(--tb);right:var(--tx);width:var(--tw);overflow:hidden;border-radius:0;
   transition:top .9s var(--ease),bottom .9s var(--ease),right .9s var(--ease),width .9s var(--ease),border-radius .9s var(--ease),box-shadow .9s ease,
-    opacity .7s ease,transform .9s var(--pop)}
-body.hide .tank{opacity:0;transform:translateY(6vh) scale(.9)}
+    opacity .8s ease,transform 1s var(--out)}
+body.hide .tank{opacity:0;transform:translateY(3vh) scale(.97)}
 .tank::before,.tank::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .9s ease}
 .tank::before{background:linear-gradient(180deg,#a9dcff 0,#e3f5ff calc(var(--wl) - var(--tt)),#7fd0ff calc(var(--wl) - var(--tt)),
   #46a6ea calc(var(--wl) - var(--tt) + 18vh),#2477cc calc(70vh - var(--tt)),#0d2a66 calc(100vh - var(--tt)))}
@@ -88,7 +255,7 @@ body.room .tank::before,body.room .tank::after,body.room .tlife{opacity:1}
 .berg .tip{position:relative;height:var(--tip);transition:height .9s var(--ease)}
 .berg .in{line-height:1.25}
 .sn{font-family:"Itim";font-size:clamp(14px,2.9vh,36px)}
-.sn .e{display:inline-block;animation:wiggle 3.4s ease-in-out infinite}
+.sn .e{display:inline-block}
 .sa{margin-top:.15em;font-size:clamp(11px,2.1vh,26px);font-weight:700;color:var(--ink-soft)}
 .berg .lockt{font-size:clamp(13px,2.2vh,24px)}
 .berg .slice.above .lockt{color:var(--ink);text-shadow:none}
@@ -107,6 +274,93 @@ body.room .tank::before,body.room .tank::after,body.room .tlife{opacity:1}
 body.finale .berg .slice .glow{opacity:1;animation:breathe 3.2s ease-in-out infinite}
 body.finale .berg .slice.core .ice{box-shadow:0 0 40px 10px rgba(255,226,122,.8)}
 
+/* ---------- after the finale: the penguin explains each layer ----------
+   the iceberg slides left; the penguin swims down beside the layer being explained
+   and "says" it in a doodle-style speech bubble */
+body.learn{--bw:min(40vw,80vh);--tw:calc(var(--bw) + 3vw);--tx:calc(100vw - var(--tw) - 3vw)}
+@media (max-aspect-ratio:1/1){
+  body.learn{--top:7vh;--pk:5vh;--lh:5.1vh;--tip:2.5vh;--bw:80vw;--tw:86vw;--tx:7vw;--wl:calc(var(--top) + var(--pk) + var(--lh))}
+  body.learn .sn{font-size:min(1.9vh,3.6vw)}
+  body.learn .sa{font-size:min(1.4vh,2.7vw)}
+  body.learn .berg .penguin{font-size:min(4vh,8vw)}
+}
+.berg .slice{transition:opacity .6s ease,filter .6s ease,transform .7s var(--out)}
+body.focusing .berg .slice:not(.focus){filter:grayscale(.55) brightness(.8)}
+body.focusing .berg .slice.focus{z-index:3;transform:scale(1.05)}
+body.focusing .berg .slice.focus .glow{opacity:1;animation:breathe 2.4s ease-in-out infinite}
+
+/* the penguin guide (landscape only) — it leaves the peak and swims beside the iceberg */
+.berg .penguin{transition:opacity .5s ease}
+/* "guiding" starts when the penguin dives off the peak; the bubble trail shows once it has landed */
+@media (min-aspect-ratio:1/1){ body.guiding .berg .penguin{opacity:0;transition:none} }
+.guide{position:absolute;z-index:6;left:0;top:0;width:clamp(48px,9vh,110px);height:clamp(48px,9vh,110px);opacity:0;pointer-events:none;
+  transition:left .9s cubic-bezier(.5,0,.2,1),top .9s cubic-bezier(.5,0,.2,1),opacity .5s ease}
+.guide .gp{display:block;font-size:clamp(44px,8.4vh,104px);line-height:1;animation:bob 3.4s var(--io) infinite;filter:drop-shadow(3px 4px 0 rgba(29,43,83,.25))}
+.guide.swim .gp{animation:swimto .9s var(--io),bob 3.4s var(--io) .9s infinite}
+.guide::before,.guide::after{content:"";position:absolute;right:4%;top:6%;width:10px;height:10px;border-radius:50%;border:2px solid rgba(255,255,255,.9);animation:fizz 2.2s ease-in infinite}
+.guide::after{right:-4%;width:7px;height:7px;animation-delay:1.1s}
+.trail i{position:absolute;z-index:6;border-radius:50%;background:#fbfdff;border:3px solid var(--ink);opacity:0;pointer-events:none;
+  transition:left .9s cubic-bezier(.5,0,.2,1),top .9s cubic-bezier(.5,0,.2,1),opacity .4s ease}
+.trail i:nth-child(1){width:12px;height:12px;margin:-6px 0 0 -6px}
+.trail i:nth-child(2){width:18px;height:18px;margin:-9px 0 0 -9px}
+.trail i:nth-child(3){width:26px;height:26px;margin:-13px 0 0 -13px}
+@media (min-aspect-ratio:1/1){ body.guiding .guide,body.landed .trail i{opacity:1} }
+.splash{position:absolute;z-index:6;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:3px solid #fff;pointer-events:none;
+  animation:splash .8s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes splash{from{transform:translate(0,0) scale(.4);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(1);opacity:0}}
+@keyframes bob{50%{transform:translateY(-5%) rotate(2deg)}}
+@keyframes swimto{0%{transform:rotate(0)}35%{transform:rotate(-12deg)}75%{transform:rotate(5deg)}100%{transform:none}}
+@keyframes fizz{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-60px);opacity:0}}
+
+/* the speech bubble: thick ink outline, flat offset shadow, slightly tilted */
+.panel{position:absolute;z-index:5;top:50%;left:calc(100vw - var(--tx) + 9vw);right:4vw;transform:translate(14vw,-50%);opacity:0;pointer-events:none;
+  transition:opacity .6s ease,transform .9s var(--out),left .9s var(--ease)}
+body.learn .panel{opacity:1;transform:translate(0,-50%)}
+.sbub{position:relative;background:#fbfdff;border:3px solid var(--ink);border-radius:clamp(26px,4.4vh,52px) clamp(26px,4.4vh,52px) clamp(26px,4.4vh,52px) clamp(10px,1.6vh,18px);
+  padding:clamp(18px,3.4vh,44px) clamp(20px,3.4vh,44px) clamp(20px,3.6vh,46px);box-shadow:8px 9px 0 rgba(29,43,83,.2);transform:rotate(-1deg)}
+.panel.swap .sbub{animation:settle .7s var(--out)}
+
+.hd{display:flex;align-items:center;gap:clamp(12px,2vh,24px)}
+.badge{flex:0 0 auto;width:clamp(56px,10.5vh,124px);aspect-ratio:1;border-radius:32%;border:3px solid var(--ink);background:var(--t);
+  display:grid;place-items:center;font-size:clamp(30px,6vh,72px);transform:rotate(-7deg);box-shadow:4px 5px 0 rgba(29,43,83,.2)}
+.panel.swap .badge{animation:stamp .7s var(--soft) .1s both}
+@keyframes stamp{0%{transform:scale(1.2) rotate(-14deg);opacity:0}100%{transform:rotate(-7deg);opacity:1}}
+.hd h2{margin:0;font-size:clamp(24px,5.4vh,66px);line-height:1.15}
+.hd .en{font-size:clamp(12px,2vh,24px);font-weight:600;color:var(--ink-soft)}
+.depth{display:flex;align-items:center;gap:clamp(4px,.7vh,8px);margin:clamp(12px,2.2vh,26px) 0 clamp(8px,1.4vh,16px);font-size:clamp(12px,1.9vh,22px);font-weight:700;color:var(--ink-soft)}
+.depth i{width:clamp(12px,2vh,22px);height:clamp(12px,2vh,22px);border-radius:28%;border:2px solid var(--ink);background:#fff;opacity:.35}
+.depth i.on{background:var(--t);opacity:1}
+.depth i.now{animation:pip .6s var(--out) .35s}
+@keyframes pip{50%{transform:scale(1.3)}}
+.depth span{margin-left:.5em}
+.pw{margin:0;font-size:clamp(14px,2.5vh,30px);font-weight:600;line-height:1.6}
+/* the play example on a taped sticky note, the question in a dashed thought cloud */
+.note{position:relative;margin-top:clamp(16px,2.8vh,34px);padding:.85em 1em .75em;background:#fff1a6;border-radius:4px 4px 16px 4px;transform:rotate(1.4deg);
+  box-shadow:3px 4px 0 rgba(29,43,83,.14);font-size:clamp(13px,2.2vh,26px);font-weight:600;line-height:1.5}
+.note::before{content:"";position:absolute;left:50%;top:-.55em;width:4.2em;height:1.1em;margin-left:-2.1em;background:rgba(255,170,200,.8);transform:rotate(-3deg)}
+.note b{display:block;font-family:"Itim";font-weight:400;font-size:1.05em;color:#7a5a10}
+.panel.swap .note{animation:stick2 .7s var(--out) .25s both}
+.think{margin-top:clamp(12px,2.2vh,26px);padding:.7em 1em;border:2px dashed rgba(29,43,83,.4);border-radius:clamp(18px,3vh,36px);
+  font-family:"Itim";font-size:clamp(15px,2.6vh,31px);line-height:1.4;color:var(--ink)}
+/* intro: a tiny above/below-water picture */
+.split{margin-top:clamp(14px,2.4vh,28px);border:3px solid var(--ink);border-radius:clamp(14px,2.4vh,28px);overflow:hidden;font-size:clamp(13px,2.2vh,26px);font-weight:700}
+.split div{padding:.6em 1em}
+.split .up{background:#e3f5ff}
+.split .dn{background:linear-gradient(#7fd0ff,#46a6ea);color:#fff;border-top:3px dashed #fff}
+@media (max-aspect-ratio:1/1){
+  .panel{left:4vw;right:4vw;top:auto;bottom:max(3vh,env(safe-area-inset-bottom));transform:translateY(12vh)}
+  body.learn .panel{transform:none}
+  .sbub{padding:14px 16px 16px;max-height:41vh;overflow:hidden}
+  .badge{width:min(6.5vh,13vw);font-size:min(3.8vh,7.5vw)}
+  .hd h2{font-size:min(3vh,5.8vw)}
+  .hd .en{font-size:min(1.5vh,3vw)}
+  .depth{margin:8px 0 6px;font-size:min(1.5vh,3vw)}
+  .depth i{width:min(1.5vh,3vw);height:min(1.5vh,3vw)}
+  .pw{font-size:min(1.8vh,3.5vw);line-height:1.5}
+  .note,.split{font-size:min(1.65vh,3.2vw);margin-top:12px}
+  .think{font-size:min(1.85vh,3.6vw);margin-top:10px}
+}
+
 /* controls (fade away when the mouse rests) */
 .ctl{position:fixed;z-index:8;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));display:flex;gap:8px;align-items:center;cursor:default;
   transition:opacity .6s ease}
@@ -115,13 +369,13 @@ body.idle .ctl,body.idle .dots{opacity:0}
 body.idle{cursor:none}
 .ctl button{width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.75);font-size:20px;font-weight:700;color:var(--ink)}
 .ctl button:active{transform:scale(.92)}
-.dots i{width:9px;height:9px;border-radius:99px;background:rgba(255,255,255,.45);transition:width .4s var(--pop),background .3s}
+.dots i{width:9px;height:9px;border-radius:99px;background:rgba(255,255,255,.45);transition:width .4s var(--out),background .3s}
 .dots i.on{width:26px;background:#fff}
 @media (max-aspect-ratio:1/1){ .dots{left:16px;transform:none} }
 @keyframes popup{from{transform:translate(0,0) scale(.4);opacity:1}to{transform:translate(var(--dx),-130px) scale(1.3);opacity:0}}
 </style>
 </head>
-<body class="boot hide cover-on">
+<body class="boot hide deck-on">
 
 <div class="sun"></div>
 <div class="cloud c1"></div><div class="cloud c2"></div>
@@ -134,10 +388,14 @@ body.idle{cursor:none}
   <div id="sealife"></div>
 </div>
 
-<div class="cover">
-  <div class="pg">🐧</div>
-  <h1>ภูเขาน้ำแข็งในใจ</h1>
-  <p>🧊 Satir Iceberg Model</p>
+<div class="thanks">
+  <div class="hearts" id="hearts"></div>
+  <div class="ty">
+    <div class="pg">🐧<span class="wave">👋</span></div>
+    <div><h1>ขอบคุณ</h1><p>ที่ดูละครและดำน้ำไปด้วยกันนะ 💛</p></div>
+  </div>
+  <div class="tags2"><span class="stk">SOULution</span><span class="stk">Group 3A&ensp;Topic 2</span><span class="stk">RAID309</span></div>
+  <div class="credits" id="credits"></div>
 </div>
 
 <div class="rooms" id="rooms"></div>
@@ -158,6 +416,104 @@ body.idle{cursor:none}
 </div>
 </div>
 
+<div class="guide" id="guide"><span class="gp">🐧</span></div>
+<div class="trail" id="trail"><i></i><i></i><i></i></div>
+<div class="panel" id="panel"></div>
+<section class="deck" id="deck" aria-label="SOULution">
+  <div class="dk dk-soul" data-dk="soul">
+    <div class="day"></div>
+    <div class="sun"></div>
+    <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+    <div class="dkw" id="dkw1"><div class="waves">
+      <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 T 750 20 T 900 20 T 1050 20 T 1200 20 V40 H0Z" fill="#7fd0ff"/></svg>
+      <svg class="w2" viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 100 4 200 20 T 400 20 T 600 20 T 800 20 T 1000 20 T 1200 20 V40 H0Z" fill="#a8e1ff"/></svg>
+    </div><div class="rays"></div></div>
+    <span class="spk" style="left:14vw;top:12vh">✨</span><span class="spk" style="left:82vw;top:30vh;animation-delay:-1.4s">✨</span><span class="spk" style="left:24vw;top:46vh;font-size:3vh;animation-delay:-2.2s">⭐</span>
+    <span class="stk brand">RAID309</span>
+    <h1 class="toon"><span class="s"><i style="--i:0">S</i><i style="--i:1">O</i><i style="--i:2">U</i><i style="--i:3">L</i></span><span class="u"><i style="--i:4">u</i><i style="--i:5">t</i><i style="--i:6">i</i><i style="--i:7">o</i><i style="--i:8">n</i></span></h1>
+    <div class="tags"><span class="stk">Group 3A&ensp;Topic 2</span><span class="stk">Slide Presentation &amp; Showcase</span></div>
+    <div class="buddy">
+      <svg viewBox="0 0 240 150" aria-hidden="true">
+        <defs><linearGradient id="floeTop" x1="0" x2="1"><stop offset="0" stop-color="#e3f3ff"/><stop offset=".45" stop-color="#ffffff"/><stop offset="1" stop-color="#cfe7fb"/></linearGradient></defs>
+        <path d="M28 97H212L192 128Q120 152 48 128Z" fill="#a8e1ff" opacity=".6"/>
+        <ellipse class="rip" cx="120" cy="96" rx="104" ry="9" fill="none" stroke="#fff" stroke-width="3"/>
+        <ellipse class="rip b" cx="120" cy="96" rx="104" ry="9" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M30 96 46 58Q52 44 68 42L100 36Q120 32 140 36L174 42Q190 46 196 60L212 96Z" fill="url(#floeTop)" stroke="#1d2b53" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M150 40 174 42Q190 46 196 60L212 96H168Z" fill="#cfe7fb" opacity=".8"/>
+        <path d="M62 56Q90 48 118 50" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+      </svg>
+      <span class="pg">🐧</span><span class="hand">👋</span>
+    </div>
+  </div>
+  <div class="dk dk-satir" data-dk="satir">
+    <div class="day"></div>
+    <div class="sun"></div>
+    <div class="cloud c1"></div><div class="cloud c2"></div>
+    <div class="dkw" id="dkw2"><div class="waves">
+      <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 T 750 20 T 900 20 T 1050 20 T 1200 20 V40 H0Z" fill="#7fd0ff"/></svg>
+      <svg class="w2" viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 100 4 200 20 T 400 20 T 600 20 T 800 20 T 1000 20 T 1200 20 V40 H0Z" fill="#a8e1ff"/></svg>
+    </div><div class="rays"></div></div>
+    <span class="stk brand">RAID309</span>
+    <h2 class="toon"><span class="s"><i style="--i:0">S</i><i style="--i:1">A</i><i style="--i:2">T</i><i style="--i:3">I</i><i style="--i:4">R</i></span>&ensp;<span class="s"><i style="--i:5">M</i><i style="--i:6">O</i><i style="--i:7">D</i><i style="--i:8">E</i><i style="--i:9">L</i></span></h2>
+    <div class="card2"><div class="sbub">
+      <span class="stk en">Transformational Systemic Therapy</span>
+      <p class="pw">แนวคิดและกระบวนการจิตบำบัดเชิงระบบ ที่คิดค้นโดย Virginia Satir (เวอร์จิเนีย ซาเทียร์) นักจิตบำบัดครอบครัวชาวอเมริกัน</p>
+      <div class="note"><b>🔍 หัวใจของแนวคิดนี้</b>ค้นหา “สาเหตุที่แท้จริง” ของปัญหาภายในจิตใจ แทนที่จะมองแค่พฤติกรรมที่แสดงออกมาภายนอก</div>
+    </div></div>
+    <svg class="bigberg" viewBox="0 0 600 1000" aria-hidden="true">
+      <g class="bodyg">
+        <path d="M150 256H470L560 460 520 700 400 900 250 960 120 830 50 580 90 380Z" fill="#bfe6ff" fill-opacity=".72" stroke="#1d2b53" stroke-width="6" stroke-linejoin="round"/>
+        <g font-family="Mali" text-anchor="middle" fill="#1d2b53">
+          <text x="300" y="470" font-family="Itim" font-size="52">สาเหตุที่แท้จริง</text>
+          <text x="300" y="560" font-size="32" font-weight="600">ความรู้สึก</text>
+          <text x="300" y="610" font-size="32" font-weight="600">ความคิด ความเชื่อ</text>
+          <text x="300" y="660" font-size="32" font-weight="600">ความคาดหวัง</text>
+          <text x="300" y="710" font-size="32" font-weight="600">ความปรารถนา</text>
+          <text x="300" y="806" font-family="Itim" font-size="40" fill="#b07c00">✨ ตัวตน ✨</text>
+        </g>
+      </g>
+      <g class="tipg">
+        <path d="M170 256 230 166 258 192 310 76 360 168 384 148 450 256Z" fill="#fff" stroke="#1d2b53" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M310 76 360 168 384 148 450 256H352Z" fill="#cfe7fb"/>
+        <text x="312" y="84" font-size="96" text-anchor="middle">🐧</text>
+      </g>
+      <g class="lab" style="--d:1.5s">
+        <rect x="440" y="150" width="250" height="62" rx="31" fill="#ffe27a" stroke="#1d2b53" stroke-width="4"/>
+        <text x="565" y="192" font-family="Mali" font-weight="700" font-size="30" text-anchor="middle" fill="#1d2b53">พฤติกรรมที่เห็น</text>
+      </g>
+    </svg>
+  </div>
+  <div class="dk dk-qr" data-dk="qr">
+    <div class="day"></div>
+    <div class="sun"></div>
+    <div class="cloud c1"></div><div class="cloud c3"></div>
+    <div class="dkw" id="dkw3"><div class="waves">
+      <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 T 750 20 T 900 20 T 1050 20 T 1200 20 V40 H0Z" fill="#7fd0ff"/></svg>
+      <svg class="w2" viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 100 4 200 20 T 400 20 T 600 20 T 800 20 T 1000 20 T 1200 20 V40 H0Z" fill="#a8e1ff"/></svg>
+    </div><div class="rays"></div></div>
+    <span class="stk brand">RAID309</span>
+    <h2 class="qhead">สแกนแล้ว<br><span>เล่นไปด้วยกัน!</span></h2>
+    <ol class="steps">
+      <li><b>1</b>เปิดกล้องมือถือ 📱</li>
+      <li><b>2</b>สแกน QR นี้เลย</li>
+      <li><b>3</b>ดูละครไป ตอบคำถามไปพร้อมกัน 🎭</li>
+    </ol>
+    <div class="qcard"><div class="qimg"><img src="bg/qr.png" alt="QR code เข้าเกมภูเขาน้ำแข็งในใจ"><span class="scan"></span></div><span class="url">tataprin.github.io/satir-iceberg</span></div>
+    <div class="buddy">
+      <svg viewBox="0 0 240 150" aria-hidden="true">
+        <defs><linearGradient id="floeTop" x1="0" x2="1"><stop offset="0" stop-color="#e3f3ff"/><stop offset=".45" stop-color="#ffffff"/><stop offset="1" stop-color="#cfe7fb"/></linearGradient></defs>
+        <path d="M28 97H212L192 128Q120 152 48 128Z" fill="#a8e1ff" opacity=".6"/>
+        <ellipse class="rip" cx="120" cy="96" rx="104" ry="9" fill="none" stroke="#fff" stroke-width="3"/>
+        <ellipse class="rip b" cx="120" cy="96" rx="104" ry="9" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M30 96 46 58Q52 44 68 42L100 36Q120 32 140 36L174 42Q190 46 196 60L212 96Z" fill="url(#floeTop)" stroke="#1d2b53" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M150 40 174 42Q190 46 196 60L212 96H168Z" fill="#cfe7fb" opacity=".8"/>
+        <path d="M62 56Q90 48 118 50" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+      </svg>
+      <span class="pg">🐧</span><span class="hand" style="animation:none;transform:rotate(-8deg)">👉</span>
+    </div>
+  </div>
+</section>
+
 <div class="dots" id="dots"></div>
 <div class="ctl">
   <button data-c="back" aria-label="ย้อนกลับ">‹</button>
@@ -168,24 +524,47 @@ body.idle{cursor:none}
 <script src="ocean.js?v=7"></script>
 <script>
 const LAYERS = [
-  {id:'behavior', name:'พฤติกรรม', emo:'🚶', tint:'#ffffff', wt:60, wb:72, ans:'ไม่อยากอ่านหนังสือแล้ว'},
-  {id:'body', name:'ความรู้สึกทางกาย', emo:'💓', tint:'#ffe6dc', wt:72, wb:84, ans:'นิ่ง เกร็ง ถอยออกจากวง'},
-  {id:'feeling', name:'อารมณ์ความรู้สึก', emo:'🌧️', tint:'#ffdcea', wt:84, wb:92, ans:'ท้อ เหนื่อย เครียด'},
-  {id:'faf', name:'ความรู้สึกต่อความรู้สึก', emo:'🪞', tint:'#ece0ff', wt:92, wb:97, ans:'ละอายใจ โทษตัวเอง'},
-  {id:'perception', name:'ความคิด / ความเชื่อ', emo:'💭', tint:'#dde7ff', wt:97, wb:98, ans:'“อ่านเท่าไหร่ ก็คงไม่เข้าใจเหมือนเพื่อน”'},
-  {id:'expectation', name:'ความคาดหวัง', emo:'🎯', tint:'#d6f6ea', wt:98, wb:93, ans:'อ่านมาก = เข้าใจมาก'},
-  {id:'yearning', name:'ความปรารถนา', emo:'💗', tint:'#ffdff1', wt:93, wb:82, ans:'อยากรู้สึกมีคุณค่า และได้รับการยอมรับ'},
-  {id:'self', name:'ตัวตน', emo:'✨', tint:'#fff1b8', wt:82, wb:70, core:true, ans:'ฉันมีคุณค่า ในแบบของฉัน 💛'}
+  {id:'behavior', name:'พฤติกรรม', emo:'🚶', tint:'#ffffff', wt:60, wb:72, ans:'ไม่อยากอ่านหนังสือแล้ว',
+   en:'Behavior', what:'สิ่งที่เราทำ พูด หรือแสดงออกให้คนอื่นเห็น เป็นส่วนเดียวที่โผล่พ้นน้ำ คนส่วนใหญ่เลยมักตัดสินกันจากชั้นนี้',
+   ex:'ไม่อยากอ่านหนังสือ ไม่อยากทำอะไรแล้ว เดินหนีแม่', ask:'ตอนนั้นฉันทำอะไรลงไป?'},
+  {id:'body', name:'ความรู้สึกทางกาย', emo:'💓', tint:'#ffe6dc', wt:72, wb:84, ans:'นิ่ง เกร็ง ถอยออกจากวง',
+   en:'Body Sensation', what:'สัญญาณจากร่างกาย เช่น ใจเต้นแรง ตัวเกร็ง หายใจไม่ทั่วท้อง อยากถอยหนี มักเกิดขึ้นก่อนที่เราจะรู้ตัวว่ารู้สึกอะไร',
+   ex:'นั่งนิ่ง เกร็ง ทำท่าจะถามแต่ถอยกลับ', ask:'ร่างกายฉันกำลังบอกอะไร?'},
+  {id:'feeling', name:'อารมณ์ความรู้สึก', emo:'🌧️', tint:'#ffdcea', wt:84, wb:92, ans:'ท้อ เหนื่อย เครียด',
+   en:'Feelings', what:'อารมณ์ที่เกิดขึ้นตอนนี้ เช่น เครียด เศร้า โกรธ กลัว ท้อ ดีใจ ทุกความรู้สึกมีเหตุผลของมัน ไม่มีถูกหรือผิด',
+   ex:'เครียด เหนื่อย ท้อแท้', ask:'ตอนนี้ฉันรู้สึกอะไร?'},
+  {id:'faf', name:'ความรู้สึกต่อความรู้สึก', emo:'🪞', tint:'#ece0ff', wt:92, wb:97, ans:'ละอายใจ โทษตัวเอง',
+   en:'Feelings about Feelings', what:'ความรู้สึกที่เรามีต่อความรู้สึกของตัวเองอีกชั้น เช่น อายที่ร้องไห้ รู้สึกผิดที่โกรธ มักมาจาก “กฎ” ที่เราเรียนรู้มาว่าไม่ควรรู้สึกแบบนี้',
+   ex:'ละอายใจที่ตัวเองท้อ', ask:'ฉันรู้สึกยังไง กับการที่ตัวเองรู้สึกแบบนี้?'},
+  {id:'perception', name:'ความคิด / ความเชื่อ', emo:'💭', tint:'#dde7ff', wt:97, wb:98, ans:'“อ่านเท่าไหร่ ก็คงไม่เข้าใจเหมือนเพื่อน”',
+   en:'Perceptions', what:'ความคิด ความเชื่อ และการตีความ คือ “เรื่องเล่า” ที่เราบอกตัวเองว่าเกิดอะไรขึ้น และเราเป็นคนแบบไหน',
+   ex:'“อ่านเท่าไหร่ ก็คงไม่เข้าใจเหมือนเพื่อน”', ask:'ฉันกำลังเล่าเรื่องนี้ให้ตัวเองฟังว่ายังไง?'},
+  {id:'expectation', name:'ความคาดหวัง', emo:'🎯', tint:'#d6f6ea', wt:98, wb:93, ans:'อ่านมาก = เข้าใจมาก',
+   en:'Expectations', what:'สิ่งที่เราหวังจากตัวเอง จากคนอื่น หรือที่รู้สึกว่าคนอื่นหวังจากเรา พอความจริงไม่ตรงกับความหวัง ความผิดหวังก็ตามมา',
+   ex:'อ่านมาก = เข้าใจมาก', ask:'ฉันหวังให้มันเป็นแบบไหน? ความหวังนั้นยังเป็นจริงได้ไหม?'},
+  {id:'yearning', name:'ความปรารถนา', emo:'💗', tint:'#ffdff1', wt:93, wb:82, ans:'อยากรู้สึกมีคุณค่า และได้รับการยอมรับ',
+   en:'Yearnings', what:'ความต้องการพื้นฐานที่มนุษย์ทุกคนมีเหมือนกัน อยากถูกรัก ถูกยอมรับ มีคุณค่า มีความหมาย รู้สึกปลอดภัย และเป็นอิสระ',
+   ex:'อยากรู้สึกมีคุณค่า และได้รับการยอมรับ', ask:'ลึกๆ แล้ว หัวใจฉันต้องการอะไร?'},
+  {id:'self', name:'ตัวตน', emo:'✨', tint:'#fff1b8', wt:82, wb:70, core:true, ans:'ฉันมีคุณค่า ในแบบของฉัน 💛',
+   en:'Self · I Am', what:'แก่นแท้ของเรา คือพลังชีวิตและคุณค่าที่มีอยู่แล้ว ไม่ต้องพิสูจน์ด้วยเกรดหรือผลงาน เมื่อเชื่อมกับชั้นนี้ได้ เราจะเลือกตอบสนองต่อชีวิตได้อย่างสอดคล้องกลมกลืน',
+   ex:'“ใจดีกับตัวเองมากขึ้น… ผมไปต่อได้แล้วครับ!!!”', ask:'ฉันคือใคร เมื่อไม่มีอะไรมาตัดสิน?'}
 ];
 // each scene: first just the room, then one click per layer it reveals
 const SCENES = [
-  {cover:true, reveal:[]},
-  {bg:'corridor', reveal:['feeling']},                   // ฉาก 0 · เตรียมตัวก่อนเข้าเรียน TBL
-  {bg:'classroom', reveal:['body','expectation']},       // ฉาก 1 · ห้องเรียน TBL
+  {deck:'soul', reveal:[]},                               // the group: SOULution
+  {deck:'satir', reveal:[]},                             // what the Satir Model is
+  {deck:'qr', reveal:[]},                                // scan to play along on phones
+  {bg:'library', reveal:['feeling']},                    // ฉาก 0 · เตรียมตัวก่อนเข้าเรียน TBL
+  {bg:'lecture', reveal:['body','expectation']},         // ฉาก 1 · ห้องเรียน TBL
   {bg:'home', reveal:['perception']},                    // ฉาก 2 · บ้าน
   {bg:'doctor', reveal:['behavior','faf','yearning']},   // ฉาก 3 · หาหมอ
   {bg:'doctor', reveal:['self']},                        // ตอนจบ
-  {finale:true, reveal:[]}                               // ภูเขาน้ำแข็งเต็มลูก
+  {finale:true, reveal:[]},                              // ภูเขาน้ำแข็งเต็มลูก
+  // then, what each layer means
+  {learn:'intro', reveal:[]},
+  ...['behavior','body','feeling','faf','perception','expectation','yearning','self'].map(id => ({learn:id, reveal:[]})),
+  {learn:'end', reveal:[]},
+  {thanks:true, reveal:[]}                               // ขอบคุณ
 ];
 const STEPS = SCENES.flatMap((sc, s) => [{s, n:0}, ...sc.reveal.map((_, j) => ({s, n:j + 1}))]);
 const $ = id => document.getElementById(id);
@@ -205,6 +584,29 @@ function slideHTML(l, k, isOpen){
   if(isOpen) return `<div class="sn"><span class="e">${l.emo}</span> ${l.name}${l.core ? ' ' + l.emo : ''}</div><div class="sa">${l.ans}</div>`;
   return `<div class="lockt">❄️ ${l.core ? 'แก่นกลาง' : 'ชั้น ' + (k + 1)} ❄️</div>`;
 }
+
+function panelHTML(key){
+  if(key === 'intro') return `<div class="sbub">
+    <div class="hd"><span class="badge" style="--t:#d8efff">🧊</span><div><h2>ภูเขาน้ำแข็งคืออะไร?</h2><div class="en">Satir Iceberg Model</div></div></div>
+    <p class="pw" style="margin-top:1em">เวอร์จิเนีย ซาเทียร์ (Virginia Satir) นักครอบครัวบำบัด บอกว่าใจคนก็เหมือนภูเขาน้ำแข็ง สิ่งที่คนอื่นเห็นเป็นแค่ยอดเล็กๆ ส่วนใหญ่ซ่อนอยู่ใต้น้ำ</p>
+    <div class="split"><div class="up">👀 เหนือน้ำ คือสิ่งที่คนอื่นเห็น</div><div class="dn">🫧 ใต้น้ำ คือสิ่งที่ซ่อนอยู่ในใจ</div></div>
+    <div class="think">🤿 เดี๋ยวพาดำลงไปดูทีละชั้นนะ!</div></div>`;
+  if(key === 'end') return `<div class="sbub">
+    <div class="hd"><span class="badge" style="--t:#ffe08a">🫶</span><div><h2>มองให้ลึกกว่ายอดน้ำแข็ง</h2><div class="en">ทุกชั้นคือส่วนหนึ่งของเรา</div></div></div>
+    <p class="pw" style="margin-top:1em">ครั้งหน้าที่เห็นใครสักคนดู “ขี้เกียจ” หรือ “หงุดหงิด” ลองนึกถึงภูเขาน้ำแข็งข้างใต้ของเขา และของตัวเราเองดูนะ</p>
+    <div class="note"><b>💛 ฝากไว้หน่อยนะ</b>ใจดีกับตัวเองด้วย</div>
+    <div class="think">💭 ใต้น้ำของเราเอง มีอะไรซ่อนอยู่บ้างนะ?</div></div>`;
+  const l = LAYERS.find(x => x.id === key), k = LAYERS.indexOf(l);
+  const t = l.core ? '#ffe08a' : l.tint === '#ffffff' ? '#e3f2ff' : l.tint;
+  const cubes = LAYERS.map((_, i) => `<i class="${i <= k ? 'on' : ''}${i === k ? ' now' : ''}"></i>`).join('');
+  return `<div class="sbub" style="--t:${t}">
+    <div class="hd"><span class="badge">${l.emo}</span><div><h2>${l.name}</h2><div class="en">${l.en}</div></div></div>
+    <div class="depth">${cubes}<span>${l.core ? 'ลึกที่สุด แก่นกลาง' : k === 0 ? 'ชั้นที่ 1 โผล่พ้นน้ำ' : `ชั้นที่ ${k + 1} ใต้น้ำ`}</span></div>
+    <p class="pw">${l.what}</p>
+    <div class="note"><b>🎭 ในละคร</b>${l.ex}</div>
+    <div class="think">💭 ${l.ask}</div></div>`;
+}
+function restart(el, cls){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
 
 function burst(el){
   const r = el.getBoundingClientRect();
@@ -235,16 +637,95 @@ function syncLayers(animate){
   });
 }
 
+// the penguin swims beside the layer being explained; three bubbles lead from it to the speech bubble
+let guideT = 0;
+function placeGuide(){
+  const key = $('panel').dataset.key, g = $('guide');
+  if(!document.body.classList.contains('guiding') || !key) return;
+  const rectOf = id => $('L-' + id).querySelector('.ice').getBoundingClientRect();
+  const l = LAYERS.find(x => x.id === key) || byKey(key), r = rectOf(l.id);
+  // the slice is a trapezoid: its visible right edge at mid-height
+  const w = shapeW((l.wt + l.wb) / 2) / 100, edge = r.left + r.width * (0.5 + w / 2);
+  const y = key === 'intro' ? r.bottom : r.top + r.height / 2;
+  const gs = g.offsetWidth, p = $('panel').getBoundingClientRect();
+  const gx = Math.min(edge - gs * .25, p.left - gs - 30), gy = y - gs / 2;
+  g.style.left = gx + 'px'; g.style.top = gy + 'px';
+  const x0 = gx + gs * .9, y0 = gy + gs * .15, x1 = p.left + 4, y1 = Math.max(p.top + 60, Math.min(p.bottom - 60, y - 40));
+  [...$('trail').children].forEach((d, i) => {
+    const t = (i + 1) / 4;
+    d.style.left = (x0 + (x1 - x0) * t) + 'px';
+    d.style.top = (y0 + (y1 - y0) * t - Math.sin(t * Math.PI) * 18) + 'px';
+  });
+}
+// first time in: once the iceberg has slid over, the penguin hops off the peak and dives in beside it
+function dive(){
+  const b = document.body, g = $('guide'), trail = [...$('trail').children];
+  const from = document.querySelector('.berg .penguin').getBoundingClientRect();
+  // land first (without transitions), then play the jump from the peak back to here
+  [g, ...trail].forEach(el => { el.style.transition = 'none'; });
+  b.classList.add('guiding'); placeGuide();
+  const gs = g.offsetWidth, ex = g.offsetLeft + gs / 2, ey = g.offsetTop + gs / 2;
+  const sx = from.left + from.width / 2, sy = from.top + from.height / 2, k = from.height / gs;
+  const hx = sx + (ex - sx) * .45 - ex, hy = Math.max(gs * .75, Math.min(sy, ey) - gs * .9) - ey;
+  const done = () => {
+    [g, ...trail].forEach(el => { el.style.transition = ''; });
+    b.classList.add('landed');
+    for(let i = 0; i < 7; i++){
+      const d = document.createElement('span'); d.className = 'splash';
+      const a = Math.PI * (1.1 + i * .13);
+      d.style.cssText = `left:${ex}px;top:${ey - gs * .2}px;--dx:${Math.cos(a) * 46}px;--dy:${Math.sin(a) * 46}px`;
+      document.body.appendChild(d); setTimeout(() => d.remove(), 900);
+    }
+  };
+  if(REDUCE) return done();
+  g.animate([
+    {transform:`translate(${sx - ex}px,${sy - ey}px) scale(${k})`, easing:'cubic-bezier(.3,.8,.5,1)'},
+    {transform:`translate(${sx - ex}px,${sy - ey + 8}px) scale(${k * 1.1},${k * .85})`, offset:.12, easing:'cubic-bezier(.2,.9,.4,1)'},
+    {transform:`translate(${hx}px,${hy}px) scale(${(k + 1) / 2}) rotate(25deg)`, offset:.45, easing:'cubic-bezier(.6,0,.9,.6)'},
+    {transform:`translate(0,0) scale(1) rotate(150deg)`, offset:.8, easing:'cubic-bezier(.2,.8,.3,1)'},
+    {transform:'none'}
+  ], {duration:1300}).onfinish = done;
+}
+// intro points at the waterline (first layer), the closing card at the heart of the iceberg
+const byKey = key => key === 'intro' ? LAYERS[0] : LAYERS[LAYERS.length - 1];
+addEventListener('resize', () => placeGuide());
+
 let at = -1, syncT = 0;
 function go(st, animate){
   st = Math.max(0, Math.min(STEPS.length - 1, st));
   if(st === at) return;
   at = st;
   history.replaceState(null, '', '#' + st);
-  const {s, n} = STEPS[st], sc = SCENES[s], b = document.body;
-  const show = !!sc.finale || n > 0, appearing = show && b.classList.contains('hide');
-  b.classList.toggle('cover-on', !!sc.cover);
-  b.classList.toggle('finale', !!sc.finale);
+  const {s, n} = STEPS[st], sc = SCENES[s], b = document.body, wasLearn = b.classList.contains('learn');
+  const show = !!sc.finale || !!sc.learn || n > 0, appearing = show && b.classList.contains('hide');
+  const focus = LAYERS.find(l => l.id === sc.learn);
+  b.classList.toggle('deck-on', !!sc.deck);
+  document.querySelectorAll('.dk').forEach(d => {
+    const on = d.dataset.dk === sc.deck;
+    if(on && !d.classList.contains('on')) restart(d, 'play');
+    d.classList.toggle('on', on);
+  });
+  b.classList.toggle('thanks-on', !!sc.thanks);
+  b.classList.toggle('finale', !!sc.finale || sc.learn === 'end');
+  b.classList.toggle('learn', !!sc.learn);
+  b.classList.toggle('focusing', !!focus);
+  LAYERS.forEach(l => $('L-' + l.id).classList.toggle('focus', l === focus));
+  if(sc.learn){
+    const panel = $('panel');
+    if(panel.dataset.key !== sc.learn){
+      panel.dataset.key = sc.learn; panel.innerHTML = panelHTML(sc.learn);
+      if(animate) restart(panel, 'swap');
+    }
+  }
+  clearTimeout(guideT);
+  if(!sc.learn) b.classList.remove('guiding', 'landed');
+  else if(!wasLearn){
+    b.classList.remove('guiding', 'landed');
+    guideT = setTimeout(() => animate ? dive() : (b.classList.add('guiding', 'landed'), placeGuide()), 950);
+  } else {
+    if(animate) restart($('guide'), 'swim');
+    placeGuide();
+  }
   b.classList.toggle('room', !!sc.bg);
   b.classList.toggle('hide', !show);
   [...$('rooms').children].forEach(d => d.classList.toggle('on', d.dataset.r === sc.bg));
@@ -288,7 +769,26 @@ let idleT = 0;
 const wake = () => { document.body.classList.remove('idle'); clearTimeout(idleT); idleT = setTimeout(() => document.body.classList.add('idle'), 2500); };
 addEventListener('mousemove', wake); wake();
 
-sealife($('sealife')); sealife($('tanklife'));
+sealife($('sealife')); sealife($('tanklife')); sealife($('dkw1')); sealife($('dkw2')); sealife($('dkw3'));
+// credits: the web/slide team is listed by student ID; the cast list shows once it has names
+const TEAM = [
+  ['นายชวิน คุณมงคลวุฒิ', '6702089'],
+  ['นายนฤบดี พิไลยเกียรติ', '6702107'],
+  ['น.ส.ธันยพร เลาหะภควัต', '6722019'],
+  ['น.ส.ณัฏฐาฏา พัดเกาะ', '6722015'],
+  ['น.ส.เจตปรียา สิริประเสริฐศิลป์', '6622008'],
+  ['นายปริน วิบูลย์เกียรติ', '6702033']
+];
+const CAST = [];   // [name, role] — actors and behind the scenes
+const crew = (title, rows) => rows.length ? `<section class="crew"><span class="stk">${title}</span><ol>${rows.join('')}</ol></section>` : '';
+$('credits').innerHTML =
+  crew('🎨 เว็บไซต์ · แอป · สไลด์', [...TEAM].sort((a, b) => a[1].localeCompare(b[1])).map(([n, id]) => `<li>${n}<span>${id}</span></li>`)) +
+  crew('🎭 นักแสดง & เบื้องหลัง', CAST.map(([n, role]) => `<li>${n}<em>${role || ''}</em></li>`));
+$('hearts').innerHTML = Array.from({length:16}, (_, i) =>
+  `<span style="left:${4 + (i * 61) % 92}%;animation-duration:${7 + (i % 5) * 1.6}s;animation-delay:-${(i * 1.3) % 9}s">${['💛','🫧','💗','🤍','✨','🫧'][i % 6]}</span>`).join('');
+// warm up: decode the room photos and paint every opening slide once, so their first showing doesn't stutter
+ROOMS.forEach(r => { const im = new Image(); im.src = `bg/${r}.webp`; if(im.decode) im.decode().catch(() => {}); });
+document.body.classList.add('warm'); setTimeout(() => document.body.classList.remove('warm'), 500);
 go(parseInt(location.hash.slice(1)) || 0, false);
 setTimeout(() => document.body.classList.remove('boot'), 2000);
 </script>
