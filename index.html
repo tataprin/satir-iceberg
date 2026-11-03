@@ -58,6 +58,59 @@
 .line{margin:12px 0 0;font-size:14.5px;font-weight:600}
 .again{margin-top:8px;border:0;background:none;font-size:13px;font-weight:700;color:var(--ink-soft);text-decoration:underline}
 .meter .cnt{margin-left:6px;padding-left:8px;border-left:2px solid rgba(29,43,83,.15)}
+/* intro: how-to slides before the game */
+.intro{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;overflow:hidden;
+  background:linear-gradient(180deg,#bfe6ff 0%,#8fd3ff 32%,#3f9de6 72%,#1d5fb4 100%);
+  opacity:0;transition:opacity .45s ease,transform .5s var(--pop)}
+.intro[hidden]{display:none}
+.intro.open{opacity:1}
+.intro.closing{opacity:0;transform:translateY(-28px) scale(1.03)}
+.ilife{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.iskip{position:absolute;z-index:3;top:calc(12px + env(safe-area-inset-top));right:14px;border:0;border-radius:99px;padding:6px 14px;
+  background:rgba(255,255,255,.6);color:var(--ink);font-weight:700;font-size:14px}
+.itrack{position:relative;z-index:1;flex:1;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior:contain}
+.itrack::-webkit-scrollbar{display:none}
+.islide{flex:0 0 100%;scroll-snap-align:center;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;
+  padding:calc(56px + env(safe-area-inset-top)) 16px 12px;overflow-y:auto}
+.icard{width:100%;max-width:400px;background:rgba(255,255,255,.93);border-radius:30px;padding:22px 20px 24px;text-align:center;
+  box-shadow:0 14px 40px rgba(10,50,120,.28),inset 0 -5px 0 rgba(120,180,235,.25)}
+.icard h2{margin:6px 0 6px;font-size:25px;line-height:1.3}
+.icard p{margin:0;font-size:15.5px;font-weight:600;color:var(--ink-soft);line-height:1.65}
+.icard .kick{display:inline-block;font-size:13px;font-weight:700;color:#e0457b;background:#ffe9f0;border-radius:99px;padding:3px 12px}
+.islide.on .icard>*{animation:fadeup .6s var(--pop) both}
+.islide.on .icard>:nth-child(2){animation-delay:.08s}
+.islide.on .icard>:nth-child(3){animation-delay:.16s}
+.islide.on .icard>:nth-child(4){animation-delay:.24s}
+.islide.on .icard>:nth-child(5){animation-delay:.32s}
+.ihero{display:block;width:100%;max-width:270px;height:auto;margin:0 auto 4px}
+.ihero .pg{animation:float 3s ease-in-out infinite}
+/* mini 8-layer stack */
+.imini{position:relative;margin:12px auto 12px;max-width:310px;padding:10px 8px 12px;border-radius:20px;
+  background:linear-gradient(#e2f4ff 0 44px,#8fd3ff 44px,#3f9de6 78%,#2563b8)}
+.imini li{list-style:none;margin:0 auto 4px;height:27px;display:flex;align-items:center;justify-content:center;gap:5px;border-radius:9px;
+  font-size:13.5px;font-weight:700;white-space:nowrap;box-shadow:inset 0 -3px 0 rgba(60,120,190,.18)}
+.imini li:first-child{margin-bottom:10px}
+.imini ol{margin:0;padding:0}
+.imini .wl{position:absolute;left:0;right:0;top:44px;height:0;border-top:2px dashed rgba(255,255,255,.95)}
+.imini .wl span{position:absolute;right:10px;top:-11px;font-size:11px;font-weight:700;color:#2a6fc0;background:#fff;border-radius:99px;padding:0 7px}
+.imini li.core{background:radial-gradient(circle at 50% 30%,#fffbe0,#ffe08a);box-shadow:0 0 14px 2px rgba(255,226,122,.8)}
+/* steps */
+.isteps{margin:14px 0 0;padding:0;list-style:none;text-align:left;display:flex;flex-direction:column;gap:10px}
+.isteps li{display:flex;gap:12px;align-items:flex-start;font-size:15px;font-weight:600;line-height:1.5}
+.isteps b{flex:0 0 42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:22px;font-weight:400;background:#e4f3ff}
+.isteps small{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:600}
+.itip{margin-top:14px;padding:10px 12px;border-radius:16px;background:#fff6c9;font-size:14px;font-weight:600;line-height:1.55;text-align:left}
+.ipill{display:inline-block;background:#fff;border-radius:99px;padding:1px 9px;font-size:13px;font-weight:700;box-shadow:0 2px 6px rgba(20,60,140,.25);white-space:nowrap}
+.ibar{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 16px calc(18px + env(safe-area-inset-bottom));max-width:440px;width:100%;margin:0 auto}
+.iback{width:46px;height:46px;border:0;border-radius:50%;background:rgba(255,255,255,.55);font-size:22px;font-weight:700;color:var(--ink);
+  transition:opacity .3s ease,transform .25s var(--pop)}
+.iback.off{opacity:0;pointer-events:none}
+.idots{display:flex;gap:6px}
+.idots i{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.55);transition:width .4s var(--pop),background .3s}
+.idots i.on{width:24px;background:#fff}
+.inext{min-width:118px;padding:12px 18px;font-size:16.5px}
+.inext.last{background:#ffe27a;box-shadow:0 4px 0 #d9a92c}
 @keyframes wobble{0%,100%{transform:none}20%{transform:translateX(-7px) rotate(-1deg)}40%{transform:translateX(6px) rotate(1deg)}60%{transform:translateX(-4px)}80%{transform:translateX(2px)}}
 @keyframes yay{0%{transform:scale(1)}45%{transform:scale(1.07)}100%{transform:scale(1)}}
 @keyframes popup{from{transform:translate(0,0) scale(.4);opacity:1}to{transform:translate(var(--dx),-130px) scale(1.3);opacity:0}}
@@ -70,6 +123,75 @@
 <button class="meter" id="meter" data-act="jump"><span class="txt">🧊 0/8</span></button>
 <nav class="tabbar" data-on="game"></nav>
 
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="วิธีเล่น" hidden>
+  <div class="ilife" id="ilife"></div>
+  <button class="iskip" data-i="skip">ข้าม ›</button>
+  <div class="itrack" id="itrack">
+    <section class="islide"><div class="icard">
+      <svg class="ihero" viewBox="0 0 270 240" aria-hidden="true">
+        <defs>
+          <clipPath id="ic"><rect width="270" height="240" rx="20"/></clipPath>
+          <linearGradient id="isk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9dcff"/><stop offset="1" stop-color="#e3f5ff"/></linearGradient>
+          <linearGradient id="iw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fd0ff"/><stop offset="1" stop-color="#2468c4"/></linearGradient>
+          <linearGradient id="ipk" x1="0" x2="1"><stop offset="0" stop-color="#cfe7fb"/><stop offset=".45" stop-color="#fff"/><stop offset=".6" stop-color="#f2faff"/><stop offset="1" stop-color="#a7d0f0"/></linearGradient>
+          <linearGradient id="ib" x1="0" x2="1"><stop offset="0" stop-color="#a9d3f5"/><stop offset=".45" stop-color="#e4f4ff"/><stop offset="1" stop-color="#8fc2ec"/></linearGradient>
+        </defs>
+        <g clip-path="url(#ic)">
+          <rect width="270" height="96" fill="url(#isk)"/>
+          <circle cx="238" cy="28" r="13" fill="#ffe27a"/>
+          <rect y="96" width="270" height="144" fill="url(#iw)"/>
+          <polygon points="70,96 200,96 238,148 214,206 135,234 56,206 32,148" fill="url(#ib)" opacity=".8"/>
+          <polygon points="88,97 110,62 121,71 135,42 151,67 161,58 182,97" fill="url(#ipk)" stroke="#8ec3ec" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M0 96 Q 22 90 45 96 T 90 96 T 135 96 T 180 96 T 225 96 T 270 96" fill="none" stroke="#fff" stroke-width="3"/>
+        </g>
+        <text class="pg" x="135" y="47" font-size="28" text-anchor="middle">🐧</text>
+        <rect x="10" y="12" width="98" height="24" rx="12" fill="#fff"/>
+        <text x="59" y="29" font-size="12.5" font-weight="700" fill="#1d2b53" text-anchor="middle">👀 เห็นแค่นี้</text>
+        <path d="M84 37 Q 92 56 104 66" fill="none" stroke="#1d2b53" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round"/>
+        <rect x="72" y="134" width="126" height="48" rx="16" fill="#fff" opacity=".8"/>
+        <text x="135" y="154" font-size="13.5" font-weight="700" fill="#1d2b53" text-anchor="middle">🫧 อีกเยอะมาก</text>
+        <text x="135" y="174" font-size="13.5" font-weight="700" fill="#1d2b53" text-anchor="middle">ซ่อนอยู่ข้างใต้</text>
+      </svg>
+      <span class="kick">ก่อนละครเริ่ม 🎭</span>
+      <h2>ใจคนเหมือนภูเขาน้ำแข็ง</h2>
+      <p>สิ่งที่คนอื่นเห็น เป็นแค่ยอดเล็กๆ เหนือน้ำ<br>แต่ข้างใต้ยังมีความรู้สึก ความคิด<br>และความต้องการ ซ่อนอยู่อีกเยอะ</p>
+    </div></section>
+
+    <section class="islide"><div class="icard">
+      <span class="kick">Satir Iceberg Model</span>
+      <h2>ดำลงไป 8 ชั้น 🤿</h2>
+      <div class="imini"><div class="wl"><span>ผิวน้ำ</span></div><ol id="imini"></ol></div>
+      <p>ยิ่งดำลึก ยิ่งใกล้หัวใจ 💛</p>
+    </div></section>
+
+    <section class="islide"><div class="icard">
+      <span class="kick">วิธีเล่น</span>
+      <h2>ดูละครไป ตอบไป</h2>
+      <ol class="isteps">
+        <li><b>🎭</b><div>ดูละครไปเรื่อยๆ<small>ชั้นที่ล็อก 🔒 บอกไว้ว่าเปิดตอนฉากไหน</small></div></li>
+        <li><b>👆</b><div>ถึงฉากนั้น เลือกคำตอบ<small>ผิดได้ ลองใหม่ได้ ไม่มีคะแนน 😉</small></div></li>
+        <li><b>🫧</b><div>ตอบได้ น้ำแข็งจะใสขึ้น<small>แล้วพาไปคำถามต่อไปให้เอง</small></div></li>
+      </ol>
+      <div class="itip">💡 คำถามไปตามละคร ไม่ได้เรียงจากบนลงล่างนะ บางทีชั้นลึกๆ ก็เปิดก่อน</div>
+    </div></section>
+
+    <section class="islide"><div class="icard">
+      <span class="kick">เกือบพร้อมแล้ว</span>
+      <h2>พร้อมดำน้ำยัง? 🐧</h2>
+      <ol class="isteps">
+        <li><b>🔇</b><div>ปิดเสียงมือถือ<small>แล้วหรี่จอลงนิดนึงนะ</small></div></li>
+        <li><b>🧭</b><div>หลงทาง? แตะปุ่มลอยด้านล่าง<small><span class="ipill">🎭 ฉาก… ⤵</span> พากลับไปคำถามตอนนี้</small></div></li>
+        <li><b>🧊</b><div>เล่นจบแล้ว ยังมีต่อ<small>ลองสร้างภูเขาน้ำแข็งของตัวเองดูได้</small></div></li>
+      </ol>
+    </div></section>
+  </div>
+  <div class="ibar">
+    <button class="iback off" data-i="back" aria-label="ก่อนหน้า">‹</button>
+    <div class="idots" id="idots"><i class="on"></i><i></i><i></i><i></i></div>
+    <button class="go inext" data-i="next" id="inext">ถัดไป →</button>
+  </div>
+</div>
+
 <header class="sky">
   <div class="sun"></div>
   <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
@@ -78,6 +200,7 @@
     <p>ละครเล่นถึงไหน ก็ตอบไปตรงนั้น แล้วน้ำแข็งจะค่อยๆ เปิด 🤿</p>
     <div class="btns">
       <button class="go" data-act="jump">🎭 เริ่มเลย! ⤵</button>
+      <button class="go alt" data-act="intro">❓ วิธีเล่น</button>
     </div>
   </div>
   <div class="col">
@@ -226,6 +349,7 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-act]'); if(!b) return;
   const act = b.dataset.act;
   if(act === 'jump') return jump();
+  if(act === 'intro') return openIntro();
   if(act === 'pick'){
     if(busy) return;
     const l = byId[activeId()], i = +b.dataset.i, el = $('L-' + l.id);
@@ -254,9 +378,68 @@ document.addEventListener('click', e => {
   }
 });
 
+/* intro slides: shown on the first visit (or ?intro), reopened from "วิธีเล่น" */
+const IKEY = 'iceberg-intro-v1', intro = $('intro'), track = $('itrack');
+const slides = [...track.children], dots = [...$('idots').children];
+$('imini').innerHTML = LAYERS.map((l, k) => {
+  const w = [56, 70, 82, 92, 96, 90, 80, 66][k];
+  return `<li class="${l.core ? 'core' : ''}" style="width:${w}%;background:${l.core ? '' : l.tint}">${l.emo} ${l.name}</li>`;
+}).join('');
+let slideAt = -1, lifeOn = false, bootT = 0;
+function playBoot(){
+  document.body.classList.add('boot');
+  clearTimeout(bootT); bootT = setTimeout(() => document.body.classList.remove('boot'), 2000);
+}
+function onSlide(){
+  const i = Math.round(track.scrollLeft / track.clientWidth);
+  if(i === slideAt) return;
+  slideAt = i;
+  slides.forEach((s, k) => s.classList.toggle('on', k === i));
+  dots.forEach((d, k) => d.classList.toggle('on', k === i));
+  intro.querySelector('.iback').classList.toggle('off', i === 0);
+  const last = i === slides.length - 1;
+  $('inext').classList.toggle('last', last);
+  $('inext').textContent = last ? '🤿 ไปดำน้ำกัน!' : 'ถัดไป →';
+}
+function goSlide(i){ track.scrollTo({left: i * track.clientWidth, behavior: REDUCE ? 'auto' : 'smooth'}); }
+function openIntro(){
+  if(!lifeOn){ sealife($('ilife')); lifeOn = true; }
+  intro.hidden = false; intro.classList.remove('closing');
+  document.documentElement.style.overflow = 'hidden';
+  track.scrollLeft = 0; slideAt = -1; onSlide();
+  requestAnimationFrame(() => requestAnimationFrame(() => intro.classList.add('open')));
+}
+function closeIntro(){
+  try{ localStorage.setItem(IKEY, '1'); }catch(e){}
+  intro.classList.add('closing'); intro.classList.remove('open');
+  document.documentElement.style.overflow = '';
+  setTimeout(() => { intro.hidden = true; }, REDUCE ? 0 : 500);
+  scrollTo(0, 0); playBoot();
+}
+track.addEventListener('scroll', onSlide, {passive:true});
+addEventListener('resize', () => { if(!intro.hidden) track.scrollLeft = slideAt * track.clientWidth; });
+intro.addEventListener('click', e => {
+  const b = e.target.closest('[data-i]'); if(!b) return;
+  const a = b.dataset.i;
+  if(a === 'skip') closeIntro();
+  if(a === 'back') goSlide(slideAt - 1);
+  if(a === 'next') slideAt >= slides.length - 1 ? closeIntro() : goSlide(slideAt + 1);
+});
+addEventListener('keydown', e => {
+  if(intro.hidden) return;
+  if(e.key === 'Escape') closeIntro();
+  if(e.key === 'ArrowRight' && slideAt < slides.length - 1) goSlide(slideAt + 1);
+  if(e.key === 'ArrowLeft' && slideAt > 0) goSlide(slideAt - 1);
+});
+
 sealife($('sealife'));
 render(false);
-setTimeout(() => document.body.classList.remove('boot'), 2000);
+let seen = null;
+try{ seen = localStorage.getItem(IKEY); }catch(e){}
+if(!seen || /[?&#]intro/.test(location.search + location.hash)){
+  document.body.classList.remove('boot');
+  openIntro();
+} else playBoot();
 </script>
 </body>
 </html>
