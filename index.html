@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 <style>
 .scene{margin-top:6px;font-size:14px;font-weight:700;color:#e0457b}
 .cue{margin:2px auto 0;font-size:13.5px;color:var(--ink-soft);font-weight:600}
@@ -218,6 +218,8 @@
   <div id="sealife"></div>
   <div class="col" id="deep"></div>
   <div class="col tip"><div class="ice"></div></div>
+
+  <section class="sum" id="sum"></section>
   <footer class="bed">
     <span class="deco" style="left:6%">🌿</span><span class="deco" style="left:20%;top:34px;animation-delay:-1s">🐚</span>
     <span class="deco" style="right:8%;animation-delay:-2s">🪸</span><span class="deco" style="right:24%;top:36px;animation-delay:-3s">⭐</span>
@@ -228,6 +230,7 @@
 </main>
 
 <script src="ocean.js?v=7"></script>
+<script src="poster.js?v=1"></script>
 <script>
 const LAYERS = [
   {id:'behavior', name:'พฤติกรรม', emo:'🚶', tint:'#ffffff', wt:60, wb:72,
@@ -329,6 +332,31 @@ function render(animate){
     txt.innerHTML = html;
     if(animate){ txt.classList.remove('swap'); void txt.offsetWidth; txt.classList.add('swap'); }
   }
+  renderSum();
+}
+
+/* end poster: the play's iceberg with the right answers + the message to yourself */
+let posterSig = '', posterBlob = null;
+const POSTER_NAME = 'iceberg-in-the-play.png';
+async function renderSum(){
+  const box = $('sum');
+  if(activeId()){ box.classList.remove('on'); posterSig = ''; return; }
+  const sig = 'done' + S.self;
+  if(sig === posterSig) return;
+  posterSig = sig;
+  box.innerHTML = `
+    <div class="done-h"><div class="spark">✨</div><h2>ดำถึงก้นบึ้งแล้ว!</h2><p>เก็บภูเขาน้ำแข็งจากละครเรื่องนี้ไว้เป็นที่ระลึกนะ 💛</p></div>
+    <div class="poster"><img id="poster" alt="ภูเขาน้ำแข็งในใจ จากละคร"></div>
+    <p class="snap">📸 แคปหน้าจอ หรือแตะค้างที่รูปเพื่อบันทึกได้เลย</p>
+    <div class="acts"><button class="go" data-act="save">💾 บันทึกรูป</button><button class="go alt" data-act="share">📤 แชร์ให้เพื่อน</button></div>
+    <p class="kind">ขอบคุณที่ดูละครกับเรานะ<br>ใจดีกับตัวเองด้วย 🫶</p>`;
+  box.classList.add('on');
+  const c = await drawPoster({
+    title:'ภูเขาน้ำแข็งในใจ',
+    sub:'🧑‍🎓 ภูเขาน้ำแข็งของคนไข้ในละคร',
+    layers:LAYERS.map(l => ({...l, text:l.core ? l.opts[S.self] : l.opts[l.ans]}))
+  });
+  showPoster(c, $('poster'), b => { posterBlob = b; });
 }
 
 function burst(el, from){
@@ -342,7 +370,7 @@ function burst(el, from){
   }
 }
 function bump(){ const m = $('meter'); m.classList.remove('bump'); void m.offsetWidth; m.classList.add('bump'); }
-const jump = () => { const a = activeId(); glide($('L-' + (a || 'self'))); };
+const jump = () => { const a = activeId(); glide(a ? $('L-' + a) : $('sum')); };
 
 let busy = false;
 document.addEventListener('click', e => {
@@ -366,11 +394,13 @@ document.addEventListener('click', e => {
     setTimeout(() => {
       if(l.core) S.self = i; else S.solved[l.id] = true;
       save(); render(true); bump();
-      const nx = activeId() && $('L-' + activeId());
-      if(nx) setTimeout(() => shine(nx), 500);
-      setTimeout(() => { if(nx) glide(nx); busy = false; }, 1050);
+      const nx = activeId() ? $('L-' + activeId()) : $('sum');
+      if(activeId()) setTimeout(() => shine(nx), 500);
+      setTimeout(() => { glide(nx); busy = false; }, 1050);
     }, 750);
   }
+  if(act === 'save'){ buzz(15); return savePoster(posterBlob, POSTER_NAME); }
+  if(act === 'share'){ buzz(15); return sharePoster(posterBlob, POSTER_NAME, 'ภูเขาน้ำแข็งในใจ', 'ดูละครแล้วลองดำดูภูเขาน้ำแข็งในใจกัน 🧊 https://tataprin.github.io/satir-iceberg/'); }
   if(act === 'reself'){ S.self = null; save(); render(true); }
   if(act === 'reset'){
     S = {solved:{}, self:null}; save(); render(true);
