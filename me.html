@@ -249,12 +249,12 @@ function layoutAt(g, s, maxLines){
       const size = Math.round(48 * s); g.font = `${size}px Itim`;
       const r = wrapText(g, answers(l).join(' · ') || 'ฉันมีค่าเสมอ 💛', maxW, maxLines);
       cut = cut || r.cut;
-      return {size, lh:size * 1.18, lines:r.lines, h:(116 + 40) * s + r.lines.length * size * 1.18};
+      return {size, lh:size * 1.42, lines:r.lines, h:(134 + 40) * s + r.lines.length * size * 1.42};
     }
     const size = Math.round(40 * s); g.font = `700 ${size}px Mali`;
     const r = wrapText(g, answers(l).join(' · ') || '—', maxW, maxLines);
     cut = cut || r.cut;
-    return {size, lh:size * 1.28, lines:r.lines, h:(46 + 48) * s + r.lines.length * size * 1.28};
+    return {size, lh:size * 1.5, lines:r.lines, h:(62 + 48) * s + r.lines.length * size * 1.5};
   });
   return {rows, cut, total:rows.reduce((t, r) => t + r.h, 0)};
 }
@@ -340,17 +340,17 @@ async function drawPoster(){
 
     // content is centred as one block inside its layer
     if(l.core){
-      const y = ym - (116 * s + lines.length * lh) / 2;
+      const y = ym - (134 * s + lines.length * lh) / 2;
       g.font = `${Math.round(66 * s)}px ${EMOJI}`; g.fillText('💛', W / 2, y + 60 * s);
       g.font = `600 ${Math.round(30 * s)}px Mali`; g.fillStyle = '#7a5a10'; g.fillText('✨ ถึงตัวฉัน ✨', W / 2, y + 104 * s);
       g.font = `${size}px Itim`; g.fillStyle = '#4a3500';
-      lines.forEach((t, i) => g.fillText(t, W / 2, y + 116 * s + (i + 1) * lh - lh * .22));
+      lines.forEach((t, i) => g.fillText(t, W / 2, y + 134 * s + (i + 1) * lh - lh * .22));
     } else {
-      const y = ym - (40 * s + lines.length * lh) / 2;
+      const y = ym - (58 * s + lines.length * lh) / 2;
       g.font = `600 ${Math.round(30 * s)}px Mali`; g.fillStyle = '#4a5a86';
       g.fillText(`${l.emo} ${l.name}`, W / 2, y + 28 * s);
       g.font = `700 ${size}px Mali`; g.fillStyle = '#1d2b53';
-      lines.forEach((t, i) => g.fillText(t, W / 2, y + 40 * s + (i + 1) * lh - lh * .22));
+      lines.forEach((t, i) => g.fillText(t, W / 2, y + 58 * s + (i + 1) * lh - lh * .22));
     }
   });
   // bottom tip
@@ -371,7 +371,7 @@ async function drawPoster(){
 
   // footer
   g.font = '600 32px Mali'; g.fillStyle = 'rgba(255,255,255,.88)';
-  g.fillText('🧊 ภูเขาน้ำแข็งในใจ · tataprin.github.io/satir-iceberg', W / 2, 1878);
+  g.fillText('🧊 ภูเขาน้ำแข็งในใจ', W / 2, 1878);
   return c;
 }
 
