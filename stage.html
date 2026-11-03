@@ -75,7 +75,6 @@ body:not(.thanks-on) .thanks{opacity:0;transform:translateY(5vh) scale(.94)}
 .crew li{display:flex;justify-content:space-between;gap:1.4vw;white-space:nowrap;padding:.55vh 0;border-bottom:2px dashed rgba(29,43,83,.14);font:700 2.6vh/1.4 "Mali",sans-serif}
 .crew li:last-child{border-bottom:0}
 .crew li span{font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
-.crew li em{font-style:normal;font-weight:600;color:var(--ink-soft)}
 body.thanks-on .thanks .ty{animation:rise2 1s var(--out) both .2s}
 body.thanks-on .tags2{animation:rise2 1s var(--out) both .45s}
 body.thanks-on .crew{animation:rise2 1s var(--out) both .7s}
@@ -770,7 +769,7 @@ const wake = () => { document.body.classList.remove('idle'); clearTimeout(idleT)
 addEventListener('mousemove', wake); wake();
 
 sealife($('sealife')); sealife($('tanklife')); sealife($('dkw1')); sealife($('dkw2')); sealife($('dkw3'));
-// credits: the web/slide team is listed by student ID; the cast list shows once it has names
+// credits: both cards are listed by student ID
 const TEAM = [
   ['นายชวิน คุณมงคลวุฒิ', '6702089'],
   ['นายนฤบดี พิไลยเกียรติ', '6702107'],
@@ -779,11 +778,18 @@ const TEAM = [
   ['น.ส.เจตปรียา สิริประเสริฐศิลป์', '6622008'],
   ['นายปริน วิบูลย์เกียรติ', '6702033']
 ];
-const CAST = [];   // [name, role] — actors and behind the scenes
-const crew = (title, rows) => rows.length ? `<section class="crew"><span class="stk">${title}</span><ol>${rows.join('')}</ol></section>` : '';
-$('credits').innerHTML =
-  crew('🎨 เว็บไซต์ · แอป · สไลด์', [...TEAM].sort((a, b) => a[1].localeCompare(b[1])).map(([n, id]) => `<li>${n}<span>${id}</span></li>`)) +
-  crew('🎭 นักแสดง & เบื้องหลัง', CAST.map(([n, role]) => `<li>${n}<em>${role || ''}</em></li>`));
+const CAST = [   // actors and behind the scenes
+  ['นายปุญญพัฒน์ คำรณฤทธิ์', '6722030'],
+  ['น.ส.เบญญาภา ตรีธวัชชัยวงศ์', '6602108'],
+  ['น.ส.สรณ์สิริ กองชีพ', '6602146'],
+  ['นายณัฐพัชร์ พรหมมานันท์', '6702021'],
+  ['นายอนรรฆ นารอง', '6702063'],
+  ['นายกฤตยชญ์ มโนวัฒนกุล', '6702068'],
+  ['นายหิรัณญ์พฤกษ์ เสามั่น', '6702158']
+];
+const crew = (title, people) => `<section class="crew"><span class="stk">${title}</span><ol>${
+  [...people].sort((a, b) => a[1].localeCompare(b[1])).map(([n, id]) => `<li>${n}<span>${id}</span></li>`).join('')}</ol></section>`;
+$('credits').innerHTML = crew('🎨 เว็บไซต์ · แอป · สไลด์', TEAM) + crew('🎭 นักแสดง & เบื้องหลัง', CAST);
 // names never wrap; if the cards don't fit the screen, the whole credits block scales down to fit
 function fitCredits(){
   const c = $('credits'), vw = innerWidth, vh = innerHeight;
