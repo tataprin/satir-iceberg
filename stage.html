@@ -65,14 +65,14 @@ body:not(.thanks-on) .thanks{opacity:0;transform:translateY(5vh) scale(.94)}
 .tags2 .stk{font-size:2.3vh;padding:.25em .9em}
 .tags2 .stk:nth-child(1){background:#ffe27a;transform:rotate(-2deg)}
 .tags2 .stk:nth-child(3){transform:rotate(2deg)}
-.credits{display:flex;gap:2.4vw;justify-content:center;align-items:flex-start;margin-top:3.4vh;pointer-events:none}
-.crew{position:relative;width:min(38vw,560px);padding:3.4vh 2vw 2.4vh;background:#fbfdff;border:3px solid var(--ink);border-radius:3vh;box-shadow:7px 8px 0 rgba(29,43,83,.2);text-align:left}
+.credits{display:flex;gap:3.4vh 2.4vw;justify-content:center;align-items:flex-start;transform-origin:50% 0;margin-top:3.4vh;pointer-events:none}
+.crew{position:relative;width:max-content;min-width:min(34vw,500px);padding:3.4vh 2vw 2.4vh;background:#fbfdff;border:3px solid var(--ink);border-radius:3vh;box-shadow:7px 8px 0 rgba(29,43,83,.2);text-align:left}
 .crew:nth-child(1){transform:rotate(-1deg)}
 .crew:nth-child(2){transform:rotate(1deg)}
 .crew>.stk{position:absolute;left:50%;top:0;translate:-50% -55%;white-space:nowrap;font-size:2.4vh;background:#dff1ff}
 .crew:nth-child(2)>.stk{background:#ffdff1}
 .crew ol{margin:0;padding:0;list-style:none}
-.crew li{display:flex;justify-content:space-between;gap:1.4vw;padding:.55vh 0;border-bottom:2px dashed rgba(29,43,83,.14);font:700 2.6vh/1.4 "Mali",sans-serif}
+.crew li{display:flex;justify-content:space-between;gap:1.4vw;white-space:nowrap;padding:.55vh 0;border-bottom:2px dashed rgba(29,43,83,.14);font:700 2.6vh/1.4 "Mali",sans-serif}
 .crew li:last-child{border-bottom:0}
 .crew li span{font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .crew li em{font-style:normal;font-weight:600;color:var(--ink-soft)}
@@ -86,7 +86,7 @@ body.thanks-on .crew:nth-child(2){animation-delay:.85s}
   .thanks .ty h1{font-size:min(14vw,9vh)}
   .tags2 .stk{font-size:min(1.8vh,3.3vw)}
   .credits{flex-direction:column;align-items:center;gap:3.4vh;margin-top:3vh}
-  .crew{width:88vw;padding:2.6vh 4vw 1.4vh}
+  .crew{width:max-content;min-width:80vw;padding:2.6vh 4vw 1.4vh}
   .crew>.stk{font-size:min(1.8vh,3.4vw)}
   .crew li{font-size:min(1.7vh,3.2vw);padding:.3vh 0}
 }
@@ -784,6 +784,14 @@ const crew = (title, rows) => rows.length ? `<section class="crew"><span class="
 $('credits').innerHTML =
   crew('🎨 เว็บไซต์ · แอป · สไลด์', [...TEAM].sort((a, b) => a[1].localeCompare(b[1])).map(([n, id]) => `<li>${n}<span>${id}</span></li>`)) +
   crew('🎭 นักแสดง & เบื้องหลัง', CAST.map(([n, role]) => `<li>${n}<em>${role || ''}</em></li>`));
+// names never wrap; if the cards don't fit the screen, the whole credits block scales down to fit
+function fitCredits(){
+  const c = $('credits'), vw = innerWidth, vh = innerHeight;
+  c.style.transform = '';
+  const k = Math.min(1, vw * .96 / c.offsetWidth, (vh * .97 - c.offsetTop) / c.offsetHeight);
+  if(k < 1) c.style.transform = `scale(${k.toFixed(3)})`;
+}
+fitCredits(); if(document.fonts) document.fonts.ready.then(fitCredits); addEventListener('resize', fitCredits);
 $('hearts').innerHTML = Array.from({length:16}, (_, i) =>
   `<span style="left:${4 + (i * 61) % 92}%;animation-duration:${7 + (i % 5) * 1.6}s;animation-delay:-${(i * 1.3) % 9}s">${['💛','🫧','💗','🤍','✨','🫧'][i % 6]}</span>`).join('');
 // warm up: decode the room photos and paint every opening slide once, so their first showing doesn't stutter
